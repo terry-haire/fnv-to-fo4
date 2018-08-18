@@ -1,0 +1,99 @@
+Notes;Elementpathstring;Correct Tree?;Correct Tree On Specific Value?;Ignore On These Signatures (Seperated By '/');Only Use On These Signatures(Seperated By '/');New Record;Record Signature;Part of Single Record;Old Value And Old Index need to match?;New Path or New Order;Old Value;New Value;Old Index;New Index;Replace Any Value?;Replace Any Index?;Is Flag?;;;
+Identifier;slSingleValues;;;;;slNewRec;slNewRecSig;slSingleRec;slOldNewValMatch;slNewPathorOrder;slOldVal;slNewVal;slOldIndex;slNewIndex;slReplaceAnyVal;slReplaceAnyIndex;slIsFlag;;;
+Column Notes;Main identifier single value;Single Value;Single Value;Single Value;Single Value;Multiple Values;Multiple values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;;;
+;Record Header\Record Flags\Form initialized (Runtime only);;;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Deleted;;;;;;;;;Record Header\Record Flags\Deleted;;;;6;;;TRUE;;;
+;Record Header\Record Flags\Border Region / Has Tree LOD / Constant / Hidden From Local Map / Plugin Endian;;;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Turn Off Fire;;;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Inaccessible;;;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Casts shadows / On Local Map / Motion Blur;;;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Quest item / Persistent reference;;;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Initially disabled;;;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Ignored;;;;;;;;;Record Header\Record Flags\Ignored;;;;13;;;TRUE;;;
+;Record Header\Record Flags\No Voice Filter;;;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Cannot Save (Runtime only);;;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Visible when distant;;;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Random Anim Start / High Priority LOD;;;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Dangerous / Off limits (Interior cell) / Radio Station (Talking Activator);;;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Compressed;;;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Can't wait / Platform Specific Texture / Dead;;;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Unknown 21;;;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Load Started (Runtime Only);;;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Unknown 23;;;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Unknown 24;;;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Destructible (Runtime only);;;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Obstacle / No AI Acquire;;;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\NavMesh Generation - Filter;;;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\NavMesh Generation - Bounding Box;;;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Non-Pipboy / Reflected by Auto Water;;;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Child Can Use / Refracted by Auto Water;;;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\NavMesh Generation - Ground;;;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Multibound;;;;;;;;;;;;;;;;;;;
+;EDID;;;;;;;;;EDID;;;;;;;;;;
+;;;;;;;;;;HNAM\Tonemap E;;;0.02;;TRUE;;;;;
+;;;;;;;;;;HNAM\Sky Scale;;;0;;TRUE;;;;;
+Depth of Field currently using DefaultImageSpace Settings;;;;;;;;;;DNAM;;;;;TRUE;;;;;
+;;;;;;;;;;DNAM\Strength;;;0;;TRUE;;;;;
+;;;;;;;;;;DNAM\Distance;;;0;;TRUE;;;;;
+;;;;;;;;;;DNAM\Range;;;0;;TRUE;;;;;
+;;;;;;;;;;DNAM\Vignette Radius;;;;;TRUE;;;;;
+;;;;;;;;;;DNAM\Vignette Strength;;;;;TRUE;;;;;
+;DNAM;;;;;;;;;;;;;;;;;;;
+;DNAM\HDR;;;;;;;;;HNAM;;;;;;;;;;
+;DNAM\HDR\Eye Adapt Speed;;;;;;;;;HNAM\Eye Adapt Speed;;;;;;;;;;
+;DNAM\HDR\Blur Radius;;;;;;;;;HNAM\Bloom Scale;;;;;;;;;;
+;DNAM\HDR\Blur Passes;;;;;;;;;HNAM\Bloom Threshold;;;;;;;;;;
+;DNAM\HDR\Emissive Mult;;;;;;;;;;;;;;;;;;;
+;DNAM\HDR\Target LUM;;;;;;;;;HNAM\Middle Gray;;;;;;;;;;
+;DNAM\HDR\Upper LUM Clamp;;;;;;;;;;;;;;;;;;;
+;DNAM\HDR\Bright Scale;;;;;;;;;HNAM\Sunlight Scale;;;;;;;;;;
+;DNAM\HDR\Bright Clamp;;;;;;;;;;;;;;;;;;;
+;DNAM\HDR\LUM Ramp No Tex;;;;;;;;;;;;;;;;;;;
+;DNAM\HDR\LUM Ramp Min;;;;;;;;;HNAM\Auto Exposure Min;;;;;;;;;;
+;DNAM\HDR\LUM Ramp Max;;;;;;;;;HNAM\Auto Exposure Max;;;;;;;;;;
+;DNAM\HDR\Sunlight Dimmer;;;;;;;;;;;;;;;;;;;
+;DNAM\HDR\Grass Dimmer;;;;;;;;;;;;;;;;;;;
+;DNAM\HDR\Tree Dimmer;;;;;;;;;;;;;;;;;;0;Record Header
+;DNAM\HDR\Skin Dimmer;;;;;;;;;;;;;;;;;;0;Record Header\Signature
+;DNAM\Bloom;;;;;;;;;;;;;;;;;;1;Record Header\Data Size
+;DNAM\Bloom\Blur Radius;;;;;;;;;DNAM\Sky / Blur Radius;;Radius 0;;;TRUE;;;;2;Record Header\Record Flags
+;DNAM\Bloom\Alpha Mult Interior;;;;;;;;;;;;;;;;;;3;Record Header\FormID
+;DNAM\Bloom\Alpha Mult Exterior;;;;;;;;;;;;;;;;;;4;Record Header\Version Control Info 1
+;DNAM\Get Hit;;;;;;;;;;;;;;;;;;5;Record Header\Form Version
+;DNAM\Get Hit\Blur Radius;;;;;;;;;;;;;;;;;;6;Record Header\Version Control Info 2
+;DNAM\Get Hit\Blur Damping Constant;;;;;;;;;;;;;;;;;;1;EDID
+;DNAM\Get Hit\Damping Constant;;;;;;;;;;;;;;;;;;2;
+;DNAM\Night Eye;;;;;;;;;;;;;;;;;;0;
+;DNAM\Night Eye\Tint Color;;;;;;;;;;;;;;;;;;1;
+;DNAM\Night Eye\Tint Color\Red;;;;;;;;;;;;;;;;;;2;
+;DNAM\Night Eye\Tint Color\Green;;;;;;;;;;;;;;;;;;3;
+;DNAM\Night Eye\Tint Color\Blue;;;;;;;;;;;;;;;;;;4;
+;DNAM\Night Eye\Brightness;;;;;;;;;;;;;;;;;;5;
+;DNAM\Cinematic;;;;;;;;;CNAM;;;;;;;;;6;
+;DNAM\Cinematic\Saturation;;;;;;;;;CNAM\Saturation;;;;;;;;;7;
+;DNAM\Cinematic\Contrast;;;;;;;;;;;;;;;;;;8;
+;DNAM\Cinematic\Contrast\Avg Lum Value;;;;;;;;;;;;;;;;;;3;
+;DNAM\Cinematic\Contrast\Value;;;;;;;;;CNAM\Contrast;;;;;;;;;0;
+;DNAM\Cinematic\Cinematic - Brightness - Value;;;;;;;;;CNAM\Brightness;;;;;;;;;1;
+;DNAM\Cinematic\Tint;;;;;;;;;TNAM;;;;;;;;;2;
+;DNAM\Cinematic\Tint\Color;;;;;;;;;TNAM\Color;;;;;;;;;4;
+;DNAM\Cinematic\Tint\Color\Red;;;;;;;;;TNAM\Color\Red;;;;;;;;;0;
+;DNAM\Cinematic\Tint\Color\Green;;;;;;;;;TNAM\Color\Green;;;;;;;;;1;
+;DNAM\Cinematic\Tint\Color\Blue;;;;;;;;;TNAM\Color\Blue;;;;;;;;;0;
+;DNAM\Cinematic\Tint\Value;;;;;;;;;TNAM\Amount;;;;;;;;;1;
+;DNAM\Unused;;;;;;;;;;;;;;;;;;2;
+;DNAM\Unused;;;;;;;;;;;;;;;;;;5;
+;DNAM\Unused;;;;;;;;;;;;;;;;;;0;
+;DNAM\Unused;;;;;;;;;;;;;;;;;;1;
+;DNAM\Flags;;;;;;;;;;;;;;;;;;2;
+;DNAM\Flags\Saturation;;;;;;;;;;;;;;;;;;3;
+Exterior image spaces always seem to have this flag;DNAM\Flags\Contrast;;;;;;;;;DNAM;;;;;TRUE;;;;4;
+;;;;;;;;;;DNAM\Strength;;1;;;TRUE;;;;;
+;;;;;;;;;;DNAM\Distance;;500;;;TRUE;;;;;
+;;;;;;;;;;DNAM\Range;;3500;;;TRUE;;;;;
+;;;;;;;;;;DNAM\Vignette Radius;;0;;;TRUE;;;;;
+;;;;;;;;;;DNAM\Vignette Strength;;0;;;TRUE;;;;;
+F4 File;;;;;;;;;;TX00;;Effects\LUTs\ColorLUT_BaseInteriorAdjusted.dds;;;TRUE;;;;;
+;DNAM\Flags\Brightness;;;;;;;;;;;;;;;;;;5;
+;DNAM\Flags\Tint;;;;;;;;;;;;;;;;;;6;
+;DNAM\Unused;;;;;;;;;;;;;;;;;;6;

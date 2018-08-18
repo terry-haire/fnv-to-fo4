@@ -1,0 +1,36 @@
+Notes;Elementpathstring;Correct Tree?;Correct Tree On Specific Value?;Ignore On These Signatures (Seperated By '/');Only Use On These Signatures(Seperated By '/');New Record;Record Signature;Part of Single Record;Old Value And Old Index need to match?;New Path or New Order;Old Value;New Value;Old Index;New Index;Replace Any Value?;Replace Any Index?;Is Flag?
+Identifier;slSingleValues;;;;;slNewRec;slNewRecSig;slSingleRec;slOldNewValMatch;slNewPathorOrder;slOldVal;slNewVal;slOldIndex;slNewIndex;slReplaceAnyVal;slReplaceAnyIndex;slIsFlag
+Column Notes;Main identifier single value;Single Value;Single Value;Single Value;Single Value;Multiple Values;Multiple values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values
+;DATA\Radius;;;;;;;;;DATA\Inner Radius;;;;;;;
+;;;;;;;;;;DATA\Outer Radius;;;;;;;
+;DATA\Flags;;;;;;;;;DATA\Flags;;0;;;TRUE;;
+;DATA\Flags\Unknown 1;;;;;;;;;;;;;;;;
+;DATA\Flags\Always Uses World Orientation;;;;;;;;;DATA\Flags\Always Uses World Orientation;;;;2;;;TRUE
+;DATA\Flags\Knock Down - Always;;;;;;;;;DATA\Flags\Knock Down - Always;;;;3;;;TRUE
+;DATA\Flags\Knock Down - By Formula;;;;;;;;;DATA\Flags\Knock Down - By Formula;;;;4;;;TRUE
+;DATA\Flags\Ignore LOS Check;;;;;;;;;DATA\Flags\Ignore LOS Check;;;;5;;;TRUE
+;DATA\Flags\Push Explosion Source Ref Only;;;;;;;;;DATA\Flags\Push Explosion Source Ref Only;;;;6;;;TRUE
+;DATA\Flags\Ignore Image Space Swap;;;;;;;;;DATA\Flags\Ignore Image Space Swap;;;;7;;;TRUE
+;DATA\Radiation;;;;;;;;;;;;;;;;
+;DATA\Radiation\Level;;;;;;;;;;;;;;;;
+;DATA\Radiation\Dissipation Time;;;;;;;;;;;;;;;;
+;DATA\Radiation\Radius;;;;;;;;;;;;;;;;
+;DATA\Impact DataSet;;;;;;;;;DATA\Impact Data Set;;;;;;;
+;INAM;;;;;;;;;DATA\Placed Object;;;;;;;
+Value SOUN changed to SNDR;DATA\Sound 1;;;;;;;;;;;;;;;;
+Value SOUN changed to SNDR;DATA\Sound 2;;;;;;;;;;;;;;;;
+;Model;;;;;;;;;Model;;;;;;;
+;Model\MODL;;;;;;;;;Model\MODL;File;File;;;;;
+;Model\MODT;;;;;;;;;Model\MODT;;;;1;;;
+;Model\MODS;;;;;MSWP;;;;Return;;;;;;;
+;;;;;;Return;;;;Model\MODS;;;;2;;;
+;;;;;;MSWP;;;;Material Substitutions;;;;;;;
+;Model\MODS\Alternate Texture;;;;;MSWP;;;;Material Substitutions\Substitution;;;;;;;
+;Model\MODS\Alternate Texture\3D Name;;;;;MSWP;;;;Material Substitutions\Substitution\BNAM;;;;0;;;
+;Model\MODS\Alternate Texture\New Texture;;;;;MSWP;;;;Material Substitutions\Substitution\SNAM;;;;1;;;
+;Model\MODS\Alternate Texture\3D Index;;;;;;;;;;;;;;;;
+;Model\MODD;;;;;;;;;;;;;;;;
+;Model\MODD\Head;;;;;;;;;;;;;;;;
+;Model\MODD\Torso;;;;;;;;;;;;;;;;
+;Model\MODD\Right Hand;;;;;;;;;;;;;;;;
+;Model\MODD\Left Hand;;;;;;;;;;;;;;;;

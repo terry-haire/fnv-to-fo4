@@ -1,0 +1,49 @@
+Notes;Elementpathstring;Correct Tree?;Correct Tree On Specific Value?;Ignore On These Signatures (Seperated By '/');Only Use On These Signatures(Seperated By '/');New Record;Record Signature;Part of Single Record;Old Value And Old Index need to match?;New Path or New Order;Old Value;New Value;Old Index;New Index;Replace Any Value?;Replace Any Index?;Is Flag?
+Identifier;slSingleValues;;;;;slNewRec;slNewRecSig;slSingleRec;slOldNewValMatch;slNewPathorOrder;slOldVal;slNewVal;slOldIndex;slNewIndex;slReplaceAnyVal;slReplaceAnyIndex;slIsFlag
+Column Notes;Main identifier single value;Single Value;Single Value;Single Value;Single Value;Multiple Values;Multiple values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values
+;Record Header\Record Flags\Form initialized (Runtime only);;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Deleted;;;;;;;;;Record Header\Record Flags\Deleted;;;;6;;;TRUE
+;Record Header\Record Flags\Border Region / Has Tree LOD / Constant / Hidden From Local Map / Plugin Endian;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Turn Off Fire;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Inaccessible;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Casts shadows / On Local Map / Motion Blur;;;;;;;;;Record Header\Record Flags\Hidden From Local Map;;;;10;;;TRUE
+;Record Header\Record Flags\Quest item / Persistent reference;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Initially disabled;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Ignored;;;;;;;;;Record Header\Record Flags\Ignored;;;;13;;;TRUE
+;Record Header\Record Flags\No Voice Filter;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Cannot Save (Runtime only);;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Visible when distant;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Random Anim Start / High Priority LOD;;;;;;;;;Record Header\Record Flags\Random Anim Start;;;;17;;;TRUE
+;Record Header\Record Flags\Dangerous / Off limits (Interior cell) / Radio Station (Talking Activator);;;;;;;;;Record Header\Record Flags\Radio Station;;;;18;;;TRUE
+;Record Header\Record Flags\Compressed;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Can't wait / Platform Specific Texture / Dead;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Unknown 21;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Load Started (Runtime Only);;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Unknown 23;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Unknown 24;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Destructible (Runtime only);;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Obstacle / No AI Acquire;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\NavMesh Generation - Filter;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\NavMesh Generation - Bounding Box;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Non-Pipboy / Reflected by Auto Water;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Child Can Use / Refracted by Auto Water;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\NavMesh Generation - Ground;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Multibound;;;;;;;;;;;;;;;;
+;SCRI;;;;;;;;;;;;;;;;
+Redirect to SNDR;SNAM;;;;;;;;;;;;;;;;
+;INAM;;;;;;;;;;;;;;;;
+;Model;;;;;;;;;Model;;;;;;;
+;Model\MODL;;;;;;;;;Model\MODL;File;File;;;;;
+;Model\MODT;;;;;;;;;Model\MODT;;;;1;;;
+;Model\MODS;;;;;MSWP;;;;Return;;;;;;;
+;;;;;;Return;;;;Model\MODS;;;;2;;;
+;;;;;;MSWP;;;;Material Substitutions;;;;;;;
+;Model\MODS\Alternate Texture;;;;;MSWP;;;;Material Substitutions\Substitution;;;;;;;
+;Model\MODS\Alternate Texture\3D Name;;;;;MSWP;;;;Material Substitutions\Substitution\BNAM;;;;0;;;
+;Model\MODS\Alternate Texture\New Texture;;;;;MSWP;;;;Material Substitutions\Substitution\SNAM;;;;1;;;
+;Model\MODS\Alternate Texture\3D Index;;;;;;;;;;;;;;;;
+;Model\MODD;;;;;;;;;;;;;;;;
+;Model\MODD\Head;;;;;;;;;;;;;;;;
+;Model\MODD\Torso;;;;;;;;;;;;;;;;
+;Model\MODD\Right Hand;;;;;;;;;;;;;;;;
+;Model\MODD\Left Hand;;;;;;;;;;;;;;;;

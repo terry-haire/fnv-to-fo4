@@ -1,0 +1,4 @@
+fn spreadsheet_filter_function obj = 
+(
+	superclassof obj == Helper
+)

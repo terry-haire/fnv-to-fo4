@@ -1,0 +1,7 @@
+Notes;Elementpathstring;Correct Tree?;Correct Tree On Specific Value?;Ignore On These Signatures (Seperated By '/');Only Use On These Signatures(Seperated By '/');New Record;Record Signature;Part of Single Record;Old Value And Old Index need to match?;New Path or New Order;Old Value;New Value;Old Index;New Index;Replace Any Value?;Replace Any Index?;Is Flag?
+Identifier;slSingleValues;;;;;slNewRec;slNewRecSig;slSingleRec;slOldNewValMatch;slNewPathorOrder;slOldVal;slNewVal;slOldIndex;slNewIndex;slReplaceAnyVal;slReplaceAnyIndex;slIsFlag
+Column Notes;Main identifier single value;Single Value;Single Value;Single Value;Single Value;Multiple Values;Multiple values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values
+;DATA\Flags;;;;;;;;;DATA\Flags;;0;;;TRUE;;
+;DATA\Flags\Never Resets;;;;;;;;;DATA\Flags\Never Resets;;;;1;;;TRUE
+;DATA\Flags\Match PC Below Minimum Level;;;;;;;;;DATA\Flags\Match PC Below Minimum Level;;;;2;;;TRUE
+;DATA\Minimum Level;;;;;;;;;DATA\Min Level;;;;;;;

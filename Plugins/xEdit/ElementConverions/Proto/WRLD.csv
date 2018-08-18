@@ -1,0 +1,49 @@
+Notes;Elementpathstring;Correct Tree?;Correct Tree On Specific Value?;Ignore On These Signatures (Seperated By '/');Only Use On These Signatures(Seperated By '/');New Record;Record Signature;Part of Single Record;Old Value And Old Index need to match?;New Path or New Order;Old Value;New Value;Old Index;New Index;Replace Any Value?;Replace Any Index?;Is Flag?
+Identifier;slSingleValues;;;;;slNewRec;slNewRecSig;slSingleRec;slOldNewValMatch;slNewPathorOrder;slOldVal;slNewVal;slOldIndex;slNewIndex;slReplaceAnyVal;slReplaceAnyIndex;slIsFlag
+Column Notes;Main identifier single value;Single Value;Single Value;Single Value;Single Value;Multiple Values;Multiple values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values
+;Record Header\Record Flags\Form initialized (Runtime only);;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Deleted;;;;;;;;;Record Header\Record Flags\Deleted;;;;6;;;TRUE
+;Record Header\Record Flags\Border Region / Has Tree LOD / Constant / Hidden From Local Map / Plugin Endian;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Turn Off Fire;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Inaccessible;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Casts shadows / On Local Map / Motion Blur;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Quest item / Persistent reference;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Initially disabled;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Ignored;;;;;;;;;Record Header\Record Flags\Ignored;;;;13;;;TRUE
+;Record Header\Record Flags\No Voice Filter;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Cannot Save (Runtime only);;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Visible when distant;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Random Anim Start / High Priority LOD;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Dangerous / Off limits (Interior cell) / Radio Station (Talking Activator);;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Compressed;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Can't wait / Platform Specific Texture / Dead;;;;;;;;;Record Header\Record Flags\Can't Wait;;;;20;;;TRUE
+;Record Header\Record Flags\Unknown 21;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Load Started (Runtime Only);;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Unknown 23;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Unknown 24;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Destructible (Runtime only);;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Obstacle / No AI Acquire;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\NavMesh Generation - Filter;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\NavMesh Generation - Bounding Box;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Non-Pipboy / Reflected by Auto Water;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Child Can Use / Refracted by Auto Water;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\NavMesh Generation - Ground;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Multibound;;;;;;;;;;;;;;;;
+;DATA;;;;;;;;;DATA;;0;;;TRUE;;
+;DATA\Small World;;;;;;;;;DATA\Small World;;;;1;;;TRUE
+;DATA\Can't Fast Travel;;;;;;;;;DATA\Can't Fast Travel;;;;2;;;TRUE
+;DATA\No LOD Water;;;;;;;;;DATA\No LOD Water;;;;4;;;TRUE
+;DATA\No LOD Noise;;;;;;;;;;;;;;;;TRUE
+;DATA\Don't Allow NPC Fall Damage;;;;;;;;;;;;;;;;TRUE
+;DATA\Needs Water Adjustment;;;;;;;;;;;;;;;;TRUE
+;Parent\PNAM;;;;;;;;;Parent\PNAM\Flags;;0;;;TRUE;;
+;Parent\PNAM\Use Land Data;;;;;;;;;Parent\PNAM\Flags\Use Land Data;;;;1;;;TRUE
+;Parent\PNAM\Use LOD Data;;;;;;;;;Parent\PNAM\Flags\Use LOD Data;;;;2;;;TRUE
+May have to flip value;Parent\PNAM\Use Map Data;;;;;;;;;Parent\PNAM\Flags\Don't Use Map Data;;;;3;;;TRUE
+;Parent\PNAM\Use Water Data;;;;;;;;;Parent\PNAM\Flags\Use Water Data;;;;4;;;TRUE
+;Parent\PNAM\Use Climate Data;;;;;;;;;Parent\PNAM\Flags\Use Climate Data;;;;5;;;TRUE
+;Parent\PNAM\Use Image Space Data;;;;;;;;;Parent\PNAM\Flags\Use Image Space Data (unused);;;;6;;;TRUE
+Most Probable Match;XNAM;;;;;;;;;XWEM;;;;;;;
+;Icon;;;;;;;;;;;;;;;;
+;Icon\ICON;;;;;;;;;ICON;File;File;;;;;
+;Icon\MICO;;;;;;;;;;;;;;;;

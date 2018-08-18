@@ -1,0 +1,185 @@
+Notes;Elementpathstring;Correct Tree?;Correct Tree On Specific Value?;Ignore On These Signatures (Seperated By '/');Only Use On These Signatures(Seperated By '/');New Record;Record Signature;Part of Single Record;Old Value And Old Index need to match?;New Path or New Order;Old Value;New Value;Old Index;New Index;Replace Any Value?;Replace Any Index?;Is Flag?
+Identifier;slSingleValues;;;;;slNewRec;slNewRecSig;slSingleRec;slOldNewValMatch;slNewPathorOrder;slOldVal;slNewVal;slOldIndex;slNewIndex;slReplaceAnyVal;slReplaceAnyIndex;slIsFlag
+Column Notes;Main identifier single value;Single Value;Single Value;Single Value;Single Value;Multiple Values;Multiple values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values
+;Record Header\Record Flags\Form initialized (Runtime only);;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Deleted;;;;;;;;;Record Header\Record Flags\Deleted;;;;6;;;TRUE
+;Record Header\Record Flags\Border Region / Has Tree LOD / Constant / Hidden From Local Map / Plugin Endian;;;;;;;;;Record Header\Record Flags\Border Region;;;;7;;;TRUE
+;Record Header\Record Flags\Turn Off Fire;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Inaccessible;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Casts shadows / On Local Map / Motion Blur;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Quest item / Persistent reference;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Initially disabled;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Ignored;;;;;;;;;Record Header\Record Flags\Ignored;;;;13;;;TRUE
+;Record Header\Record Flags\No Voice Filter;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Cannot Save (Runtime only);;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Visible when distant;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Random Anim Start / High Priority LOD;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Dangerous / Off limits (Interior cell) / Radio Station (Talking Activator);;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Compressed;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Can't wait / Platform Specific Texture / Dead;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Unknown 21;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Load Started (Runtime Only);;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Unknown 23;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Unknown 24;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Destructible (Runtime only);;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Obstacle / No AI Acquire;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\NavMesh Generation - Filter;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\NavMesh Generation - Bounding Box;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Non-Pipboy / Reflected by Auto Water;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Child Can Use / Refracted by Auto Water;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\NavMesh Generation - Ground;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Multibound;;;;;;;;;;;;;;;;
+0000003C is a Capital Wasteland Reference;WNAM;;;;;;;;;WNAM;[0000003C] <Warning: Could not be resolved, but is possibly hardcoded in the engine>;;;;;;
+;;;;;;;;;;;[000244A7] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[000269C5] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[000269C6] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[0002926C] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[0002F222] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[00037236] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[00071800] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[00071801] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[00071807] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[0007180F] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[00071811] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[00071815] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[0009FA55] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[0009FA56] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[000A0C2B] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[000A1B66] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[000A1B67] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[000A6754] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[000AF60D] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[000AF60E] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[000C617E] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[000D705D] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[00144C1F] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[00144C20] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[00174D1D] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[00174D1E] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[01001036] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[01006462] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[01006464] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[01006465] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[010168D8] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[010268F1] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[010276B2] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[0102FCFA] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[0102FD00] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[0102FD04] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[010329D3] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[010329D4] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[010329D5] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[010329D6] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[010AFF78] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[015A70C8] < Error: Could not be resolved >;;;;;;
+;Icon;;;;;;;;;;;;;;;;
+Temp Removed Would be Region Data Entries\Region Data Entry\ICON with Index;Icon\ICON;;;;;;;;;;File;File;;;;;
+;Icon\MICO;;;;;;;;;;;;;;;;
+;RCLR\Unused;;;;;;;;;;;;;;;;
+;Region Areas\Region Area\RPLD\Point #0;;;;;;;;;Region Areas\Region Area\RPLD\Point #0;;;;;;;
+;Region Areas\Region Area\RPLD\Point #0\X;;;;;;;;;Region Areas\Region Area\RPLD\Point #0\X;;;;;;;
+;Region Areas\Region Area\RPLD\Point #0\Y;;;;;;;;;Region Areas\Region Area\RPLD\Point #0\Y;;;;;;;
+;Region Data Entries\Region Data Entry\RDAT\Unused;;;;;;;;;;;;;;;;
+;Region Data Entries\Region Data Entry\RDAT\Type;;;;;;;;;Region Data Entries\Region Data Entry\RDAT\Type;Grass;6;;;;;
+;;;;;;;;;;;Imposter;8;;;;;
+;;;;;;;;;;;Land;5;;;;;
+;;;;;;;;;;;Map;4;;;;;
+;;;;;;;;;;;Objects;2;;;;;
+;;;;;;;;;;;Sound;7;;;;;
+;;;;;;;;;;;Weather;3;;;;;
+;Region Data Entries\Region Data Entry\RDMO;;;;;;;;;Region Data Entries\Region Data Entry\RDMO;;;;2;;;
+;Region Data Entries\Region Data Entry\RDSD;;;;;;;;;Region Data Entries\Region Data Entry\RDSA;;;;3;;;
+;Region Data Entries\Region Data Entry\RDSD\Sound;;;;;;;;;Region Data Entries\Region Data Entry\RDSA\Sound;;;;2147483647;;;
+;Region Data Entries\Region Data Entry\RDSD\Sound\Sound;;;;;;;;;Region Data Entries\Region Data Entry\RDSA\Sound\Sound;[000244A7] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[000269C5] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[000269C6] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[0002926C] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[0002F222] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[00037236] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[00071800] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[00071801] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[00071807] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[0007180F] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[00071811] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[00071815] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[0009FA55] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[0009FA56] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[000A0C2B] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[000A1B66] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[000A1B67] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[000A6754] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[000AF60D] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[000AF60E] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[000C617E] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[000D705D] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[00144C1F] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[00144C20] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[00174D1D] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[00174D1E] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[01001036] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[01006462] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[01006464] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[01006465] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[010168D8] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[010268F1] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[010276B2] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[0102FCFA] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[0102FD00] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[0102FD04] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[010329D3] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[010329D4] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[010329D5] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[010329D6] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[010AFF78] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;[015A70C8] < Error: Could not be resolved >;;;;;;
+;;;;;;;;;;;"[REFR:0011013F] (places CasHiRmCorOut01 [STAT:000D7320] in GRUP Cell Temporary Children of 2EOCasHiHotelLobby01 ""2EOCasHiHotelLobby"" [CELL:0010FDEA])";;;;;;
+;;;;;;;;;;;"[REFR:00110140] (places CasHiRmCorIn01 [STAT:000D7323] in GRUP Cell Temporary Children of 2EOCasHiHotelLobby01 ""2EOCasHiHotelLobby"" [CELL:0010FDEA])";;;;;;
+;;;;;;;;;;;"VERT2NCRSLToCharlie08a [REFR:00166E5A] (places XMarkerHeading [STAT:00000034] in GRUP Cell Persistent Children of [CELL:000846EA] (in WastelandNV ""Mojave Wasteland"" [WRLD:000DA726]) at 0,-14)";;;;;;
+;;;;;;;;;;;"VERT2NCRSLToCharlie07a [REFR:00166E5B] (places XMarkerHeading [STAT:00000034] in GRUP Cell Persistent Children of [CELL:000846EA] (in WastelandNV ""Mojave Wasteland"" [WRLD:000DA726]) at -1,-15)";;;;;;
+;Region Data Entries\Region Data Entry\RDWT\Weather Type;;;;;;;;;Region Data Entries\Region Data Entry\RDWT\Weather Type;;;;2147483647;;;
+;Region Data Entries\Region Data Entry\RDSD\Sound\Flags;;;;;;;;;Region Data Entries\Region Data Entry\RDSA\Sound\Flags;;0;;;TRUE;;
+;Region Data Entries\Region Data Entry\RDSD\Sound\Flags\Pleasant;;;;;;;;;Region Data Entries\Region Data Entry\RDSA\Sound\Flags\Pleasant;;;;1;;;TRUE
+;Region Data Entries\Region Data Entry\RDSD\Sound\Flags\Cloudy;;;;;;;;;Region Data Entries\Region Data Entry\RDSA\Sound\Flags\Cloudy;;;;2;;;TRUE
+;Region Data Entries\Region Data Entry\RDSD\Sound\Flags\Rainy;;;;;;;;;Region Data Entries\Region Data Entry\RDSA\Sound\Flags\Rainy;;;;3;;;TRUE
+;Region Data Entries\Region Data Entry\RDSD\Sound\Flags\Snowy;;;;;;;;;Region Data Entries\Region Data Entry\RDSA\Sound\Flags\Snowy;;;;4;;;TRUE
+;Region Data Entries\Region Data Entry\RDSD\Sound\Chance;;;;;;;;;Region Data Entries\Region Data Entry\RDSA\Sound\Chance;;;;;;;
+;Region Data Entries\Region Data Entry\RDMP;;;;;;;;;Region Data Entries\Region Data Entry\RDMP;;;;4;;;
+;Region Data Entries\Region Data Entry\RDGS;;;;;;;;;Region Data Entries\Region Data Entry\RDGS;;;;6;;;
+;Region Data Entries\Region Data Entry\RDWT;;;;;;;;;Region Data Entries\Region Data Entry\RDWT;;;;7;;;
+;Region Data Entries\Region Data Entry\RLDM;;;;;;;;;Region Data Entries\Region Data Entry\RLDM;;;;8;;;
+;Region Data Entries\Region Data Entry\ANAM;;;;;;;;;Region Data Entries\Region Data Entry\ANAM;;;;9;;;
+;Region Data Entries\Region Data Entry\RDOT;;;;;;;;;Region Data Entries\Region Data Entry\RDOT;;;;5;;;
+TravelMarker [STAT:F4000002];Region Data Entries\Region Data Entry\RDOT\Object #0;;;;;;;;;Region Data Entries\Region Data Entry\RDOT\Object #0;;;;;;;
+;Region Data Entries\Region Data Entry\RDOT\Object #0\Object;;;;;;;;;Region Data Entries\Region Data Entry\RDOT\Object #0\Object;;;;;;;
+;Region Data Entries\Region Data Entry\RDOT\Object #0\Parent Index;;;;;;;;;Region Data Entries\Region Data Entry\RDOT\Object #0\Parent Index;;;;;;;
+;Region Data Entries\Region Data Entry\RDOT\Object #0\Density;;;;;;;;;Region Data Entries\Region Data Entry\RDOT\Object #0\Density;;;;;;;
+;Region Data Entries\Region Data Entry\RDOT\Object #0\Clustering;;;;;;;;;Region Data Entries\Region Data Entry\RDOT\Object #0\Clustering;;;;;;;
+;Region Data Entries\Region Data Entry\RDOT\Object #0\Min Slope;;;;;;;;;Region Data Entries\Region Data Entry\RDOT\Object #0\Min Slope;;;;;;;
+;Region Data Entries\Region Data Entry\RDOT\Object #0\Max Slope;;;;;;;;;Region Data Entries\Region Data Entry\RDOT\Object #0\Max Slope;;;;;;;
+;Region Data Entries\Region Data Entry\RDOT\Object #0\Flags;;;;;;;;;Region Data Entries\Region Data Entry\RDOT\Object #0\Flags;;0;;;;;
+;Region Data Entries\Region Data Entry\RDOT\Object #0\Flags\Conform to slope;;;;;;;;;Region Data Entries\Region Data Entry\RDOT\Object #0\Flags\Conform to slope;;;;1;;;TRUE
+;Region Data Entries\Region Data Entry\RDOT\Object #0\Flags\Paint Vertices;;;;;;;;;Region Data Entries\Region Data Entry\RDOT\Object #0\Flags\Paint Vertices;;;;2;;;TRUE
+;Region Data Entries\Region Data Entry\RDOT\Object #0\Flags\Size Variance +/-;;;;;;;;;Region Data Entries\Region Data Entry\RDOT\Object #0\Flags\Size Variance +/-;;;;3;;;TRUE
+;Region Data Entries\Region Data Entry\RDOT\Object #0\Flags\X +/-;;;;;;;;;Region Data Entries\Region Data Entry\RDOT\Object #0\Flags\X +/-;;;;4;;;TRUE
+;Region Data Entries\Region Data Entry\RDOT\Object #0\Flags\Y +/-;;;;;;;;;Region Data Entries\Region Data Entry\RDOT\Object #0\Flags\Y +/-;;;;5;;;TRUE
+;Region Data Entries\Region Data Entry\RDOT\Object #0\Flags\Z +/-;;;;;;;;;Region Data Entries\Region Data Entry\RDOT\Object #0\Flags\Z +/-;;;;6;;;TRUE
+;Region Data Entries\Region Data Entry\RDOT\Object #0\Flags\Tree;;;;;;;;;Region Data Entries\Region Data Entry\RDOT\Object #0\Flags\Tree;;;;7;;;TRUE
+;Region Data Entries\Region Data Entry\RDOT\Object #0\Flags\Huge Rock;;;;;;;;;Region Data Entries\Region Data Entry\RDOT\Object #0\Flags\Huge Rock;;;;8;;;TRUE
+;Region Data Entries\Region Data Entry\RDOT\Object #0\Radius wrt Parent;;;;;;;;;Region Data Entries\Region Data Entry\RDOT\Object #0\Radius wrt Parent;;;;;;;
+;Region Data Entries\Region Data Entry\RDOT\Object #0\Radius;;;;;;;;;Region Data Entries\Region Data Entry\RDOT\Object #0\Radius;;;;;;;
+;Region Data Entries\Region Data Entry\RDOT\Object #0\Min Height;;;;;;;;;Region Data Entries\Region Data Entry\RDOT\Object #0\Min Height;;;;;;;
+;Region Data Entries\Region Data Entry\RDOT\Object #0\Max Height;;;;;;;;;Region Data Entries\Region Data Entry\RDOT\Object #0\Max Height;;;;;;;
+;Region Data Entries\Region Data Entry\RDOT\Object #0\Sink;;;;;;;;;Region Data Entries\Region Data Entry\RDOT\Object #0\Sink;;;;;;;
+;Region Data Entries\Region Data Entry\RDOT\Object #0\Sink Variance;;;;;;;;;Region Data Entries\Region Data Entry\RDOT\Object #0\Sink Variance;;;;;;;
+;Region Data Entries\Region Data Entry\RDOT\Object #0\Size Variance;;;;;;;;;Region Data Entries\Region Data Entry\RDOT\Object #0\Size Variance;;;;;;;
+;Region Data Entries\Region Data Entry\RDOT\Object #0\Angle Variance;;;;;;;;;Region Data Entries\Region Data Entry\RDOT\Object #0\Angle Variance;;;;;;;
+;Region Data Entries\Region Data Entry\RDOT\Object #0\Angle Variance\X;;;;;;;;;Region Data Entries\Region Data Entry\RDOT\Object #0\Angle Variance\X;;;;;;;
+;Region Data Entries\Region Data Entry\RDOT\Object #0\Angle Variance\Y;;;;;;;;;Region Data Entries\Region Data Entry\RDOT\Object #0\Angle Variance\Y;;;;;;;
+;Region Data Entries\Region Data Entry\RDOT\Object #0\Angle Variance\Z;;;;;;;;;Region Data Entries\Region Data Entry\RDOT\Object #0\Angle Variance\Z;;;;;;;
+;Region Data Entries\Region Data Entry\RDOT\Object #0\Unused;;;;;;;;;Region Data Entries\Region Data Entry\RDOT\Object #0\Unused;;;;-2;;;
+;Region Data Entries\Region Data Entry\RDOT\Object #0\Unknown;;;;;;;;;Region Data Entries\Region Data Entry\RDOT\Object #0\Unknown;;;;-2;;;
+Gone;Region Data Entries\Region Data Entry\RDSI;;;;;;;;;;;;;;;;
+Gone;Region Data Entries\Region Data Entry\Battle MediaSets;;;;;;;;;;;;;;;;
+Gone;Region Data Entries\Region Data Entry\Battle MediaSets\RDSB;;;;;;;;;;;;;;;;
+Gone;Region Data Entries\Region Data Entry\RDID;;;;;;;;;;;;;;;;
+Gone;Region Data Entries\Region Data Entry\RDID\Imposter;;;;;;;;;;;;;;;;

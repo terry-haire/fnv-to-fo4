@@ -1,0 +1,62 @@
+Notes;Elementpathstring;Correct Tree?;Correct Tree On Specific Value?;Ignore On These Signatures (Seperated By '/');Only Use On These Signatures(Seperated By '/');New Record;Record Signature;Part of Single Record;Old Value And Old Index need to match?;New Path or New Order;Old Value;New Value;Old Index;New Index;Replace Any Value?;Replace Any Index?;Is Flag?
+Identifier;slSingleValues;;;;;slNewRec;slNewRecSig;slSingleRec;slOldNewValMatch;slNewPathorOrder;slOldVal;slNewVal;slOldIndex;slNewIndex;slReplaceAnyVal;slReplaceAnyIndex;slIsFlag
+Column Notes;Main identifier single value;Single Value;Single Value;Single Value;Single Value;Multiple Values;Multiple values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values
+;Record Header\Record Flags\Form initialized (Runtime only);;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Deleted;;;;;;;;;Record Header\Record Flags\Deleted;;;;6;;;TRUE
+;Record Header\Record Flags\Border Region / Has Tree LOD / Constant / Hidden From Local Map / Plugin Endian;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Turn Off Fire;;;;;;;;;Record Header\Record Flags\Turn Off Fire;;;;8;;;TRUE
+;Record Header\Record Flags\Inaccessible;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Casts shadows / On Local Map / Motion Blur;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Quest item / Persistent reference;;;;;;;;;Record Header\Record Flags\Persistent;;;;11;;;TRUE
+;Record Header\Record Flags\Initially disabled;;;;;;;;;Record Header\Record Flags\Initially Disabled;;;;12;;;TRUE
+;Record Header\Record Flags\Ignored;;;;;;;;;Record Header\Record Flags\Ignored;;;;13;;;TRUE
+;Record Header\Record Flags\No Voice Filter;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Cannot Save (Runtime only);;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Visible when distant;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Random Anim Start / High Priority LOD;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Dangerous / Off limits (Interior cell) / Radio Station (Talking Activator);;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Compressed;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Can't wait / Platform Specific Texture / Dead;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Unknown 21;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Load Started (Runtime Only);;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Unknown 23;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Unknown 24;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Destructible (Runtime only);;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Obstacle / No AI Acquire;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\NavMesh Generation - Filter;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\NavMesh Generation - Bounding Box;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Non-Pipboy / Reflected by Auto Water;;;;;;;;;Record Header\Record Flags\Reflected By Auto Water;;;;29;;;TRUE
+;Record Header\Record Flags\Child Can Use / Refracted by Auto Water;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\NavMesh Generation - Ground;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Multibound;;;;;;;;;;;;;;;;
+;DATA;;;;;;;;;DATA;;0;;;TRUE;;
+;DATA\Behave like exterior;;;;;;;;;;;;;;;;
+;DATA\Hand changed;;;;;;;;;DATA\Hand Changed;;;;7;;;TRUE
+;DATA\Has water;;;;;;;;;DATA\Has Water;;;;2;;;TRUE
+Unsure;DATA\Invert Fast Travel behavior;;;;;;;;;DATA\Can't Travel From Here;;;;3;;;TRUE
+;DATA\Is Interior Cell;;;;;;;;;DATA\Is Interior Cell;;;;1;;;TRUE
+;DATA\No LOD Water;;;;;;;;;DATA\No LOD Water;;;;4;;;TRUE
+;DATA\Public place;;;;;;;;;DATA\Public Area;;;;6;;;TRUE
+Now Own Record;Light Template;;;;;;;;;;;;;;;;
+Now Own Record;Light Template\LNAM;;;;;;;;;;;;;;;;
+Now Own Record;Light Template\LNAM\Ambient Color;;;;;;;;;;;;;;;;
+Now Own Record;Light Template\LNAM\Clip Distance;;;;;;;;;;;;;;;;
+Now Own Record;Light Template\LNAM\Directional Color;;;;;;;;;;;;;;;;
+Now Own Record;Light Template\LNAM\Directional Rotation;;;;;;;;;;;;;;;;
+Now Own Record;Light Template\LNAM\Directional Fade;;;;;;;;;;;;;;;;
+Now Own Record;Light Template\LNAM\Fog Color;;;;;;;;;;;;;;;;
+Now Own Record;Light Template\LNAM\Fog Far;;;;;;;;;;;;;;;;
+Now Own Record;Light Template\LNAM\Fog Near;;;;;;;;;;;;;;;;
+Now Own Record;Light Template\LNAM\Fog Power;;;;;;;;;;;;;;;;
+Now Own Record;Light Template\LTMP;;;;;;;;;;;;;;;;
+;XCLL\Fog Clip Dist;;;;;;;;;XCLL\Fog Clip Distance;;;;;;;
+May Need Need to add to Color Far Color High Near Color High Far;XCLL\Fog Color;;;;;;;;;XCLL\Fog Color Near;;;;;;;
+;XCLL\Fog Color\Blue;;;;;;;;;XCLL\Fog Color Near\Blue;;;;;;;
+;XCLL\Fog Color\Green;;;;;;;;;XCLL\Fog Color Near\Green;;;;;;;
+;XCLL\Fog Color\Red;;;;;;;;;XCLL\Fog Color Near\Red;;;;;;;
+;XCLL\Fog Color\Unused;;;;;;;;;XCLL\Fog Color Near\Unused;;;;;;;
+;XNAM;;;;;;;;;XWEM;;;;;;;
+;XCLR\Region;;;;;;;;;XCLR\Region;;;;2147483647;;;
+Ownership no longer required;Ownership\XOWN;;;;;;;;;XOWN;;;;;;;
+Ownership no longer required;Ownership\XRNK;;;;;;;;;XRNK;;;;;;;
+Ownership is no longer parent for XOWN and XRNK and didn't contain data;Ownership;;;;;;;;;;;;;;;;

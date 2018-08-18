@@ -1,0 +1,299 @@
+Notes;Elementpathstring;Correct Tree?;Correct Tree On Specific Value?;Ignore On These Signatures (Seperated By '/');Only Use On These Signatures(Seperated By '/');New Record;Record Signature;Part of Single Record;Old Value And Old Index need to match?;New Path or New Order;Old Value;New Value;Old Index;New Index;Replace Any Value?;Replace Any Index?;Is Flag?
+Identifier;slSingleValues;;;;;slNewRec;slNewRecSig;slSingleRec;slOldNewValMatch;slNewPathorOrder;slOldVal;slNewVal;slOldIndex;slNewIndex;slReplaceAnyVal;slReplaceAnyIndex;slIsFlag
+Column Notes;Main identifier single value;Single Value;Single Value;Single Value;Single Value;Multiple Values;Multiple values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values
+;Record Header\Record Flags\ESM;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Form initialized (Runtime only);;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Deleted;;;;;;;;;Record Header\Record Flags\Deleted;;;;6;;;TRUE
+;Record Header\Record Flags\Border Region / Has Tree LOD / Constant / Hidden From Local Map / Plugin Endian;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Turn Off Fire;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Inaccessible;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Casts shadows / On Local Map / Motion Blur;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Quest item / Persistent reference;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Initially disabled;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Ignored;;;;;;;;;Record Header\Record Flags\Ignored;;;;13;;;TRUE
+;Record Header\Record Flags\No Voice Filter;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Cannot Save (Runtime only);;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Visible when distant;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Random Anim Start / High Priority LOD;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Dangerous / Off limits (Interior cell) / Radio Station (Talking Activator);;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Compressed;;;;;;;;;Record Header\Record Flags\Compressed;;;;19;;;TRUE
+;Record Header\Record Flags\Can't wait / Platform Specific Texture / Dead;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Unknown 21;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Load Started (Runtime Only);;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Unknown 23;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Unknown 24;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Destructible (Runtime only);;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Obstacle / No AI Acquire;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\NavMesh Generation - Filter;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\NavMesh Generation - Bounding Box;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Non-Pipboy / Reflected by Auto Water;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Child Can Use / Refracted by Auto Water;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\NavMesh Generation - Ground;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Multibound;;;;;;;;;;;;;;;;
+;EDID;;;;;;;;;EDID;;;;;;;
+Attack Reach in CREA. RACE in NPC_;;;;;;RACE;;;;Return;;;;;;;
+;;;;;;Return;;;;RNAM;;;;;;;
+;;;;;;RACE;;;;VTCK;;;;;;;
+;;;;;;RACE;;;;VTCK\Voice #0 (Male);;_NPC_NoLines [VTYP:F407C61A];;;TRUE;;
+;;;;;;RACE;;;;VTCK\Voice #1 (Female);;_NPC_NoLines [VTYP:F407C61A];;;TRUE;;
+;;;;;;CLAS;;;;Return;;;;;;;
+;;;;;;Return;;;;CNAM;;;;;;;
+;;;;;;CLAS;;;;PRPS;;;;;;;
+;;;;;;CLAS;;;;PRPS\Property;;;;2147483647;;;
+;;;;;;CLAS;;;;PRPS\Property\Value;;0;;1;TRUE;;
+;;;;;;CLAS;;;;PRPS\Property\Actor Value;;"Strength ""Strength"" [AVIF:F40002C2]";;0;TRUE;;
+;;;;;;CLAS;;;;PRPS\Property;;;;2147483647;;;
+;;;;;;CLAS;;;;PRPS\Property\Value;;0;;1;TRUE;;
+;;;;;;CLAS;;;;PRPS\Property\Actor Value;;"Perception ""Perception"" [AVIF:F40002C3]";;0;TRUE;;
+;;;;;;CLAS;;;;PRPS\Property;;;;2147483647;;;
+;;;;;;CLAS;;;;PRPS\Property\Value;;0;;1;TRUE;;
+;;;;;;CLAS;;;;PRPS\Property\Actor Value;;"Endurance ""Endurance"" [AVIF:F40002C4]";;0;TRUE;;
+;;;;;;CLAS;;;;PRPS\Property;;;;2147483647;;;
+;;;;;;CLAS;;;;PRPS\Property\Value;;0;;1;TRUE;;
+;;;;;;CLAS;;;;PRPS\Property\Actor Value;;"Charisma ""Charisma"" [AVIF:F40002C5]";;0;TRUE;;
+;;;;;;CLAS;;;;PRPS\Property;;;;2147483647;;;
+;;;;;;CLAS;;;;PRPS\Property\Value;;0;;1;TRUE;;
+;;;;;;CLAS;;;;PRPS\Property\Actor Value;;"Intelligence ""Intelligence"" [AVIF:F40002C6]";;0;TRUE;;
+;;;;;;CLAS;;;;PRPS\Property;;;;2147483647;;;
+;;;;;;CLAS;;;;PRPS\Property\Value;;0;;1;TRUE;;
+;;;;;;CLAS;;;;PRPS\Property\Actor Value;;"Agility ""Agility"" [AVIF:F40002C7]";;0;TRUE;;
+;;;;;;CLAS;;;;PRPS\Property;;;;2147483647;;;
+;;;;;;CLAS;;;;PRPS\Property\Value;;0;;1;TRUE;;
+;;;;;;CLAS;;;;PRPS\Property\Actor Value;;"Luck ""Luck"" [AVIF:F40002C8]";;0;TRUE;;
+;FULL;;;;;;;;;FULL;;;;;;;
+;;;;;;CLAS;;;;FULL;;;;;;;
+;VTCK;;;;;;;;;VTCK;;;;;;;
+;;;;;;RACE;;;;VTCK;;;;;;;
+;;;;;;RACE;;;;VTCK\Voice #0 (Male);;;;;;;
+;;;;;;RACE;;;;VTCK\Voice #1 (Female);;;;;;;
+Unknown;ACBS\Barter gold;;;;;;;;;;;;;;;;
+;ACBS\Calc max;;;;;;;;;ACBS\Calc max level;;;;;;;
+;ACBS\Calc min;;;;;;;;;ACBS\Calc min level;;;;;;;
+Unknown;ACBS\Fatigue;;;;;;;;;;;;;;;;
+;ACBS\Flags;;;;;;;;;ACBS\Flags;;0;;;TRUE;;
+Moved to RACE;ACBS\Flags\Allow PC Dialogue;;;;;;;;;;;;;;;;TRUE
+Moved to RACE;ACBS\Flags\Allow Pickpocket;;;;;;;;;;;;;;;;TRUE
+Moved to RACE;ACBS\Flags\Can't Open Doors;;;;;;;;;;;;;;;;TRUE
+Moved to RACE;ACBS\Flags\Flies;;;;;;;;;;;;;;;;TRUE
+;ACBS\Flags\Essential;;;;;;;;;ACBS\Flags\Essential;;;;2;;;TRUE
+Unknown;ACBS\Flags\No Low Level Processing;;;;;;;;;;;;;;;;
+;ACBS\Flags\Respawn;;;;;;;;;ACBS\Flags\Respawn;;;;4;;;TRUE
+Moved to RACE;ACBS\Flags\Swims;;;;;;;;;;;;;;;;
+Moved to RACE;ACBS\Flags\Tilt Front/Back;;;;;;;;;;;;;;;;
+Moved to RACE;ACBS\Flags\Tilt Left/Right;;;;;;;;;;;;;;;;
+Moved to RACE;ACBS\Flags\Walks;;;;;;;;;;;;;;;;
+Unknown;ACBS\Flags\Weapon & Shield?;;;;;;;;;;;;;;;;
+;ACBS\Flags\Unknown 8;;;;;;;;;;;;;;;;
+;ACBS\Flags\No Head;;;;;;;;;;;;;;;;
+;ACBS\Flags\No Right Arm;;;;;;;;;;;;;;;;
+;ACBS\Flags\No Left Arm;;;;;;;;;;;;;;;;
+;ACBS\Flags\Immobile;;;;;;;;;;;;;;;;
+;ACBS\Flags\Not Pushable;;;;;;;;;;;;;;;;
+;ACBS\Flags\No Rotating To Head-track;;;;;;;;;;;;;;;;
+;ACBS\Flags\No VATS Melee;;;;;;;;;;;;;;;;
+;ACBS\Flags\PC Level Mult;;;;;;;;;ACBS\Flags\PC Level Mult;;;;8;;;TRUE
+;ACBS\Flags\Invulnerable;;;;;;;;;ACBS\Flags\Invulnerable;;;;32;;;TRUE
+;ACBS\Flags\Is Ghost;;;;;;;;;ACBS\Flags\Is Ghost;;;;30;;;TRUE
+;ACBS\Flags\No Blood Spray;;;;;;;;;ACBS\Flags\Bleedout Override;;;;19;;;TRUE
+;ACBS\Flags\No Blood Decal;;;;;;;;;ACBS\Flags\Doesn't bleed;;;;17;;;TRUE
+;ACBS\Flags\No Knockdowns;;;;;;;;;;;;;;;;
+;ACBS\Flags\No Combat in Water;;;;;;;;;;;;;;;;
+;ACBS\Flags\No Shadow;;;;;;;;;;;;;;;;
+;ACBS\Flags\Auto-calc stats;;;;;;;;;ACBS\Flags\Auto-calc stats;;;;5;;;TRUE
+;ACBS\Flags\Female;;;;;;;;;ACBS\Flags\Female;;;;1;;;TRUE
+;ACBS\Flags\Is CharGen Face Preset;;;;;;;;;;;;;;;;
+;ACBS\Flags\Can be all races;;;;;;;;;;;;;;;;
+;ACBS\Flags\Unknown 28;;;;;;;;;;;;;;;;
+;ACBS\Flags\Autocalc Service;;;;;;;;;;;;;;;;
+Unknown;ACBS\Level;;;;;;;;;;;;;;;;
+Unknown;ACBS\Karma (Alignment);;;;;;;;;;;;;;;;
+Unknown;ACBS\Speed Multiplier;;;;;;;;;;;;;;;;
+Unknown;ACBS\Template Flags;;;;;;;;;;;0;;;TRUE;;
+Unknown;ACBS\Template Flags\Use Actor Effect List;;;;;;;;;;;;;;;;TRUE
+Unknown;ACBS\Template Flags\Use AI Data;;;;;;;;;;;;;;;;TRUE
+Unknown;ACBS\Template Flags\Use AI Packages;;;;;;;;;;;;;;;;TRUE
+Unknown;ACBS\Template Flags\Use Base Data;;;;;;;;;;;;;;;;TRUE
+Unknown;ACBS\Template Flags\Use Factions;;;;;;;;;;;;;;;;TRUE
+Unknown;ACBS\Template Flags\Use Inventory;;;;;;;;;;;;;;;;TRUE
+Unknown;ACBS\Template Flags\Use Model/Animation;;;;;;;;;;;;;;;;TRUE
+Unknown;ACBS\Template Flags\Use Script;;;;;;;;;;;;;;;;TRUE
+Unknown;ACBS\Template Flags\Use Stats;;;;;;;;;;;;;;;;TRUE
+Unknown;ACBS\Template Flags\Use Traits;;;;;;;;;;;;;;;;TRUE
+2 other options;AIDT\Aggro Radius;;;;;;;;;AIDT\Aggro\Warn/Attack;;;;;;;
+;AIDT\Aggro Radius Behavior;;;;;;;;;AIDT\Aggro\Aggro Radius Behavior;;;;;;;
+;AIDT\Aggro Radius Behavior\Aggro Radius Behavior;;;;;;;;;AIDT\Aggro\Aggro Radius Behavior;;;;;;;
+;AIDT\Responsibility;;;;;;;;;AIDT\Responsibility;;No crime;;;TRUE;;
+;AIDT\Buys/Sells and Services;;;;;;;;;;;;;;;;
+;AIDT\Buys/Sells and Services\Food;;;;;;;;;;;;;;;;
+;AIDT\Buys/Sells and Services\Armor;;;;;;;;;;;;;;;;
+;AIDT\Buys/Sells and Services\Alcohol;;;;;;;;;;;;;;;;
+;AIDT\Buys/Sells and Services\Weapons;;;;;;;;;;;;;;;;
+;AIDT\Buys/Sells and Services\Books;;;;;;;;;;;;;;;;
+;AIDT\Buys/Sells and Services\Miscellaneous;;;;;;;;;;;;;;;;
+;AIDT\Buys/Sells and Services\Repair;;;;;;;;;;;;;;;;
+;AIDT\Buys/Sells and Services\Chems;;;;;;;;;;;;;;;;
+;AIDT\Buys/Sells and Services\Stimpacks;;;;;;;;;;;;;;;;
+;AIDT\Buys/Sells and Services\Lights?;;;;;;;;;;;;;;;;
+;AIDT\Buys/Sells and Services\Potions?;;;;;;;;;;;;;;;;
+;AIDT\Buys/Sells and Services\Training;;;;;;;;;;;;;;;;
+;AIDT\Buys/Sells and Services\Recharge;;;;;;;;;;;;;;;;
+Unknown;AIDT\Maximum training level;;;;;;;;;;;;;;;;
+Unknown;AIDT\Teaches;;;;;;;;;;;;;;;;
+Gone;AIDT\Unused;;;;;;;;;;;;;;;;
+;AIDT\Mood;;;;;;;;;AIDT\Mood;Afraid;Fear;;;;;
+;;;;;;;;;;;Angry;Angry;;;;;
+;;;;;;;;;;;Annoyed;;;;;;
+;;;;;;;;;;;Cocky;;;;;;
+;;;;;;;;;;;Drugged;;;;;;
+;;;;;;;;;;;Neutral;Neutral;;;;;
+;;;;;;;;;;;Pleasant;Happy;;;;;
+;;;;;;;;;;;Sad;Sad;;;;;
+;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;
+RACE;BNAM;;;;;;;;;;;;;;;;
+Unkown;DATA\Attributes;;;;;;;;;PRPS;;;;;;;
+Need To Add To List;DATA\Attributes;;;;;;;;;PRPS;;;;;;;
+;DATA\Attributes\Attribute #0 (Strength);;;;;;;;;PRPS\Property;;;;2147483647;;;
+;;;;;;;;;;PRPS\Property\Value;;;;1;;;
+;;;;;;;;;;PRPS\Property\Actor Value;;"Strength ""Strength"" [AVIF:F40002C2]";;0;TRUE;;
+;DATA\Attributes\Attribute #1 (Perception);;;;;;;;;PRPS\Property;;;;2147483647;;;
+;;;;;;;;;;PRPS\Property\Value;;;;1;;;
+;;;;;;;;;;PRPS\Property\Actor Value;;"Perception ""Perception"" [AVIF:F40002C3]";;0;TRUE;;
+;DATA\Attributes\Attribute #2 (Endurance);;;;;;;;;PRPS\Property;;;;2147483647;;;
+;;;;;;;;;;PRPS\Property\Value;;;;1;;;
+;;;;;;;;;;PRPS\Property\Actor Value;;"Endurance ""Endurance"" [AVIF:F40002C4]";;0;TRUE;;
+;DATA\Attributes\Attribute #3 (Charisma);;;;;;;;;PRPS\Property;;;;2147483647;;;
+;;;;;;;;;;PRPS\Property\Value;;;;1;;;
+;;;;;;;;;;PRPS\Property\Actor Value;;"Charisma ""Charisma"" [AVIF:F40002C5]";;0;TRUE;;
+;DATA\Attributes\Attribute #4 (Intelligence);;;;;;;;;PRPS\Property;;;;2147483647;;;
+;;;;;;;;;;PRPS\Property\Value;;;;1;;;
+;;;;;;;;;;PRPS\Property\Actor Value;;"Intelligence ""Intelligence"" [AVIF:F40002C6]";;0;TRUE;;
+;DATA\Attributes\Attribute #5 (Agility);;;;;;;;;PRPS\Property;;;;2147483647;;;
+;;;;;;;;;;PRPS\Property\Value;;;;1;;;
+;;;;;;;;;;PRPS\Property\Actor Value;;"Agility ""Agility"" [AVIF:F40002C7]";;0;TRUE;;
+;DATA\Attributes\Attribute #6 (Luck);;;;;;;;;PRPS\Property;;;;2147483647;;;
+;;;;;;;;;;PRPS\Property\Value;;;;1;;;
+;;;;;;;;;;PRPS\Property\Actor Value;;"Luck ""Luck"" [AVIF:F40002C8]";;0;TRUE;;
+Unkown;DATA\Combat Skill;;;;;;;;;;;;;;;;
+Unkown;DATA\Damage;;;;;;;;;;;;;;;;
+;DATA\Base Health;;;;;;;;;;;;;;;;
+Unkown;DATA\Health;;;;;;;;;;;;;;;;
+Unkown;DATA\Magic Skill;;;;;;;;;;;;;;;;
+Unkown;DATA\Stealth Skill;;;;;;;;;;;;;;;;
+Unkown;DATA\Type;;;;;;;;;;;;;;;;
+Likely moved to RACE;EAMT;;;;;;;;;;;;;;;;
+Unarmed attack animation Unknown;EITM;;;;;;;;;;;;;;;;
+Gone;Factions\SNAM\Unused;;;;;;;;;;;;;;;;
+Animations Unknown;KFFZ;;;;;;;;;;;;;;;;
+Animations Unknown;KFFZ\Animation;;;;;;;;;;;;;;;;
+Animations Unknown;KFFZ\Terminator;;;;;;;;;;;;;;;;
+Melee Weapon List Unknown;LNAM;;;;;;;;;;;;;;;;
+Likely moved to RACE fo4 has MODTs but these are always the same also split into male and female but they have the same name;Model;;;;;;;;;;;;;;;;
+Likely moved to RACE;Model\MODL;;;;;RACE;;;;ANAM;File;File;;;;;
+Impact Material Type Unknown;NAM4;;;;;;;;;;;;;;;;
+;NAM5;;;;;;;;;NAM8;255;Normal;;;;;
+Unknown Model List likely RACE;NIFT;;;;;;;;;;;;;;;;
+Unknown Model List likely RACE;NIFZ;;;;;;;;;;;;;;;;
+Unknown Model List likely RACE;NIFZ\Model;;;;;;;;;;;;;;;;
+Unknown Model List likely RACE;NIFZ\Terminator;;;;;;;;;;;;;;;;
+Likely RACE;PNAM;;;;;RACE;;;;GNAM;;;;;;;
+Unknown;Sound Types;;;;;;;;;;;;;;;;
+Unknown;Sound Types\Sound Type;;;;;;;;;;;;;;;;
+Unknown;Sound Types\Sound Type\CSDT;;;;;;;;;;;;;;;;
+Unknown;Sound Types\Sound Type\Sounds;;;;;;;;;;;;;;;;
+Unknown;Sound Types\Sound Type\Sounds\Sound;;;;;;;;;;;;;;;;
+Unknown;Sound Types\Sound Type\Sounds\Sound\CSDC;;;;;;;;;;;;;;;;
+Unknown;Sound Types\Sound Type\Sounds\Sound\CSDI;;;;;;;;;;;;;;;;
+RACE;TNAM;;;;;;;;;;;;;;;;
+Foot Weight;WNAM;;;;;;;;;;;;;;;;
+;DNAM;;;;;;;;;;;;;;;;
+;DNAM\Skill Values;;;;;;;;;;;;;;;;
+;DNAM\Skill Values\Skill #0 (Barter);;;;;;;;;;;;;;;;
+;DNAM\Skill Values\Skill #1 (Big Guns (obsolete));;;;;;;;;;;;;;;;
+;DNAM\Skill Values\Skill #2 (Energy Weapons);;;;;;;;;;;;;;;;
+;DNAM\Skill Values\Skill #3 (Explosives);;;;;;;;;;;;;;;;
+;DNAM\Skill Values\Skill #4 (Lockpick);;;;;;;;;;;;;;;;
+;DNAM\Skill Values\Skill #5 (Medicine);;;;;;;;;;;;;;;;
+;DNAM\Skill Values\Skill #6 (Melee Weapons);;;;;;;;;;;;;;;;
+;DNAM\Skill Values\Skill #7 (Repair);;;;;;;;;;;;;;;;
+;DNAM\Skill Values\Skill #8 (Science);;;;;;;;;;;;;;;;
+;DNAM\Skill Values\Skill #9 (Guns);;;;;;;;;;;;;;;;
+;DNAM\Skill Values\Skill #10 (Sneak);;;;;;;;;;;;;;;;
+;DNAM\Skill Values\Skill #11 (Speech);;;;;;;;;;;;;;;;
+;DNAM\Skill Values\Skill #12 (Survival);;;;;;;;;;;;;;;;
+;DNAM\Skill Values\Skill #13 (Unarmed);;;;;;;;;;;;;;;;
+;DNAM\Skill Offsets;;;;;;;;;;;;;;;;
+;DNAM\Skill Offsets\Skill #0 (Barter);;;;;;;;;;;;;;;;
+;DNAM\Skill Offsets\Skill #1 (Big Guns (obsolete));;;;;;;;;;;;;;;;
+;DNAM\Skill Offsets\Skill #2 (Energy Weapons);;;;;;;;;;;;;;;;
+;DNAM\Skill Offsets\Skill #3 (Explosives);;;;;;;;;;;;;;;;
+;DNAM\Skill Offsets\Skill #4 (Lockpick);;;;;;;;;;;;;;;;
+;DNAM\Skill Offsets\Skill #5 (Medicine);;;;;;;;;;;;;;;;
+;DNAM\Skill Offsets\Skill #6 (Melee Weapons);;;;;;;;;;;;;;;;
+;DNAM\Skill Offsets\Skill #7 (Repair);;;;;;;;;;;;;;;;
+;DNAM\Skill Offsets\Skill #8 (Science);;;;;;;;;;;;;;;;
+;DNAM\Skill Offsets\Skill #9 (Guns);;;;;;;;;;;;;;;;
+;DNAM\Skill Offsets\Skill #10 (Sneak);;;;;;;;;;;;;;;;
+;DNAM\Skill Offsets\Skill #11 (Speech);;;;;;;;;;;;;;;;
+;DNAM\Skill Offsets\Skill #12 (Survival);;;;;;;;;;;;;;;;
+;DNAM\Skill Offsets\Skill #13 (Unarmed);;;;;;;;;;;;;;;;
+;HNAM;;;;;;;;;;;;;;;;
+;ENAM;;;;;;;;;;;;;;;;
+Change Later;HCLR;;;;;;;;;;;;;;;;
+;HCLR\Red;;;;;;;;;;;;;;;;
+;HCLR\Green;;;;;;;;;;;;;;;;
+;HCLR\Blue;;;;;;;;;;;;;;;;
+;HCLR\Unused;;;;;;;;;;;;;;;;
+;FaceGen Data;;;;;;;;;;;;;;;;
+;FaceGen Data\FGGS;;;;;;;;;;;;;;;;
+;FaceGen Data\FGGA;;;;;;;;;;;;;;;;
+;FaceGen Data\FGTS;;;;;;;;;;;;;;;;
+IPDS in CREA;CNAM;;;;;;;;;CNAM;NPCHandtoHandDataSet [IPDS:0007DB64];;;;;;
+;;;;;;;;;;;FeralGhoulImpactDataSet [IPDS:0007532A];;;;;;
+;;;;;;;;;;;SuperMutantHandImpactDataSet [IPDS:00075A49];;;;;;
+;;;;;;;;;;;BiteDataSet [IPDS:0007E640];;;;;;
+;;;;;;;;;;;PipeImpactSet [IPDS:0005FD3F];;;;;;
+;;;;;;;;;;;DeathClawGauntletImpactData [IPDS:000553E0];;;;;;
+;;;;;;;;;;;GeckoClawAttack [IPDS:00145A47];;;;;;
+;;;;;;;;;;;ClawDataSet [IPDS:0007E684];;;;;;
+;;;;;;;;;;;PhysicalMediumImpactDataSet [IPDS:00075328];;;;;;
+;;;;;;;;;;;newCaz [IPDS:00141871];;;;;;
+;;;;;;;;;;;AntImpactDataSet [IPDS:000754AB];;;;;;
+;;;;;;;;;;;BigHornerDataSet [IPDS:00173E76];;;;;;
+;;;;;;;;;;;MoleRatBiteDataSet [IPDS:00151DE5];;;;;;
+;;;;;;;;;;;MantisImpactDataSet [IPDS:001476B8];;;;;;
+;;;;;;;;;;;CentuarImpactDataSet [IPDS:001489F9];;;;;;
+;;;;;;;;;;;BladeCutMedium [IPDS:000292EE];;;;;;
+;;;;;;;;;;;SecuritronFistImpact [IPDS:0014DFA7];;;;;;
+;;;;;;;;;;;DeathClawSmGauntletImpactData [IPDS:00164258];;;;;;
+;;;;;;;;;;;BehemothFireHydrantDataSet [IPDS:000C99F9];;;;;;
+;;;;;;;;;;;MirelurkClawAttack [IPDS:00156ED5];;;;;;
+;;;;;;;;;;;BehemothFistDataSet [IPDS:0007E618];;;;;;
+;Destructable;;;;;;;;;Destructible;;;;;;;
+;Destructable\DEST;;;;;;;;;Destructible\DEST;;;;;;;
+;Destructable\DEST\Count;;;;;;;;;Destructible\DEST\DEST Count;;;;;;;
+;Destructable\DEST\Health;;;;;;;;;Destructible\DEST\Health;;;;;;;
+;Destructable\DEST\Unused;;;;;;;;;Destructible\DEST\Unknown;;;;;;;
+;Destructable\Stages;;;;;;;;;Destructible\Stages;;;;2;;;
+;Destructable\Stages\Stage\Model;;;;;;;;;Destructible\Stages\Stage\Model;;;;2;;;
+;Destructable\Stages\Stage\DSTD\Damage Stage;;;;;;;;;Destructible\Stages\Stage\DSTD\Model Damage Stage;;;;;;;
+Still need to set flag;Destructable\DEST\Flags;;;;;;;;;Destructible\DEST\Flags;;;;;;;
+;Destructable\DEST\Flags\VATS Targetable;;;;;;;;;Destructible\DEST\Flags\VATS Targetable;;;;;;;
+;Destructable\DEST\Unused;;;;;;;;;Destructible\DEST\Unused;;;;;;;
+;Destructable\Stages\Stage;;;;;;;;;Destructible\Stages\Stage;;;;;;;
+;Destructable\Stages\Stage\DSTD;;;;;;;;;Destructible\Stages\Stage\DSTD;;;;;;;
+;Destructable\Stages\Stage\DSTD\Health %;;;;;;;;;Destructible\Stages\Stage\DSTD\Health %;;;;;;;
+;Destructable\Stages\Stage\DSTD\Index;;;;;;;;;Destructible\Stages\Stage\DSTD\Index;;;;;;;
+;Destructable\Stages\Stage\DSTD\Flags;;;;;;;;;Destructible\Stages\Stage\DSTD\Flags;;;;;;;
+;Destructable\Stages\Stage\DSTD\Flags\Cap Damage;;;;;;;;;Destructible\Stages\Stage\DSTD\Flags\Cap Damage;;;;;;;
+;Destructable\Stages\Stage\DSTD\Flags\Disable;;;;;;;;;Destructible\Stages\Stage\DSTD\Flags\Disable;;;;;;;
+;Destructable\Stages\Stage\DSTD\Flags\Destroy;;;;;;;;;Destructible\Stages\Stage\DSTD\Flags\Destroy;;;;;;;
+;Destructable\Stages\Stage\DSTD\Self Damage per Second;;;;;;;;;Destructible\Stages\Stage\DSTD\Self Damage per Second;;;;;;;
+;Destructable\Stages\Stage\DSTD\Explosion;;;;;;;;;Destructible\Stages\Stage\DSTD\Explosion;;;;;;;
+;Destructable\Stages\Stage\DSTD\Debris;;;;;;;;;Destructible\Stages\Stage\DSTD\Debris;;;;;;;
+;Destructable\Stages\Stage\DSTD\Debris Count;;;;;;;;;Destructible\Stages\Stage\DSTD\Debris Count;;;;;;;
+;Destructable\Stages\Stage\Model;;;;;;;;;Destructible\Stages\Stage\Model;;;;;;;
+;Destructable\Stages\Stage\Model\DMDL;;;;;;;;;Destructible\Stages\Stage\Model\DMDL;File;File;;;;;
+;Destructable\Stages\Stage\Model\DMDT;;;;;;;;;Destructible\Stages\Stage\Model\DMDT;;;;;;;
+;Destructable\Stages\Stage\DSTF;;;;;;;;;Destructible\Stages\Stage\DSTF;;;;3;;;

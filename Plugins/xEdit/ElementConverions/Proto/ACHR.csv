@@ -1,0 +1,44 @@
+Notes;Elementpathstring;Correct Tree?;Correct Tree On Specific Value?;Ignore On These Signatures (Seperated By '/');Only Use On These Signatures(Seperated By '/');New Record;Record Signature;Part of Single Record;Old Value And Old Index need to match?;New Path or New Order;Old Value;New Value;Old Index;New Index;Replace Any Value?;Replace Any Index?;Is Flag?
+Identifier;slSingleValues;;;;;slNewRec;slNewRecSig;slSingleRec;slOldNewValMatch;slNewPathorOrder;slOldVal;slNewVal;slOldIndex;slNewIndex;slReplaceAnyVal;slReplaceAnyIndex;slIsFlag
+Column Notes;Main identifier single value;Single Value;Single Value;Single Value;Single Value;Multiple Values;Multiple values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values
+;Record Header\Record Flags\Quest item / Persistent reference;;;;;;;;;Record Header\Record Flags\Persistent;;;;11;;;TRUE
+Unknown?;Record Header\Record Flags\ESM;;;;;;;;;;;;;;;;TRUE
+Unknown?;Record Header\Record Flags\Form initialized (Runtime only);;;;;;;;;;;;;;;;TRUE
+;Record Header\Record Flags\Deleted;;;;;;;;;Record Header\Record Flags\Deleted;;;;6;;;TRUE
+Unknown?;Record Header\Record Flags\Border Region / Has Tree LOD / Constant / Hidden From Local Map / Plugin Endian;;;;;;;;;;;;;;;;TRUE
+Unknown?;Record Header\Record Flags\Turn Off Fire;;;;;;;;;;;;;;;;TRUE
+Unknown?;Record Header\Record Flags\Inaccessible;;;;;;;;;;;;;;;;TRUE
+Unknown?;Record Header\Record Flags\Casts shadows / On Local Map / Motion Blur;;;;;;;;;;;;;;;;TRUE
+;Record Header\Record Flags\Initially disabled;;;;;;;;;Record Header\Record Flags\Initially Disabled;;;;12;;;TRUE
+;Record Header\Record Flags\Ignored;;;;;;;;;Record Header\Record Flags\Ignored;;;;13;;;TRUE
+Unknown?;Record Header\Record Flags\No Voice Filter;;;;;;;;;;;;;;;;TRUE
+Unknown?;Record Header\Record Flags\Cannot Save (Runtime only);;;;;;;;;;;;;;;;TRUE
+Unknown?;Record Header\Record Flags\Visible when distant;;;;;;;;;;;;;;;;TRUE
+Unknown?;Record Header\Record Flags\Random Anim Start / High Priority LOD;;;;;;;;;;;;;;;;TRUE
+Unknown?;Record Header\Record Flags\Dangerous / Off limits (Interior cell) / Radio Station (Talking Activator);;;;;;;;;;;;;;;;TRUE
+Unknown?;Record Header\Record Flags\Compressed;;;;;;;;;;;;;;;;TRUE
+Unknown?;Record Header\Record Flags\Can't wait / Platform Specific Texture / Dead;;;;;;;;;;;;;;;;TRUE
+Unknown?;Record Header\Record Flags\Unknown 21;;;;;;;;;;;;;;;;TRUE
+Unknown?;Record Header\Record Flags\Load Started (Runtime Only);;;;;;;;;;;;;;;;TRUE
+Unknown?;Record Header\Record Flags\Unknown 23;;;;;;;;;;;;;;;;TRUE
+Unknown?;Record Header\Record Flags\Unknown 24;;;;;;;;;;;;;;;;TRUE
+Unknown?;Record Header\Record Flags\Destructible (Runtime only);;;;;;;;;;;;;;;;TRUE
+;Record Header\Record Flags\Obstacle / No AI Acquire;;;;;;;;;Record Header\Record Flags\No AI Acquire;;;;26;;;TRUE
+Unknown?;Record Header\Record Flags\NavMesh Generation - Filter;;;;;;;;;;;;;;;;TRUE
+Unknown?;Record Header\Record Flags\NavMesh Generation - Bounding Box;;;;;;;;;;;;;;;;TRUE
+Unknown?;Record Header\Record Flags\Non-Pipboy / Reflected by Auto Water;;;;;;;;;;;;;;;;TRUE
+Unknown?;Record Header\Record Flags\Child Can Use / Refracted by Auto Water;;;;;;;;;;;;;;;;TRUE
+Unknown?;Record Header\Record Flags\NavMesh Generation - Ground;;;;;;;;;;;;;;;;TRUE
+Unknown?;Record Header\Record Flags\Multibound;;;;;;;;;;;;;;;;TRUE
+Changed to Linked References but have to List;XLKR;;;;;;;;;Linked References;;;;;;;
+;;;;;;;;;;Linked References\XLKR;;;;0;;;
+;;;;;;;;;;Linked References\XLKR\Ref;;;;1;;;
+Moved to its NPC Record;XMRC;;;;;;;;;Linked References;;;;;;;
+;;;;;;;;;;Linked References\XLKR;;;;2147483647;;;
+;;;;;;;;;;Linked References\XLKR\Ref;;;;0;;;
+;;;;;;;;;;Linked References\XLKR\Keyword/Ref;;VendorContainerKeyword01 [KYWD:F410FCD1];;1;;;
+ATTX in NPC_;XATO;;;;;;;;;ATTX;;;;;;;
+Ignored by sandbox. Got renamed from XIBS to XIS2;XIBS;;;;;;;;;XIS2;;;;;;;
+Ownership no longer required;Ownership\XOWN;;;;;;;;;XOWN;;;;;;;
+Ownership no longer required;Ownership\XRNK;;;;;;;;;XRNK;;;;;;;
+Ownership is no longer parent for XOWN and XRNK and didn't contain data;Ownership;;;;;;;;;;;;;;;;

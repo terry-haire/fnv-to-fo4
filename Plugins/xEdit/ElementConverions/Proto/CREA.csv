@@ -1,0 +1,31 @@
+Notes;Elementpathstring;Correct Tree?;Correct Tree On Specific Value?;Ignore On These Signatures (Seperated By '/');Only Use On These Signatures(Seperated By '/');New Record;Record Signature;Part of Single Record;Old Value And Old Index need to match?;New Path or New Order;Old Value;New Value;Old Index;New Index;Replace Any Value?;Replace Any Index?;Is Flag?
+Identifier;slSingleValues;;;;;slNewRec;slNewRecSig;slSingleRec;slOldNewValMatch;slNewPathorOrder;slOldVal;slNewVal;slOldIndex;slNewIndex;slReplaceAnyVal;slReplaceAnyIndex;slIsFlag
+Column Notes;Main identifier single value;Single Value;Single Value;Single Value;Single Value;Multiple Values;Multiple values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values
+;Destructable;;;;;;;;;Destructible;;;;;;;
+;Destructable\DEST;;;;;;;;;Destructible\DEST;;;;;;;
+;Destructable\DEST\Count;;;;;;;;;Destructible\DEST\DEST Count;;;;;;;
+;Destructable\DEST\Health;;;;;;;;;Destructible\DEST\Health;;;;;;;
+;Destructable\DEST\Unused;;;;;;;;;Destructible\DEST\Unknown;;;;;;;
+;Destructable\Stages;;;;;;;;;Destructible\Stages;;;;2;;;
+;Destructable\Stages\Stage\Model;;;;;;;;;Destructible\Stages\Stage\Model;;;;2;;;
+;Destructable\Stages\Stage\DSTD\Damage Stage;;;;;;;;;Destructible\Stages\Stage\DSTD\Model Damage Stage;;;;;;;
+Still need to set flag;Destructable\DEST\Flags;;;;;;;;;Destructible\DEST\Flags;;;;;;;
+;Destructable\DEST\Flags\VATS Targetable;;;;;;;;;Destructible\DEST\Flags\VATS Targetable;;;;;;;
+;Destructable\DEST\Unused;;;;;;;;;Destructible\DEST\Unused;;;;;;;
+;Destructable\Stages\Stage;;;;;;;;;Destructible\Stages\Stage;;;;;;;
+;Destructable\Stages\Stage\DSTD;;;;;;;;;Destructible\Stages\Stage\DSTD;;;;;;;
+;Destructable\Stages\Stage\DSTD\Health %;;;;;;;;;Destructible\Stages\Stage\DSTD\Health %;;;;;;;
+;Destructable\Stages\Stage\DSTD\Index;;;;;;;;;Destructible\Stages\Stage\DSTD\Index;;;;;;;
+;Destructable\Stages\Stage\DSTD\Flags;;;;;;;;;Destructible\Stages\Stage\DSTD\Flags;;;;;;;
+;Destructable\Stages\Stage\DSTD\Flags\Cap Damage;;;;;;;;;Destructible\Stages\Stage\DSTD\Flags\Cap Damage;;;;;;;
+;Destructable\Stages\Stage\DSTD\Flags\Disable;;;;;;;;;Destructible\Stages\Stage\DSTD\Flags\Disable;;;;;;;
+;Destructable\Stages\Stage\DSTD\Flags\Destroy;;;;;;;;;Destructible\Stages\Stage\DSTD\Flags\Destroy;;;;;;;
+;Destructable\Stages\Stage\DSTD\Self Damage per Second;;;;;;;;;Destructible\Stages\Stage\DSTD\Self Damage per Second;;;;;;;
+;Destructable\Stages\Stage\DSTD\Explosion;;;;;;;;;Destructible\Stages\Stage\DSTD\Explosion;;;;;;;
+;Destructable\Stages\Stage\DSTD\Debris;;;;;;;;;Destructible\Stages\Stage\DSTD\Debris;;;;;;;
+;Destructable\Stages\Stage\DSTD\Debris Count;;;;;;;;;Destructible\Stages\Stage\DSTD\Debris Count;;;;;;;
+;Destructable\Stages\Stage\Model;;;;;;;;;Destructible\Stages\Stage\Model;;;;;;;
+;Destructable\Stages\Stage\Model\DMDL;;;;;;;;;Destructible\Stages\Stage\Model\DMDL;File;File;;;;;
+;Destructable\Stages\Stage\Model\DMDT;;;;;;;;;Destructible\Stages\Stage\Model\DMDT;;;;;;;
+;Destructable\Stages\Stage\DSTF;;;;;;;;;Destructible\Stages\Stage\DSTF;;;;3;;;
+;;;;;;;;;;;;;;;;;

@@ -1,0 +1,6 @@
+Notes;Original Path;New Path;New Index(-1 = Unchanged);Replace Any Value?;Flag?;Original Value 1;New Value 1;Original Value 2;New Value 2; Original Value n...; New Value n...
+Changed to vmad;SCRI;;-1;FALSE;;;;;;;
+;Record Header\Record Flags\NavMesh Generation - Bounding Box;Record Header\Record Flags\NavMesh Generation - Bounding Box;28;FALSE;TRUE;;;;;;
+;Record Header\Record Flags\Obstacle / No AI Acquire;Record Header\Record Flags\Obstacle;26;FALSE;TRUE;;;;;;
+;Record Header\Record Flags\Random Anim Start / High Priority LOD;Record Header\Record Flags\Random Anim Start;17;FALSE;TRUE;;;;;;
+Removed;Record Header\Record Flags\Quest item / Persistent reference;;-1;FALSE;TRUE;;;;;;

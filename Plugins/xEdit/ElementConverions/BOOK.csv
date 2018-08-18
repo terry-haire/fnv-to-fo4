@@ -1,0 +1,6 @@
+Notes;Original Path;New Path;New Index(-1 = Unchanged);Replace Any Value?;Flag?;Original Value 1;New Value 1;Original Value 2;New Value 2; Original Value n...; New Value n...
+Data Flags moved to Dnam flags;DATA\Flags;DNAM\Flags;-1;TRUE;;;;;;;
+Data Flags moved to Dnam flags;DATA\Flags\Can't be Taken;DNAM\Flags\Can't be Taken;2;FALSE;TRUE;;;;;;
+Data skills not in FO4;DATA\Skill;;-1;FALSE;;;;;;;
+Removed From FO4;Record Header\Record Flags\Persistent;;-1;FALSE;TRUE;1;0;;;;
+Removed From FO4;Record Header\Record Flags\Quest item / Persistent reference;;-1;FALSE;TRUE;1;0;;;;

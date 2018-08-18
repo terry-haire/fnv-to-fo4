@@ -1,0 +1,67 @@
+unit __FNVMultiLoopFunctions;
+
+interface
+uses xEditAPI, Classes, SysUtils, StrUtils, Windows; //Remove before use in xEdit
+
+function Recursive(e: IInterface; slstring: String): String;
+function RecursiveNAVI(e: IInterface; NPCList: TStringList): TStringList;
+
+implementation
+
+function Recursive(e: IInterface; slstring: String): String;
+var
+i: integer;
+ielement: IInterface;
+begin
+	for i := 0 to (ElementCount(e)-1) do
+	begin
+		ielement := ElementByIndex(e, i);
+		slstring := (slstring
+//    stringreplace(
+//     ,'"', '|CITATION|', [rfReplaceAll])
+    + ';' + stringreplace(stringreplace(stringreplace(path(ielement), #13#10, '\r\n', [rfReplaceAll]), ';' , '\comment\', [rfReplaceAll]) ,'"', '|CITATION|', [rfReplaceAll])
+    + ';' + stringreplace(stringreplace(stringreplace(GetEditValue(ielement), #13#10, '\r\n', [rfReplaceAll]), ';' , '\comment\', [rfReplaceAll]) ,'"', '|CITATION|', [rfReplaceAll])
+    + ';' + IntToStr(i));
+    if Name(ielement) = 'Alternate Texture' then
+    begin
+      if Assigned(ElementByPath(ielement, '3D Name')) then
+      begin
+        s := GetEditValue(ElementByIndex(GetContainer(GetContainer(ielement)), 0));
+        if LastDelimiter('.', s) <> (Length(s) - 3) then s := '';
+        slNifs.Add(s);
+        _TXST := LinksTo(ElementByPath(ielement, 'New Texture'));
+        s := s + ';' + GetElementEditValues(_TXST, 'EDID')
+        + ';' + GetElementEditValues(ielement, '3D Name')
+        + ';' + GetElementEditValues(_TXST, 'Textures (RGB/A)\TX00')
+        + ';' + GetElementEditValues(_TXST, 'Textures (RGB/A)\TX01')
+        + ';' + GetElementEditValues(_TXST, 'Textures (RGB/A)\TX02')
+        + ';' + GetElementEditValues(_TXST, 'Textures (RGB/A)\TX03')
+        + ';' + GetElementEditValues(_TXST, 'Textures (RGB/A)\TX04')
+        + ';' + GetElementEditValues(_TXST, 'Textures (RGB/A)\TX05') + ';';
+        if Assigned(ElementByPath(_TXST, 'DNAM\No Specular Map')) then
+          s := s + 'No Specular Map';
+        slvalues.Add(s);
+        sl3DNames.Add(GetElementEditValues(ielement, '3D Name'));
+      end;
+    end;
+		if ElementCount(ielement) > 0 then slstring := (Recursive(ielement, slstring));
+	end;
+	Result := slstring;
+end;
+
+function RecursiveNAVI(e: IInterface; NPCList: TStringList): TStringList;
+var
+i: integer;
+ielement: IInterface;
+begin
+	for i := 0 to (ElementCount(e)-1) do
+	begin
+		ielement := ElementByIndex(e, i);
+		NPCList.Add(path(ielement));
+		NPCList.Add(GetEditValue(ielement));
+		if ElementCount(ielement) > 0 then NPCList := (RecursiveNAVI(ielement, NPCList));
+	end;
+	Result := NPCList;
+end;
+
+end.

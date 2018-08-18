@@ -1,0 +1,94 @@
+Notes;Elementpathstring;Correct Tree?;Correct Tree On Specific Value?;Ignore On These Signatures (Seperated By '/');Only Use On These Signatures(Seperated By '/');New Record;Record Signature;Part of Single Record;Old Value And Old Index need to match?;New Path or New Order;Old Value;New Value;Old Index;New Index;Replace Any Value?;Replace Any Index?;Is Flag?;
+Identifier;slSingleValues;;;;;slNewRec;slNewRecSig;slSingleRec;slOldNewValMatch;slNewPathorOrder;slOldVal;slNewVal;slOldIndex;slNewIndex;slReplaceAnyVal;slReplaceAnyIndex;slIsFlag;
+Column Notes;Main identifier single value;Single Value;Single Value;Single Value;Single Value;Multiple Values;Multiple values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;
+;Record Header\Record Flags\Form initialized (Runtime only);;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Deleted;;;;;;;;;Record Header\Record Flags\Deleted;;;;6;;;TRUE;
+;Record Header\Record Flags\Border Region / Has Tree LOD / Constant / Hidden From Local Map / Plugin Endian;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Turn Off Fire;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Inaccessible;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Casts shadows / On Local Map / Motion Blur;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Quest item / Persistent reference;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Initially disabled;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Ignored;;;;;;;;;Record Header\Record Flags\Ignored;;;;13;;;TRUE;
+;Record Header\Record Flags\No Voice Filter;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Cannot Save (Runtime only);;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Visible when distant;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Random Anim Start / High Priority LOD;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Dangerous / Off limits (Interior cell) / Radio Station (Talking Activator);;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Compressed;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Can't wait / Platform Specific Texture / Dead;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Unknown 21;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Load Started (Runtime Only);;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Unknown 23;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Unknown 24;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Destructible (Runtime only);;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Obstacle / No AI Acquire;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\NavMesh Generation - Filter;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\NavMesh Generation - Bounding Box;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Non-Pipboy / Reflected by Auto Water;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Child Can Use / Refracted by Auto Water;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\NavMesh Generation - Ground;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Multibound;;;;;;;;;;;;;;;;;
+;EDID;;;;;;;;;EDID;;;;;;;;
+Descriptor Type;;;;;;;;;;CNAM;;Standard;;;TRUE;;;
+Category;;;;;;;;;;GNAM;;"AudioCategorySFX ""$Effects"" [SNCT:F40172A1]";;;TRUE;;;
+Sound Output Model;;;;;;;;;;ONAM;;SOMMono01000 [SOPM:F406CB4F];;;TRUE;;;
+Values;;;;;;;;;;LNAM;;;;;;;;
+SOUN;OBND;;;;;;;;;;;;;;;;;OBND
+SOUN;OBND\X1;;;;;;;;;;;;;;;;;OBND\X1
+SOUN;OBND\Y1;;;;;;;;;;;;;;;;;OBND\Y1
+SOUN;OBND\Z1;;;;;;;;;;;;;;;;;OBND\Z1
+SOUN;OBND\X2;;;;;;;;;;;;;;;;;OBND\X2
+SOUN;OBND\Y2;;;;;;;;;;;;;;;;;OBND\Y2
+SOUN;OBND\Z2;;;;;;;;;;;;;;;;;OBND\Z2
+Moved to Sound Descriptor (SNDR);FNAM;;;;;;;;;Sounds;;;;;;;;
+;;;;;;;;;;Sounds\Sound Files;;;;0;;;;
+;;;;;;;;;;Sounds\Sound Files\ANAM;File;File;;0;;;;
+Random chance UNKNOWN;RNAM;;;;;;;;;;;;;;;;;
+;SNDD;;;;;;;;;;;;;;;;;
+SOPM\Fade In Distance - Start AND SOPM\Fade In Distance - End;SNDD\Minimum Attentuation Distance;;;;;;;;;;;;;;;;;
+SOPM\Fade Out Distance - Start AND SOPM\Fade Out Distance - End;SNDD\Maximum Attentuation Distance;;;;;;;;;;;;;;;;;
+SNDR\BNAM\Values\% Freguency Shift;SNDD\Frequency Adjustment %;;;;;;;;;BNAM;;;;;;;;
+;;;;;;;;;;BNAM\Values;;;;0;;;;
+;;;;;;;;;;BNAM\Values\% Frequency Shift;;;;0;;;;
+;SNDD\Unused;;;;;;;;;;;;;;;;;
+;SNDD\Flags;;;;;;;;;;;;;;;;;
+;SNDD\Flags\Random Frequency Shift;;;;;;;;;;;;;;;;;
+;SNDD\Flags\Play At Random;;;;;;;;;;;;;;;;;
+;SNDD\Flags\Environment Ignored;;;;;;;;;;;;;;;;;
+;SNDD\Flags\Random Location;;;;;;;;;;;;;;;;;
+OR SNDR\LNAM\Looping;SNDD\Flags\Loop;;;;;;;;;LNAM;;;;;;;;REPT
+;;;;;;;;;;LNAM\Looping;;Loop;;1;TRUE;;;
+SNCT\FNAM\Should Appear on Menu;SNDD\Flags\Menu Sound;;;;;;;;;;;;;;;;;
+;SNDD\Flags\2D;;;;;;;;;;;;;;;;;
+;SNDD\Flags\360 LFE;;;;;;;;;;;;;;;;;
+;SNDD\Flags\Dialogue Sound;;;;;;;;;;;;;;;;;
+SNDR\LNAM\Looping;SNDD\Flags\Envelope Fast;;;;;;;;;LNAM;;;;;;;;
+;;;;;;;;;;LNAM\Looping;;Envelope Fast;;1;TRUE;;;
+SNDR\LNAM\Looping;SNDD\Flags\Envelope Slow;;;;;;;;;LNAM;;;;;;;;
+;;;;;;;;;;LNAM\Looping;;Envelope Slow;;1;TRUE;;;
+;SNDD\Flags\2D Radius;;;;;;;;;;;;;;;;;
+SNCT\FNAM\Mute When Submerged;SNDD\Flags\Mute When Submerged;;;;;;;;;;;;;;;;;
+;SNDD\Flags\Start at Random Position;;;;;;;;;;;;;;;;;
+SOPM\VNAM OR SNDR\BNAM\Values\Static Attenuation (db);SNDD\Static attentuation cdB;;;;;;;;;;;;;;;;;
+;SNDD\Stop time ;;;;;;;;;;;;;;;;;
+;SNDD\Start time ;;;;;;;;;;;;;;;;;
+SOPM\ATTN\Fade In Curve;SNDD\Attenuation Curve;;;;;;;;;;;;;;;;;
+SOPM\ATTN\Fade In Curve\Value 1;SNDD\Attenuation Curve\Point #0;;;;;;;;;;;;;;;;;
+SOPM\ATTN\Fade In Curve\Value 2;SNDD\Attenuation Curve\Point #1;;;;;;;;;;;;;;;;;
+SOPM\ATTN\Fade In Curve\Value 3 AND 4;SNDD\Attenuation Curve\Point #2;;;;;;;;;;;;;;;;;
+SOPM\ATTN\Fade Out Curve\Value 1 AND 2;SNDD\Attenuation Curve\Point #3;;;;;;;;;;;;;;;;;
+SOPM\ATTN\Fade Out Curve\Value 3 AND 4;SNDD\Attenuation Curve\Point #4;;;;;;;;;;;;;;;;;
+;SNDD\Reverb Attenuation Control;;;;;;;;;;;;;;;;;
+;SNDD\Priority;;;;;;;;;;;;;;;;;
+;SNDD\x;;;;;;;;;;;;;;;;;
+;SNDD\y;;;;;;;;;;;;;;;;;
+;ANAM;;;;;;;;;;;;;;;;;
+;ANAM\Point #0;;;;;;;;;;;;;;;;;
+;ANAM\Point #1;;;;;;;;;;;;;;;;;
+;ANAM\Point #2;;;;;;;;;;;;;;;;;
+;ANAM\Point #3;;;;;;;;;;;;;;;;;
+;ANAM\Point #4;;;;;;;;;;;;;;;;;
+;GNAM;;;;;;;;;;;;;;;;;
+;HNAM;;;;;;;;;;;;;;;;;
+Radio Station;RNAM;;;;;;;;;;;;;;;;;

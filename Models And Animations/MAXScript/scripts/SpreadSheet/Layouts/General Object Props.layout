@@ -1,0 +1,20 @@
+global SpreadSheet_Property_Editing = #(
+	#("Objects","OBJECTS","Name","String",120,false),
+	#("Class","CLASS","classof()","String",70,false),
+	#("Render","RENDER","Renderable","BooleanClass",50,true),
+	#("Hidden","HIDE","IsHidden","BooleanClass",50,true),
+	#("Frozen","FREEZE","IsFrozen","BooleanClass",45,true),
+	#("SeeThru","SEETHRU","XRay","BooleanClass",55,true),
+	#("Box","BOX","boxMode","BooleanClass",45,true),
+	#("Edges","EDGES","allEdges","BooleanClass",45,true),
+	#("Cull BF","CULL BF","backFaceCull","BooleanClass",45,true),
+	#("Trajectory","TRAJECTORY","showTrajectory","BooleanClass",45,true),
+	#("VColor","VCOLOR","showVertexColors","BooleanClass",45,true),
+	#("WireColor","WIRECOLOR","WireColor","Color",105,true),
+	#("Faces","FACES","mesh.numfaces","Integer",55,false),
+	#("Verts","VERTS","mesh.numverts","Integer",55,false),
+	#("Material","MATERIAL","material","Void",55,false)
+)
+
+spreadsheet_editor_rollout.EnableFilter ((GetDir #maxroot)+"/Scripts/SpreadSheet/Filters/All Objects.filter") 
+

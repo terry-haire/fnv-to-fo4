@@ -1,0 +1,23 @@
+global SpreadSheet_Property_Editing = #(
+#("Object", "Object", " ", " ", 120, false),
+#("width", "<width>", "width", "Float", 70, true),
+#("height", "<height>", "height", "Float", 70, true),
+#("Taper", "<Taper>", "Taper", "Float", 70, true),
+#("length", "<length>", "length", "Float", 70, true),
+#("sidefins", "<sidefins>", "sidefins", "BooleanClass", 70, true),
+#("sidefinssize", "<sidefinssize>", "sidefinssize", "Float", 70, true),
+#("sidefinsstarttaper", "<sidefinsstarttaper>", "sidefinsstarttaper", "Float", 70, true),
+#("sidefinsendtaper", "<sidefinsendtaper>", "sidefinsendtaper", "Float", 70, true),
+#("frontfin", "<frontfin>", "frontfin", "BooleanClass", 70, true),
+#("frontfinsize", "<frontfinsize>", "frontfinsize", "Float", 70, true),
+#("frontfinstarttaper", "<frontfinstarttaper>", "frontfinstarttaper", "Float", 70, true),
+#("frontfinendtaper", "<frontfinendtaper>", "frontfinendtaper", "Float", 70, true),
+#("backfin", "<backfin>", "backfin", "BooleanClass", 70, true),
+#("backfinsize", "<backfinsize>", "backfinsize", "Float", 70, true),
+#("backfinstarttaper", "<backfinstarttaper>", "backfinstarttaper", "Float", 70, true),
+#("backfinendtaper", "<backfinendtaper>", "backfinendtaper", "Float", 70, true),
+#("genmap", "<genmap>", "genmap", "BooleanClass", 70, true)
+)
+
+spreadsheet_editor_rollout.EnableFilter ((GetDir #maxroot)+"/Scripts/SpreadSheet/Filters/Bones.filter") 
+

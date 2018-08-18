@@ -1,0 +1,63 @@
+Notes;Elementpathstring;Correct Tree?;Correct Tree On Specific Value?;Ignore On These Signatures (Seperated By '/');Only Use On These Signatures(Seperated By '/');New Record;Record Signature;Part of Single Record;Old Value And Old Index need to match?;New Path or New Order;Old Value;New Value;Old Index;New Index;Replace Any Value?;Replace Any Index?;Is Flag?
+Identifier;slSingleValues;;;;;slNewRec;slNewRecSig;slSingleRec;slOldNewValMatch;slNewPathorOrder;slOldVal;slNewVal;slOldIndex;slNewIndex;slReplaceAnyVal;slReplaceAnyIndex;slIsFlag
+Column Notes;Main identifier single value;Single Value;Single Value;Single Value;Single Value;Multiple Values;Multiple values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values
+;Record Header\Record Flags\Form initialized (Runtime only);;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Deleted;;;;;;;;;Record Header\Record Flags\Deleted;;;;6;;;TRUE
+;Record Header\Record Flags\Border Region / Has Tree LOD / Constant / Hidden From Local Map / Plugin Endian;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Turn Off Fire;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Inaccessible;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Casts shadows / On Local Map / Motion Blur;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Quest item / Persistent reference;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Initially disabled;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Ignored;;;;;;;;;Record Header\Record Flags\Ignored;;;;13;;;TRUE
+;Record Header\Record Flags\No Voice Filter;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Cannot Save (Runtime only);;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Visible when distant;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Random Anim Start / High Priority LOD;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Dangerous / Off limits (Interior cell) / Radio Station (Talking Activator);;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Compressed;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Can't wait / Platform Specific Texture / Dead;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Unknown 21;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Load Started (Runtime Only);;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Unknown 23;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Unknown 24;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Destructible (Runtime only);;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Obstacle / No AI Acquire;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\NavMesh Generation - Filter;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\NavMesh Generation - Bounding Box;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Non-Pipboy / Reflected by Auto Water;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Child Can Use / Refracted by Auto Water;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\NavMesh Generation - Ground;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Multibound;;;;;;;;;;;;;;;;
+;HNAM\Material Type;;;;;;;;;;BABY RATTLE;;;;;;
+;;;;;;;;;;;BARREL;MaterialMetalBarrel [MATT:F402295B];;;;;
+;;;;;;;;;;;BOTTLE;;;;;;
+;;;;;;;;;;;BRIKEN CONCRETE;MaterialStoneBroken [MATT:F4012F35];;;;;
+;;;;;;;;;;;CHAIN;MaterialMetalChain [MATT:F4028E99];;;;;
+;;;;;;;;;;;CLOTH;Material_Cloth [MATT:F4022957];;;;;
+;;;;;;;;;;;DIRT;Material_Dirt [MATT:F4012F38];;;;;
+;;;;;;;;;;;ELEVATOR;;;;;;
+;;;;;;;;;;;GLASS;Material_Glass [MATT:F4012F39];;;;;
+;;;;;;;;;;;GRASS;MaterialGrass [MATT:F4012F46];;;;;
+;;;;;;;;;;;HEAVY METAL;MaterialMetalHollow [MATT:F402295C];;;;;
+;;;;;;;;;;;HEAVY STONE;MaterialStoneHeavy [MATT:F4012F36];;;;;
+;;;;;;;;;;;HEAVY WOOD;MaterialWoodHeavy [MATT:F4012F42];;;;;
+;;;;;;;;;;;HOLLOW METAL;MaterialMetalHollow [MATT:F402295C];;;;;
+;;;;;;;;;;;LUNCHBOX;MaterialMetalLunchbox [MATT:F41F4AC6];;;;;
+;;;;;;;;;;;METAL;Material_Metal [MATT:F40223D1];;;;;
+;;;;;;;;;;;ORGANIC;Material_Organic [MATT:F4012F3D];;;;;
+;;;;;;;;;;;PISTOL;MaterialWeaponPistol [MATT:F4022961];;;;;
+;;;;;;;;;;;RIFLE;MaterialWeaponRifle [MATT:F4022962];;;;;
+;;;;;;;;;;;RUBER BALL;MaterialRubberBall [MATT:F423E77C];;;;;
+;;;;;;;;;;;SAND;MaterialDirtlSand [MATT:F4012F3E];;;;;
+;;;;;;;;;;;SHEET METAL;MaterialMetalLight [MATT:F40624B4];;;;;
+;;;;;;;;;;;SHOPPING CART;MaterialMetalShoppingCart [MATT:F41E4AAC];;;;;
+;;;;;;;;;;;SKIN;MaterialOrganicSkin [MATT:F4012F3F];;;;;
+;;;;;;;;;;;SNOW;;;;;;
+;;;;;;;;;;;SODA CAN;MaterialMetalCanTin [MATT:F40A7C38];;;;;
+;;;;;;;;;;;STONE;Material_Stone [MATT:F4012F34];;;;;
+;;;;;;;;;;;VEHILCE BODY;;;;;;
+;;;;;;;;;;;VEHILCE PART HOLLOW;;;;;;
+;;;;;;;;;;;VEHILCE PART SOLID;;;;;;
+;;;;;;;;;;;WATER;Material_Water [MATT:F4012F40];;;;;
+;;;;;;;;;;;WOOD;Material_Wood [MATT:F4043DCC];;;;;

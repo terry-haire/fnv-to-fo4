@@ -1,0 +1,57 @@
+global SpreadSheet_Property_Editing = #(
+#("Object", "Object", " ", " ", 120, false),
+#("Type", "-Type-", "type", "Name", 70, true),
+#("On", "<On>", "on", "BooleanClass", 40, true),
+#("Color", "<color>", "color", "Color", 70, true),
+#("HotSpot", "<hotSpot>", "hotSpot", "Float", 50, true),
+#("Falloff", "<Falloff>", "falloff", "Float", 50, true),
+#("ShowCone", "<ShowCone>", "showCone", "BooleanClass", 70, true),
+
+#("CastShadows", "<CastShadows>", "baseobject.castShadows", "BooleanClass", 70, true),
+#("ShadowGenerator", "<ShadowGenerator>", "shadowGenerator", "ShadowGenerator", 80, true),
+
+#("MapSize", "<MapSize>", "mapsize", "Integer", 60, true),
+#("SampleRange", "<SampleRange>", "samplerange", "Float", 60, true),
+#("MapBias", "<MapBias>", "mapbias", "Float", 60, true),
+#("AbsMapBias", "<AbsMapBias>", "absoluteMapBias", "BooleanClass", 70, true),
+
+#("useShadowProjectorMap", "<useShadowProjectorMap>", "useShadowProjectorMap", "BooleanClass", 70, true),
+
+#("atmosShadows", "<atmosShadows>", "atmosShadows", "BooleanClass", 70, true),
+#("atmosOpacity", "<atmosOpacity>", "atmosOpacity", "Float", 70, true),
+#("atmosColorAmt", "<atmosColorAmt>", "atmosColorAmt", "Float", 70, true),
+#("shadowMultiplier", "<shadowMultiplier>", "shadowMultiplier", "Float", 70, true),
+#("shadowColorMapEnable", "<shadowColorMapEnable>", "shadowColorMapEnable", "BooleanClass", 70, true),
+#("shadowColor", "<shadowColor>", "shadowColor", "Color", 70, true),
+#("lightAffectsShadow", "<lightAffectsShadow>", "lightAffectsShadow", "BooleanClass", 70, true),
+#("useGlobalShadowSettings", "<useGlobalShadowSettings>", "useGlobalShadowSettings", "BooleanClass", 70, true),
+#("shadowProjectorMap", "<shadowProjectorMap>", "shadowProjectorMap", "UndefinedClass", 70, true),
+#("twoSidedShadows", "<twoSidedShadows>", "twoSidedShadows", "BooleanClass", 70, true),
+#("shadow_Transparent", "<shadow_Transparent>", "shadow_Transparent", "BooleanClass", 70, true),
+#("Shadow_Integrity", "<Shadow_Integrity>", "Shadow_Integrity", "Integer", 70, true),
+#("Shadow_Quality", "<Shadow_Quality>", "Shadow_Quality", "Integer", 70, true),
+#("Shadow_Bias", "<Shadow_Bias>", "Shadow_Bias", "Float", 70, true),
+#("Shadow_Density", "<Shadow_Density>", "Shadow_Density", "Float", 70, true),
+#("Shadow_Color", "<Shadow_Color>", "Shadow_Color", "Color", 70, true),
+
+#("shadow_Mode", "<shadow_Mode>", "shadow_Mode", "Integer", 70, true),
+#("pass1", "<pass1>", "pass1", "Integer", 70, true),
+#("pass2", "<pass2>", "pass2", "Integer", 70, true),
+#("ray_bias", "<ray_bias>", "ray_bias", "Float", 70, true),
+#("blur", "<blur>", "blur", "Float", 70, true),
+#("aa_threshold", "<aa_threshold>", "aa_threshold", "Color", 70, true),
+#("skip_coplanar", "<skip_coplanar>", "skip_coplanar", "BooleanClass", 70, true),
+#("coplanar_threshold", "<coplanar_threshold>", "coplanar_threshold", "Float", 70, true),
+#("Jitter_Amount", "<Jitter_Amount>", "Jitter_Amount", "Float", 70, true),
+#("Transparent_Shadows", "<Transparent_Shadows>", "Transparent_Shadows", "BooleanClass", 70, true),
+#("Suppress_Supersampling", "<Suppress_Supersampling>", "Suppress_Supersampling", "BooleanClass", 70, true),
+
+#("excludeList", "<excludeList>", "excludeList", "Array", 70, false),
+#("includeList", "<includeList>", "includeList", "UndefinedClass", 70, false),
+#("inclExclType", "<inclExclType>", "inclExclType", "Integer", 70, true),
+
+#("Atmospheric_Opacity", "<Atmospheric_Opacity>", "Atmospheric_Opacity", "Float", 70, true),
+#("Atmospheric_Color_Amount", "<Atmospheric_Color_Amount>", "Atmospheric_Color_Amount", "Float", 70, true)
+)
+
+spreadsheet_editor_rollout.EnableFilter ((GetDir #maxroot)+"/Scripts/SpreadSheet/Filters/Lights.filter") 

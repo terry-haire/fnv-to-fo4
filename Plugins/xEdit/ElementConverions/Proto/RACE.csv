@@ -1,0 +1,191 @@
+Notes;Elementpathstring;Correct Tree?;Correct Tree On Specific Value?;Ignore On These Signatures (Seperated By '/');Only Use On These Signatures(Seperated By '/');New Record;Record Signature;Part of Single Record;Old Value And Old Index need to match?;New Path or New Order;Old Value;New Value;Old Index;New Index;Replace Any Value?;Replace Any Index?;Is Flag?;;
+Identifier;slSingleValues;;;;;slNewRec;slNewRecSig;slSingleRec;slOldNewValMatch;slNewPathorOrder;slOldVal;slNewVal;slOldIndex;slNewIndex;slReplaceAnyVal;slReplaceAnyIndex;slIsFlag;;
+Column Notes;Main identifier single value;Single Value;Single Value;Single Value;Single Value;Multiple Values;Multiple values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;;
+;Record Header\Record Flags\Form initialized (Runtime only);;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Deleted;;;;;;;;;Record Header\Record Flags\Deleted;;;;6;;;TRUE;;
+;Record Header\Record Flags\Border Region / Has Tree LOD / Constant / Hidden From Local Map / Plugin Endian;;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Turn Off Fire;;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Inaccessible;;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Casts shadows / On Local Map / Motion Blur;;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Quest item / Persistent reference;;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Initially disabled;;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Ignored;;;;;;;;;Record Header\Record Flags\Ignored;;;;13;;;TRUE;;
+;Record Header\Record Flags\No Voice Filter;;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Cannot Save (Runtime only);;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Visible when distant;;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Random Anim Start / High Priority LOD;;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Dangerous / Off limits (Interior cell) / Radio Station (Talking Activator);;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Compressed;;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Can't wait / Platform Specific Texture / Dead;;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Unknown 21;;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Load Started (Runtime Only);;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Unknown 23;;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Unknown 24;;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Destructible (Runtime only);;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Obstacle / No AI Acquire;;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\NavMesh Generation - Filter;;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\NavMesh Generation - Bounding Box;;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Non-Pipboy / Reflected by Auto Water;;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Child Can Use / Refracted by Auto Water;;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\NavMesh Generation - Ground;;;;;;;;;;;;;;;;;;
+;Record Header\Record Flags\Multibound;;;;;;;;;;;;;;;;;;
+;Relations;;;;;;;;;;;;;;;;;;
+;Relations\XNAM;;;;;;;;;;;;;;;;;;
+;Relations\XNAM\Faction;;;;;;;;;;;;;;;;;;
+;Relations\XNAM\Modifier;;;;;;;;;;;;;;;;;;
+;Relations\XNAM\Group Combat Reaction;;;;;;;;;;;;;;;;;;
+;DATA;;;;;;;;;;;;;;;;;;
+;DATA\Skill Boosts;;;;;;;;;;;;;;;;;;
+;DATA\Skill Boosts\Skill Boost;;;;;;;;;;;;;;;;;;
+;DATA\Skill Boosts\Skill Boost\Skill;;;;;;;;;;;;;;;;;;
+;DATA\Skill Boosts\Skill Boost\Boost;;;;;;;;;;;;;;;;;;
+;DATA\Unused;;;;;;;;;;;;;;;;;;
+;DATA\Male Weight;;;;;;;;;DATA\Male Default Weight;;;;;;;;4;DATA\Flags\Tilt Front/Back
+;;;;;;;;;;DATA\Male Default Weight\Thin;;;;;;;;;
+;;;;;;;;;;DATA\Male Default Weight\Muscular;;;;;;;;;
+;;;;;;;;;;DATA\Male Default Weight\Fat;;;;;;;;;
+;;;;;;;;;;DATA\Male Default Weight;;;;;;;;;
+;DATA\Female Weight;;;;;;;;;DATA\Female Default Weight;;;;;;;;5;DATA\Flags\Tilt Left/Right
+;;;;;;;;;;DATA\Female Default Weight\Thin;;;;;;;;;
+;;;;;;;;;;DATA\Female Default Weight\Muscular;;;;;;;;;
+;;;;;;;;;;DATA\Female Default Weight\Fat;;;;;;;;;
+;;;;;;;;;;DATA\Female Default Weight;;;;;;;;;
+;DATA\Flags;;;;;;;;;DATA\Flags;;0;;;TRUE;;;6;DATA\Flags\No Shadow
+;DATA\Flags\Playable;;;;;;;;;DATA\Flags\Playable;;;;1;;;TRUE;7;DATA\Flags\Swims
+;DATA\Flags\Child;;;;;;;;;DATA\Flags\Child;;;;3;;;TRUE;8;DATA\Flags\Flies
+;ONAM;;;;;;;;;;;;;;;;;9;DATA\Flags\Walks
+;YNAM;;;;;;;;;;;;;;;;;10;DATA\Flags\Immobile
+;NAM2;;;;;;;;;;;;;;;;;11;DATA\Flags\Not Pushable
+;VTCK;;;;;;;;;VTCK;;;;;;;;12;DATA\Flags\No Combat In Water
+;VTCK\Voice #0 (Male);;;;;;;;;VTCK\Voice #0 (Male);;;;;;;;13;DATA\Flags\No Rotating to Head-Track
+;VTCK\Voice #1 (Female);;;;;;;;;VTCK\Voice #1 (Female);;;;;;;;14;DATA\Flags\Don't Show Blood Spray
+;DNAM;;;;;;;;;;;;;;;;;15;DATA\Flags\Don't Show Blood Decal
+;DNAM\Default Hair Style #0 (Male);;;;;;;;;;;;;;;;;16;DATA\Flags\Uses Head Track Anims
+;DNAM\Default Hair Style #1 (Female);;;;;;;;;;;;;;;;;17;DATA\Flags\Spells Align w/Magic Node
+;CNAM;;;;;;;;;;;;;;;;;18;DATA\Flags\Use World Raycasts For FootIK
+;CNAM\Default Hair Color #0 (Male);;;;;;;;;;;;;;;;;19;DATA\Flags\Allow Ragdoll Collision
+;CNAM\Default Hair Color #1 (Female);;;;;;;;;;;;;;;;;20;DATA\Flags\Regen HP In Combat
+;PNAM;;;;;;;;;;;;;;;;;21;DATA\Flags\Can't Open Doors
+;UNAM;;;;;;;;;;;;;;;;;22;DATA\Flags\Allow PC Dialogue
+;ATTR;;;;;;;;;;;;;;;;;23;DATA\Flags\No Knockdowns
+;Head Data;;;;;;;;;;;;;;;;;24;DATA\Flags\Allow Pickpocket
+;Head Data\NAM0;;;;;;;;;;;;;;;;;25;DATA\Flags\Always Use Proxy Controller
+;Head Data\Male Head Data;;;;;;;;;;;;;;;;;26;DATA\Flags\Don't Show Weapon Blood
+;Head Data\Male Head Data\MNAM;;;;;;;;;;;;;;;;;27;DATA\Flags\Overlay Head Part List
+;Head Data\Male Head Data\Parts;;;;;;;;;Male Head Parts;;;;;;;;28;DATA\Flags\Override Head Part List
+;Head Data\Male Head Data\Parts\Part;;;;;;;;;Male Head Parts\Head Part;;;;;;;;29;DATA\Flags\Can Pickup Items
+;Head Data\Male Head Data\Parts\Part\INDX;;;;;;;;;Male Head Parts\Head Part\INDX;Ears;;;;;;;30;DATA\Flags\Allow Multiple Membrane Shaders
+;;;;;;;;;;;Head;;;;;;;;
+;;;;;;;;;;;Left Eye;;;;;;;;
+;;;;;;;;;;;Mouth;;;;;;;;
+;;;;;;;;;;;Right Eye;;;;;;;;
+;;;;;;;;;;;Teeth Lower;;;;;;;;
+;;;;;;;;;;;Teeth Upper;;;;;;;;
+;;;;;;;;;;;Tongue;;;;;;;;
+;Head Data\Male Head Data\Parts\Part\Model;;;;;;;;;;;;;;;;;31;DATA\Flags\Can Dual Wield
+;Head Data\Male Head Data\Parts\Part\Model\MODL;;;;;;;;;;File;File;;;;;;32;DATA\Flags\Avoids Roads
+;Head Data\Male Head Data\Parts\Part\Model\MODB;;;;;;;;;;;;;;;;;;
+;Head Data\Male Head Data\Parts\Part\Model\MODT;;;;;;;;;;;;;;;;;;
+;Head Data\Male Head Data\Parts\Part\Model\MODS;;;;;;;;;;;;;;;;;;
+;Head Data\Male Head Data\Parts\Part\Model\MODS\Alternate Texture;;;;;;;;;;;;;;;;;;
+;Head Data\Male Head Data\Parts\Part\Model\MODS\Alternate Texture\3D Name;;;;;;;;;;;;;;;;;;
+;Head Data\Male Head Data\Parts\Part\Model\MODS\Alternate Texture\New Texture;;;;;;;;;;;;;;;;;;
+;Head Data\Male Head Data\Parts\Part\Model\MODS\Alternate Texture\3D Index;;;;;;;;;;;;;;;;;;
+;Head Data\Male Head Data\Parts\Part\Model\MODD;;;;;;;;;;;;;;;;;;
+;Head Data\Male Head Data\Parts\Part\Model\MODD\Head;;;;;;;;;;;;;;;;;;
+;Head Data\Male Head Data\Parts\Part\Model\MODD\Torso;;;;;;;;;;;;;;;;;;
+;Head Data\Male Head Data\Parts\Part\Model\MODD\Right Hand;;;;;;;;;;;;;;;;;;
+;Head Data\Male Head Data\Parts\Part\Model\MODD\Left Hand;;;;;;;;;;;;;;;;;;
+;Head Data\Male Head Data\Parts\Part\Icon;;;;;;;;;;;;;;;;;;
+;Head Data\Male Head Data\Parts\Part\Icon\ICON;;;;;;;;;;File;File;;;;;;;
+;Head Data\Male Head Data\Parts\Part\Icon\MICO;;;;;;;;;;;;;;;;;;
+;Head Data\Female Head Data;;;;;;;;;;;;;;;;;;
+;Head Data\Female Head Data\FNAM;;;;;;;;;;;;;;;;;;
+;Head Data\Female Head Data\Parts;;;;;;;;;Female Head Parts;;;;;;;;;
+;Head Data\Female Head Data\Parts\Part;;;;;;;;;Female Head Parts\Head Part;;;;;;;;;
+;Head Data\Female Head Data\Parts\Part\INDX;;;;;;;;;Female Head Parts\Head Part\INDX;Ears;;;;;;;;
+;;;;;;;;;;;Head;;;;;;;;
+;;;;;;;;;;;Left Eye;;;;;;;;
+;;;;;;;;;;;Mouth;;;;;;;;
+;;;;;;;;;;;Right Eye;;;;;;;;
+;;;;;;;;;;;Teeth Lower;;;;;;;;
+;;;;;;;;;;;Teeth Upper;;;;;;;;
+;;;;;;;;;;;Tongue;;;;;;;;
+;Head Data\Female Head Data\Parts\Part\Model;;;;;;;;;;;;;;;;;;
+;Head Data\Female Head Data\Parts\Part\Model\MODL;;;;;;;;;;File;File;;;;;;;
+;Head Data\Female Head Data\Parts\Part\Model\MODB;;;;;;;;;;;;;;;;;;
+;Head Data\Female Head Data\Parts\Part\Model\MODT;;;;;;;;;;;;;;;;;;
+;Head Data\Female Head Data\Parts\Part\Model\MODS;;;;;;;;;;;;;;;;;;
+;Head Data\Female Head Data\Parts\Part\Model\MODS\Alternate Texture;;;;;;;;;;;;;;;;;;
+;Head Data\Female Head Data\Parts\Part\Model\MODS\Alternate Texture\3D Name;;;;;;;;;;;;;;;;;;
+;Head Data\Female Head Data\Parts\Part\Model\MODS\Alternate Texture\New Texture;;;;;;;;;;;;;;;;;;
+;Head Data\Female Head Data\Parts\Part\Model\MODS\Alternate Texture\3D Index;;;;;;;;;;;;;;;;;;
+;Head Data\Female Head Data\Parts\Part\Model\MODD;;;;;;;;;;;;;;;;;;
+;Head Data\Female Head Data\Parts\Part\Model\MODD\Head;;;;;;;;;;;;;;;;;;
+;Head Data\Female Head Data\Parts\Part\Model\MODD\Torso;;;;;;;;;;;;;;;;;;
+;Head Data\Female Head Data\Parts\Part\Model\MODD\Right Hand;;;;;;;;;;;;;;;;;;
+;Head Data\Female Head Data\Parts\Part\Model\MODD\Left Hand;;;;;;;;;;;;;;;;;;
+;Head Data\Female Head Data\Parts\Part\Icon;;;;;;;;;;;;;;;;;;
+;Head Data\Female Head Data\Parts\Part\Icon\ICON;;;;;;;;;;File;File;;;;;;;
+;Head Data\Female Head Data\Parts\Part\Icon\MICO;;;;;;;;;;;;;;;;;;
+;Body Data;;;;;;;;;;;;;;;;;;
+;Body Data\NAM1;;;;;;;;;;;;;;;;;;
+;Body Data\Male Body Data\Parts\Part\INDX;;;;;;;;;Body Data\Male Body Data\Parts\Part\INDX;Left Hand;;;;;;;;
+;;;;;;;;;;;Right Hand;;;;;;;;
+;;;;;;;;;;;Upper Body;;;;;;;;
+;;;;;;;;;;;Upper Body Texture;Body Texture;;;;;;;
+;Body Data\Male Body Data\Parts\Part\Icon;;;;;;;;;;;;;;;;;;
+;Body Data\Male Body Data\Parts\Part\Icon\ICON;;;;;;;;;;File;File;;;;;;;
+;Body Data\Male Body Data\Parts\Part\Icon\MICO;;;;;;;;;;;;;;;;;;
+;Body Data\Male Body Data\Parts\Part\Model;;;;;;;;;Body Data\Male Body Data\Parts\Part\Model;;;;1;;;;;
+;Body Data\Male Body Data\Parts\Part\Model\MODL;;;;;;;;;Body Data\Male Body Data\Parts\Part\Model\MODL;File;File;;;;;;;
+;Body Data\Male Body Data\Parts\Part\Model\MODB;;;;;;;;;;;;;;;;;;
+;Body Data\Male Body Data\Parts\Part\Model\MODS;;;;;;;;;;;;;;;;;;
+;Body Data\Male Body Data\Parts\Part\Model\MODS\Alternate Texture;;;;;;;;;;;;;;;;;;
+;Body Data\Male Body Data\Parts\Part\Model\MODS\Alternate Texture\3D Name;;;;;;;;;;;;;;;;;;
+;Body Data\Male Body Data\Parts\Part\Model\MODS\Alternate Texture\New Texture;;;;;;;;;;;;;;;;;;
+;Body Data\Male Body Data\Parts\Part\Model\MODS\Alternate Texture\3D Index;;;;;;;;;;;;;;;;;;
+;Body Data\Male Body Data\Parts\Part\Model\MODD;;;;;;;;;;;;;;;;;;
+;Body Data\Male Body Data\Parts\Part\Model\MODD\Head;;;;;;;;;;;;;;;;;;
+;Body Data\Male Body Data\Parts\Part\Model\MODD\Torso;;;;;;;;;;;;;;;;;;
+;Body Data\Male Body Data\Parts\Part\Model\MODD\Right Hand;;;;;;;;;;;;;;;;;;
+;Body Data\Male Body Data\Parts\Part\Model\MODD\Left Hand;;;;;;;;;;;;;;;;;;
+;Body Data\Female Body Data\Parts\Part\INDX;;;;;;;;;Body Data\Female Body Data\Parts\Part\INDX;Left Hand;;;;;;;;
+;;;;;;;;;;;Right Hand;;;;;;;;
+;;;;;;;;;;;Upper Body;;;;;;;;
+;;;;;;;;;;;Upper Body Texture;Body Texture;;;;;;;
+;Body Data\Female Body Data\Parts\Part\Icon;;;;;;;;;;;;;;;;;;
+;Body Data\Female Body Data\Parts\Part\Icon\ICON;;;;;;;;;;;;;;;;;;
+;Body Data\Female Body Data\Parts\Part\Icon\MICO;;;;;;;;;;;;;;;;;;
+;Body Data\Female Body Data\Parts\Part\Model;;;;;;;;;Body Data\Female Body Data\Parts\Part\Model;;;;1;;;;;
+;Body Data\Female Body Data\Parts\Part\Model\MODL;;;;;;;;;Body Data\Female Body Data\Parts\Part\Model\MODL;File;File;;;;;;;
+;Body Data\Female Body Data\Parts\Part\Model\MODB;;;;;;;;;;;;;;;;;;
+;Body Data\Female Body Data\Parts\Part\Model\MODS;;;;;;;;;;;;;;;;;;
+;Body Data\Female Body Data\Parts\Part\Model\MODS\Alternate Texture;;;;;;;;;;;;;;;;;;
+;Body Data\Female Body Data\Parts\Part\Model\MODS\Alternate Texture\3D Name;;;;;;;;;;;;;;;;;;
+;Body Data\Female Body Data\Parts\Part\Model\MODS\Alternate Texture\New Texture;;;;;;;;;;;;;;;;;;
+;Body Data\Female Body Data\Parts\Part\Model\MODS\Alternate Texture\3D Index;;;;;;;;;;;;;;;;;;
+;Body Data\Female Body Data\Parts\Part\Model\MODD;;;;;;;;;;;;;;;;;;
+;Body Data\Female Body Data\Parts\Part\Model\MODD\Head;;;;;;;;;;;;;;;;;;
+;Body Data\Female Body Data\Parts\Part\Model\MODD\Torso;;;;;;;;;;;;;;;;;;
+;Body Data\Female Body Data\Parts\Part\Model\MODD\Right Hand;;;;;;;;;;;;;;;;;;
+;Body Data\Female Body Data\Parts\Part\Model\MODD\Left Hand;;;;;;;;;;;;;;;;;;
+;HNAM;;;;;;;;;;;;;;;;;;
+In Head Parts HEAD;HNAM\Hair;;;;;;;;;;;;;;;;;;
+;ENAM;;;;;;;;;;;;;;;;;;
+In Head Parts HEAD;ENAM\Eye;;;;;;;;;;;;;;;;;;
+;FaceGen Data;;;;;;;;;;;;;;;;;;
+;FaceGen Data\Male FaceGen Data;;;;;;;;;;;;;;;;;;
+;FaceGen Data\Male FaceGen Data\MNAM;;;;;;;;;;;;;;;;;;
+;FaceGen Data\Male FaceGen Data\FaceGen Data;;;;;;;;;;;;;;;;;;
+;FaceGen Data\Male FaceGen Data\FaceGen Data\FGGS;;;;;;;;;;;;;;;;;;
+;FaceGen Data\Male FaceGen Data\FaceGen Data\FGGA;;;;;;;;;;;;;;;;;;
+;FaceGen Data\Male FaceGen Data\FaceGen Data\FGTS;;;;;;;;;;;;;;;;;;
+;FaceGen Data\Male FaceGen Data\SNAM;;;;;;;;;;;;;;;;;;
+;FaceGen Data\Female FaceGen Data;;;;;;;;;;;;;;;;;;
+;FaceGen Data\Female FaceGen Data\FNAM;;;;;;;;;;;;;;;;;;
+;FaceGen Data\Female FaceGen Data\FaceGen Data;;;;;;;;;;;;;;;;;;
+;FaceGen Data\Female FaceGen Data\FaceGen Data\FGGS;;;;;;;;;;;;;;;;;;
+;FaceGen Data\Female FaceGen Data\FaceGen Data\FGGA;;;;;;;;;;;;;;;;;;
+;FaceGen Data\Female FaceGen Data\FaceGen Data\FGTS;;;;;;;;;;;;;;;;;;
+;FaceGen Data\Female FaceGen Data\SNAM;;;;;;;;;;;;;;;;;;

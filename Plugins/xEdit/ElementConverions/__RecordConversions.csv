@@ -1,0 +1,166 @@
+FalloutNV;Fallout4;Complete?;Complete Confirmed?;Flags Complete?;Notes
+;AACT;;;;
+ACHR;ACHR;;;;
+ACRE;ACHR;;;;Only Difference between ACRE AND ACHR In FNV is ACRE contains Ownership element while ACHR does not
+ACTI;ACTI;Y;;;Fails on SCRI, Persistent flag missing in fo4 which is individually fixed. INAM - Radio Template missing from fo4.
+ADDN;ADDN;Y;;;
+;AECH;;;;
+ALCH;ALCH;Y;;;
+ALOC;;;;;Media Location Controller
+;AMDL;;;;
+AMEF;;;;;Probably have to incorporate into WEAP
+AMMO;AMMO;;;;No ICON in FO4. DATA\Speed, DATA\Flags, stored in PROJ - Projectile or mayba WEAP DNAM.  DATA\Clip Rounds, stored in WEAP DNAM\Capacity. cant find Proj. per Shot. Needs to be after MISC so Shell casings can be added
+ANIO;ANIO;;;;DATA - Animation not Included in FO4. FO4 adds BNAM - Unload Event
+;AORU;;;;
+ARMA;ARMA;;;;
+ARMO;ARMO;;;;
+;ARTO;;;;
+ASPC;ASPC;Y;;;
+;ASTP;;;;
+AVIF;AVIF;Y;;;No Icon in FO4
+;BNDS;;;;
+BOOK;BOOK;Y;;;
+BPTD;BPTD;;;;Body Part Data Probably not needed
+CAMS;CAMS;;;;Camera Shot Probably not needed
+CCRD;;;;;Part of Caravan Game, Probably have to remove from game
+CDCK;;;;;Part of Caravan Game, Probably have to remove from game
+CELL;CELL;Y;;;
+CHAL;;;;;Challenge might have to remove
+CHIP;;;;;Casino Chip ignore for now
+CLAS;CLAS;Y;;;Class
+;CLFM;;;;
+CLMT;CLMT;Y;;;
+CMNY;;;;;Caravan money prob remove
+;CMPO;;;;
+;COBJ;;;;
+;COLL;;;;
+CONT;CONT;Y;;;
+CPTH;CPTH;;;;Camera Path prob not needed
+CREA;NPC_;;;;Missing elements from CREA in _NPC: EITM - Unarmed Attack Effect, EAMT - Unarmed Attack Animation, NIFZ - Model List, RNAM - Attack Reach, PNAM - Body Part Data, TNAM - Turning Speed, BNAM - Base Scale, WNAM - Foot Weight, NAM5 Sound level, CSCR - Inherits sounds from, Sound Types CNAM - Impact Dataset, LNAM - Melee weapon list
+CSNO;;;;;Casino Ignore for now
+CSTY;CSTY;;;;
+DEBR;DEBR;;;;
+DEHY;;;;;Dehydration remove
+;DFOB;;;;
+DIAL;;;;;Temp Removed Would be DIAL
+;DLBR;;;;
+;DLVW;;;;
+;DMGT;;;;
+DOBJ;;;;;Temp Removed Would be DOBJ
+DOOR;DOOR;;;;
+ECZN;ECZN;;;;
+EFSH;EFSH;;;;
+ENCH;ENCH;;;;
+;EQUP;;;;
+EXPL;EXPL;;;;
+EYES;;;;;Eyes remove
+FACT;FACT;;;;
+;FLOR;;;;
+FLST;FLST;;;;
+;FSTP;;;;
+;FSTS;;;;
+FURN;FURN;;;;
+;GDRY;;;;
+GLOB;GLOB;;;;
+GMST;GMST;;;;
+GRAS;GRAS;;;;
+HAIR;;;;;Hair Remove
+;HAZD;;;;
+HDPT;HDPT;;;;
+HUNG;;;;;Hunger Stage Remove
+IDLE;IDLE;;;;
+IDLM;IDLM;;;;
+IMAD;IMAD;;;;
+IMGS;IMGS;;;;
+IMOD;;;;;Item Mod Remove
+INFO;;;;;Temp Removed Would be INFO
+INGR;INGR;;;;
+;INNR;;;;
+IPCT;IPCT;;;;
+IPDS;IPDS;;;;
+KEYM;KEYM;;;;
+;KSSM;;;;
+;KYWD;;;;
+LAND;LAND;;;;
+;LAYR;;;;
+;LCRT;;;;
+;LCTN;;;;
+;LENS;;;;
+LGTM;LGTM;;;;
+LIGH;LIGH;;;;
+LSCR;;;;;LSCR Prob remove
+LSCT;;;;;Load Screen type remove
+LTEX;LTEX;;;;
+LVLC;LVLN;;;;Leveled Creature Exact match for FNV
+LVLI;LVLI;;;;
+LVLN;LVLN;;;;
+;MATO;;;;
+;MATT;;;;
+MESG;MESG;;;;
+MGEF;MGEF;;;;
+MICN;;;;;Menu Icon unsure
+MISC;MISC;;;;
+;MOVT;;;;
+MSET;;;;;Media Set
+MSTT;MSTT;;;;
+;MSWP;;;;
+MUSC;;;;;Temp Removed Would be MUSC
+;MUST;;;;
+NAVI;;;;;Temp Removed Would be NAVI
+NAVM;NAVM;;;;
+;NOCM;;;;
+NOTE;NOTE;;;;
+NPC_;NPC_;;;;
+;OMOD;;;;
+;OTFT;;;;
+;OVIS;;;;
+PACK;PACK;;;;
+PERK;PERK;;;;
+PGRE;PGRE;;;;
+;PHZD;;;;
+;PKIN;;;;
+;PMIS;;;;
+PROJ;PROJ;;;;
+PWAT;;;;;Placable Water
+QUST;QUST;;;;
+RACE;RACE;;;;Skip for now would be RACE
+RADS;;;;;Radiation stage Remove
+RCCT;;;;;Recipe Category Remove
+RCPE;;;;;Recipe Remove
+REFR;REFR;;;;
+REGN;REGN;;;;
+;RELA;;;;
+REPU;;;;;Reputation Retarget
+;REVB;;;;
+RGDL;;;;;Ragdoll Remve
+;RFCT;;;;
+;RFGP;;;;
+;SCCO;;;;
+;SCEN;;;;
+SCOL;SCOL;;;;
+SCPT;;;;;Script Retarget
+;SCSN;;;;
+SLPD;;;;;Sleep deprivation stage Retarget
+;SMBN;;;;
+;SMEN;;;;
+;SMQN;;;;
+;SNCT;;;;
+;SNDR;;;;
+;SOPM;;;;
+SOUN;SNDR;;;;Split into 4 records in fo4. references should go to SNDR
+SPEL;SPEL;;;;
+;SPGD;;;;
+;STAG;;;;
+STAT;STAT;Y;;;
+TACT;TACT;;;;
+TERM;TERM;;;;
+TES4;;;;;Temp Removed
+TREE;TREE;;;;
+;TRNS;;;;
+TXST;TXST;;;;
+VTYP;VTYP;;;;
+WATR;WATR;;;;
+WEAP;WEAP;;;;
+WRLD;WRLD;;;;
+WTHR;WTHR;;;;Temp Removed
+;ZOOM;;;;

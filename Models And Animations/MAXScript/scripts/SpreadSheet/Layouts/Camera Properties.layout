@@ -1,0 +1,25 @@
+global SpreadSheet_Property_Editing = #(
+#("Object", "Object", " ", " ", 120, false),
+#("type", "<type>", "type", "Name", 70, true),
+#("showCone", "<showCone>", "showCone", "BooleanClass", 70, true),
+#("fov", "<fov>", "fov", "Float", 70, true),
+#("nearrange", "<nearrange>", "nearrange", "Float", 70, true),
+#("farrange", "<farrange>", "farrange", "Float", 70, true),
+#("nearclip", "<nearclip>", "nearclip", "Float", 70, true),
+#("near_clip", "<near_clip>", "near_clip", "Float", 70, true),
+#("farclip", "<farclip>", "farclip", "Float", 70, true),
+#("far_clip", "<far_clip>", "far_clip", "Float", 70, true),
+#("mpassEnabled", "<mpassEnabled>", "mpassEnabled", "BooleanClass", 70, true),
+#("mpassRenderPerPass", "<mpassRenderPerPass>", "mpassRenderPerPass", "BooleanClass", 70, true),
+#("orthoProjection", "<orthoProjection>", "orthoProjection", "BooleanClass", 70, true),
+#("showHorizon", "<showHorizon>", "showHorizon", "BooleanClass", 70, true),
+#("showRanges", "<showRanges>", "showRanges", "BooleanClass", 70, true),
+#("clipManually", "<clipManually>", "clipManually", "BooleanClass", 70, true),
+#("mpassEffect", "<mpassEffect>", "mpassEffect", "Depth_of_FieldMPassCamEffect", 70, true),
+#("MultiPass_Effect", "<MultiPass_Effect>", "MultiPass_Effect", "SubAnim", 70, true),
+#("targetDistance", "<targetDistance>", "targetDistance", "UndefinedClass", 70, true)
+)
+
+
+spreadsheet_editor_rollout.EnableFilter ((GetDir #maxroot)+"/Scripts/SpreadSheet/Filters/Cameras.filter") 
+

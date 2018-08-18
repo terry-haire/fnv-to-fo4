@@ -1,0 +1,26 @@
+Notes;Elementpathstring;Correct Tree?;Correct Tree On Specific Value?;Ignore On These Signatures (Seperated By '/');Only Use On These Signatures(Seperated By '/');New Record;Record Signature;Part of Single Record;Old Value And Old Index need to match?;New Path or New Order;Old Value;New Value;Old Index;New Index;Replace Any Value?;Replace Any Index?;Is Flag?
+Identifier;slSingleValues;;;;;slNewRec;slNewRecSig;slSingleRec;slOldNewValMatch;slNewPathorOrder;slOldVal;slNewVal;slOldIndex;slNewIndex;slReplaceAnyVal;slReplaceAnyIndex;slIsFlag
+Column Notes;Main identifier single value;Single Value;Single Value;Single Value;Single Value;Multiple Values;Multiple values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values
+;DATA\Flags;;;;;;;;;DATA\Flags;;0;;;TRUE;;
+1;DATA\Flags\Position Follows Location;;;;;;;;;DATA\Flags\Position Follows Location;;;;1;;;TRUE
+2;DATA\Flags\Rotation Follows Target;;;;;;;;;DATA\Flags\Rotation Follows Target;;;;2;;;TRUE
+3;DATA\Flags\Don't Follow Bone;;;;;;;;;DATA\Flags\Don't Follow Bone;;;;3;;;TRUE
+4;DATA\Flags\First Person Camera;;;;;;;;;DATA\Flags\First Person Camera;;;;4;;;TRUE
+5;DATA\Flags\No Tracer;;;;;;;;;DATA\Flags\No Tracer;;;;5;;;TRUE
+6;DATA\Flags\Start At Time Zero;;;;;;;;;DATA\Flags\Start At Time Zero;;;;6;;;TRUE
+;Model;;;;;;;;;Model;;;;;;;
+;Model\MODL;;;;;;;;;Model\MODL;File;File;;;;;
+;Model\MODT;;;;;;;;;Model\MODT;;;;1;;;
+;Model\MODS;;;;;MSWP;;;;Return;;;;;;;
+;;;;;;Return;;;;Model\MODS;;;;2;;;
+;;;;;;MSWP;;;;Material Substitutions;;;;;;;
+;Model\MODS\Alternate Texture;;;;;MSWP;;;;Material Substitutions\Substitution;;;;;;;
+;Model\MODS\Alternate Texture\3D Name;;;;;MSWP;;;;Material Substitutions\Substitution\BNAM;;;;0;;;
+;Model\MODS\Alternate Texture\New Texture;;;;;MSWP;;;;Material Substitutions\Substitution\SNAM;;;;1;;;
+;Model\MODS\Alternate Texture\3D Index;;;;;;;;;;;;;;;;
+;Model\MODD;;;;;;;;;;;;;;;;
+;Model\MODD\Head;;;;;;;;;;;;;;;;
+;Model\MODD\Torso;;;;;;;;;;;;;;;;
+;Model\MODD\Right Hand;;;;;;;;;;;;;;;;
+;Model\MODD\Left Hand;;;;;;;;;;;;;;;;
+;Model\MODB;;;;;;;;;;;;;;;;

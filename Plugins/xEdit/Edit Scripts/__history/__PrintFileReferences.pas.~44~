@@ -1,0 +1,61 @@
+unit __PrintFileReferences;
+
+interface
+implementation
+uses xEditAPI, Classes, SysUtils, StrUtils, Windows; //Remove before use in xEdit
+
+var
+slReferences, slExtensions: TStringList;
+
+procedure RecursiveReferences(e: IInterface);
+var
+i, j: integer;
+ielement: IInterface;
+valuestr: String;
+begin
+	for i := 0 to (ElementCount(e)-1) do
+	begin
+		ielement := ElementByIndex(e, i);
+    valuestr := GetEditValue(ielement);
+    if ((Length(valuestr) > 4) AND (LastDelimiter('.', valuestr) <> 0))
+    for j := 0 to (slExtensions.Count - 1) do
+    begin
+      if Copy(valuestr, (Length(valuestr) - Length(slExtensions[j]) + 1), MaxInt) = slExtensions[j] then
+        slReferences.Add(valuestr);
+    end;
+		if ElementCount(ielement) > 0 then RecursiveReferences(ielement);
+	end;
+end;
+
+function Initialize: integer;
+begin
+  slReferences := TStringList.Create;
+  slExtensions := TStringList.Create;
+  slExtensions.LoadFromFile(ProgramPath + 'ElementConverions\' + '__FileExtensions.csv');
+	Result := 0;
+end;
+
+function Process(e: IInterface): integer;
+begin
+  RecursiveReferences(e);
+	Result := 0;
+end;
+
+function Finalize: integer;
+var
+filename: String;
+
+begin
+  filename := '__FileReferenceList.csv';
+  filename := ProgramPath + 'ElementConverions\' + filename;
+  if slReferences.Count > 1 then
+  begin
+    AddMessage('Saving ' + filename);
+    slReferences.SaveToFile(filename);
+  end;
+  slReferences.Free;
+  slExtensions.Free;
+	Result := 0;
+end;
+
+end.

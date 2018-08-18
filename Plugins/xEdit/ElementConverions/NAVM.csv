@@ -1,0 +1,20 @@
+Notes;Original Path;New Path;New Index(-1 = Unchanged);Replace Any Value?;Flag?;Original Value 1;New Value 1;Original Value 2;New Value 2; Original Value n...; New Value n...
+Version Probably dont need;NVER;;-1;FALSE;;;;;;;
+Gone;NVER;;-1;FALSE;;;;;;;
+Gone;DATA;;-1;FALSE;;;;;;;
+Gone;DATA\Cell;;-1;FALSE;;;;;;;
+Gone;DATA\Vertex Count;;-1;FALSE;;;;;;;
+Gone;DATA\Triangle Count;;-1;FALSE;;;;;;;
+Gone;DATA\External Connections Count;;-1;FALSE;;;;;;;
+Gone;DATA\NVCA Count;;-1;FALSE;;;;;;;
+Gone;DATA\Doors Count;;-1;FALSE;;;;;;;
+Vertices got combined with Triangles;NVVX;;-1;FALSE;;;;;;;
+Vertices got combined with Triangles;NVTR;;-1;FALSE;;;;;;;
+Gone;NVDP;;-1;FALSE;;;;;;;
+Gone;NVDP\Door #0;;-1;FALSE;;;;;;;
+Gone;NVDP\Door #0\Reference;;-1;FALSE;;;;;;;
+Gone;NVDP\Door #0\Triangle;;-1;FALSE;;;;;;;
+Gone;NVDP\Door #0\Unused;;-1;FALSE;;;;;;;
+Gone;NVGD;;-1;FALSE;;;;;;;
+Gone;NVEX;;-1;FALSE;;;;;;;
+Gone;NVCA;;-1;FALSE;;;;;;;

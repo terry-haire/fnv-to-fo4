@@ -1,0 +1,29 @@
+Notes;Original Path;New Path;New Index(-1 = Unchanged);Replace Any Value?;Flag?;Original Value 1;New Value 1;Original Value 2;New Value 2; Original Value n...; New Value n...;;;;;;;;;;;;;;;;
+Removed;DATA;;-1;FALSE;;;;;;;;;;;;;;;;;;;;;;;
+Might be in property actor values;DATA\Tag Skills;;-1;FALSE;;;;;;;;;;;;;;;;;;;;;;;
+Removed;DATA\Tag Skills\Tag Skill #0;;-1;FALSE;;;;;;;;;;;;;;;;;;;;;;;
+Removed;DATA\Tag Skills\Tag Skill #1;;-1;FALSE;;;;;;;;;;;;;;;;;;;;;;;
+Removed;DATA\Tag Skills\Tag Skill #2;;-1;FALSE;;;;;;;;;;;;;;;;;;;;;;;
+Removed;DATA\Tag Skills\Tag Skill #3;;-1;FALSE;;;;;;;;;;;;;;;;;;;;;;;
+Removed;DATA\Flags;;-1;FALSE;;;;;;;;;;;;;;;;;;;;;;;
+Removed;DATA\Flags\Playable;;-1;FALSE;;;;;;;;;;;;;;;;;;;;;;;
+Removed;DATA\Flags\Guard;;-1;FALSE;;;;;;;;;;;;;;;;;;;;;;;
+Removed;DATA\Buys/Sells and Services;;-1;FALSE;;;;;;;;;;;;;;;;;;;;;;;
+;DATA\Buys/Sells and Services\Food;;-1;FALSE;;;;;;;;;;;;;;;;;;;;;;;
+;DATA\Buys/Sells and Services\Armor;;-1;FALSE;;;;;;;;;;;;;;;;;;;;;;;
+;DATA\Buys/Sells and Services\Alcohol;;-1;FALSE;;;;;;;;;;;;;;;;;;;;;;;
+;DATA\Buys/Sells and Services\Weapons;;-1;FALSE;;;;;;;;;;;;;;;;;;;;;;;
+;DATA\Buys/Sells and Services\Books;;-1;FALSE;;;;;;;;;;;;;;;;;;;;;;;
+;DATA\Buys/Sells and Services\Miscellaneous;;-1;FALSE;;;;;;;;;;;;;;;;;;;;;;;
+;DATA\Buys/Sells and Services\Repair;;-1;FALSE;;;;;;;;;;;;;;;;;;;;;;;
+Removed;DATA\Teaches;;-1;FALSE;;;;;;;;;;;;;;;;;;;;;;;
+Removed;DATA\Maximum training level;;-1;FALSE;;;;;;;;;;;;;;;;;;;;;;;
+Removed;DATA\Unused;;-1;FALSE;;;;;;;;;;;;;;;;;;;;;;;
+Need To Add To List;ATTR;PRPS;-1;FALSE;;;;;;;;;;;;;;;;;;;;;;;
+;ATTR\Attribute #0 (Strength);PRPS\Property;-1;FALSE;;0;S0;1;S1;2;S2;3;S3;4;S4;5;S5;6;S6;7;S7;8;S8;9;S9;10;S10
+;ATTR\Attribute #1 (Perception);PRPS\Property;-1;FALSE;;0;P0;1;P1;2;P2;3;P3;4;P4;5;P5;6;P6;7;P7;8;P8;9;P9;10;P10
+;ATTR\Attribute #2 (Endurance);PRPS\Property;-1;FALSE;;0;E0;1;E1;2;E2;3;E3;4;E4;5;E5;6;E6;7;E7;8;E8;9;E9;10;E10
+;ATTR\Attribute #3 (Charisma);PRPS\Property;-1;FALSE;;0;C0;1;C1;2;C2;3;C3;4;C4;5;C5;6;C6;7;C7;8;C8;9;C9;10;C10
+;ATTR\Attribute #4 (Intelligence);PRPS\Property;-1;FALSE;;0;I0;1;I1;2;I2;3;I3;4;I4;5;I5;6;I6;7;I7;8;I8;9;I9;10;I10
+;ATTR\Attribute #5 (Agility);PRPS\Property;-1;FALSE;;0;A0;1;A1;2;A2;3;A3;4;A4;5;A5;6;A6;7;A7;8;A8;9;A9;10;A10
+;ATTR\Attribute #6 (Luck);PRPS\Property;-1;FALSE;;0;L0;1;L1;2;L2;3;L3;4;L4;5;L5;6;L6;7;L7;8;L8;9;L9;10;L10

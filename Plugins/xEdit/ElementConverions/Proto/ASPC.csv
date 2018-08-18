@@ -1,0 +1,35 @@
+Notes;Elementpathstring;Correct Tree?;Correct Tree On Specific Value?;Ignore On These Signatures (Seperated By '/');Only Use On These Signatures(Seperated By '/');New Record;Record Signature;Part of Single Record;Old Value And Old Index need to match?;New Path or New Order;Old Value;New Value;Old Index;New Index;Replace Any Value?;Replace Any Index?;Is Flag?
+Identifier;slSingleValues;;;;;slNewRec;slNewRecSig;slSingleRec;slOldNewValMatch;slNewPathorOrder;slOldVal;slNewVal;slOldIndex;slNewIndex;slReplaceAnyVal;slReplaceAnyIndex;slIsFlag
+Column Notes;Main identifier single value;Single Value;Single Value;Single Value;Single Value;Multiple Values;Multiple values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values;Multiple Values
+ANAM Renamed To BNAM which requires a REVB reference IntGenericBReverb and IntGenericCReverb also available. Needs work;ANAM;;;;;;;;;BNAM;None;DefaultReverb [REVB:F40C5B6E];;;;;
+;;;;;;;;;;;Default;DefaultReverb [REVB:F40C5B6E];;;;;
+;;;;;;;;;;;Generic;IntGenericAReverb [REVB:F41FFC21];;;;;
+;;;;;;;;;;;Padded Cell;DefaultReverb [REVB:F40C5B6E];;;;;
+;;;;;;;;;;;Room;IntRoomWoodMediumReverb [REVB:F42388E7];;;;;
+;;;;;;;;;;;Bathroom;IntSubwayRoomsReverb [REVB:F41E4F30];;;;;
+;;;;;;;;;;;Livingroom;IntWoodLargeReverb [REVB:F4238D04];;;;;
+;;;;;;;;;;;Stone Room;IntRoomStoneMediumReverb [REVB:F40C5B6C];;;;;
+;;;;;;;;;;;Auditorium;IntWoodLargeExtraReverb [REVB:F4238D08];;;;;
+;;;;;;;;;;;Concerthall;IntWoodLargeExtraReverb [REVB:F4238D08];;;;;
+;;;;;;;;;;;Cave;IntCaveAReverb [REVB:F4238A9A];;;;;
+;;;;;;;;;;;Arena;IntWoodLargeExtraReverb [REVB:F4238D08];;;;;
+;;;;;;;;;;;Hangar;IntIndustrialLargeExtraReverb [REVB:F4238CAD];;;;;
+;;;;;;;;;;;Carpeted Hallway;IntRoomWoodMediumReverb [REVB:F42388E7];;;;;
+;;;;;;;;;;;Hallway;IntRoomWoodMediumReverb [REVB:F42388E7];;;;;
+;;;;;;;;;;;Stone Corridor;IntRoomStoneNarrow [REVB:F40E322E];;;;;
+;;;;;;;;;;;Alley;IntRoomStoneNarrow [REVB:F40E322E];;;;;
+;;;;;;;;;;;Forest;DefaultReverb [REVB:F40C5B6E];;;;;
+;;;;;;;;;;;City;DefaultReverb [REVB:F40C5B6E];;;;;
+;;;;;;;;;;;Mountains;DefaultReverb [REVB:F40C5B6E];;;;;
+;;;;;;;;;;;Quarry;DefaultReverb [REVB:F40C5B6E];;;;;
+;;;;;;;;;;;Plain;DefaultReverb [REVB:F40C5B6E];;;;;
+;;;;;;;;;;;Parkinglot;DefaultReverb [REVB:F40C5B6E];;;;;
+;;;;;;;;;;;Sewerpipe;IntRoomStoneNarrow [REVB:F40E322E];;;;;
+;;;;;;;;;;;Underwater;Underwater [REVB:F4097608];;;;;
+;;;;;;;;;;;Small Room;IntFakeWoodSmall [REVB:F4239E65];;;;;
+;;;;;;;;;;;Medium Room;IntFakeWoodMedium [REVB:F4239E64];;;;;
+;;;;;;;;;;;Large Room;IntFakeWoodLarge [REVB:F4239E63];;;;;
+;;;;;;;;;;;Medium Hall;IntRoomWoodMediumReverb [REVB:F42388E7];;;;;
+;;;;;;;;;;;Large Hall;IntWoodLargeReverb [REVB:F4238D04];;;;;
+;;;;;;;;;;;Plate;DefaultReverb [REVB:F40C5B6E];;;;;
+;SNAM;;;;;;;;;SNAM;NULL - Null Reference [00000000];;;;;;
