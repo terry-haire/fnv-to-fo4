@@ -674,12 +674,94 @@ begin
             sBytes := Copy(sBytes, 9, 11);
             writeln(sBytes);
             newbytePattern := StringToByteArray(sBytes);
-            Move(bytePattern[0], b[pos], Length(bytePattern));
+            Move(newbytePattern[0], b[pos], Length(newbytePattern));
 
             // BSSubindexTriShape Data
             sBytes := '01 00 00 00 00 00 00 00 FF FF FF FF 01 00 40 80';
             bytePattern := StringToByteArray(sBytes);
             sBytes := '00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00 00 00 00 00 FF FF FF FF 01 00 40 80';
+            newbytePattern := StringToByteArray(sBytes);
+            b := ReplaceBytePattern(b, bytePattern, newbytePattern, True);
+
+            // Multibound AABB
+            sBytes := '42 53 4D 75 6C 74 69 42 6F 75 6E 64 41 41 42 42';
+            bytePattern := StringToByteArray(sBytes);
+            pos := GetAOBPos(bytePattern, b);
+            pos := pos + $171 - 6;
+
+            // BlockSize
+            s := '';
+            for j := 0 to 3 do
+            begin
+              s := IntToHex(b[pos + j], 2) + s;
+            end;
+            writeln(IntToStr(pos));
+            writeln(s);
+            s := '$' + s;
+            OldSize := StrToInt(s);
+            NewSize := OldSize*2;
+            sBytes := (IntToHex(NewSize, 8));
+            sBytes := sBytes + Copy(sBytes, 7, 2);
+            sBytes := sBytes + ' ' + Copy(sBytes, 5, 2);
+            sBytes := sBytes + ' ' + Copy(sBytes, 3, 2);
+            sBytes := sBytes + ' ' + Copy(sBytes, 1, 2);
+            sBytes := Copy(sBytes, 9, 11);
+            writeln(sBytes);
+            newbytePattern := StringToByteArray(sBytes);
+
+            // Num Primitives Pos
+            sBytes := '00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00'
+                   + ' 01 00 00 00 00 00 00 00 FF FF FF FF 01 00 40 80';
+            bytePattern := StringToByteArray(sBytes);
+            pos := GetAOBPos(bytePattern, b);
+            Move(newbytePattern[0], b[pos], Length(newbytePattern));
+
+            // Multibound AABB
+            sBytes := '42 53 4D 75 6C 74 69 42 6F 75 6E 64 41 41 42 42';
+            bytePattern := StringToByteArray(sBytes);
+            pos := GetAOBPos(bytePattern, b);
+            pos := pos + $26;
+
+            // BlockSize
+//            bytePattern := StringToByteArray('46');
+            s := '';
+            for j := 0 to 3 do
+            begin
+              s := IntToHex(b[pos + j], 2) + s;
+            end;
+            writeln(IntToStr(pos));
+            writeln(s);
+            s := '$' + s;
+            OldSize := StrToInt(s);
+            NewSize := OldSize + 16;
+            sBytes := (IntToHex(NewSize, 8));
+            sBytes := sBytes + Copy(sBytes, 7, 2);
+            sBytes := sBytes + ' ' + Copy(sBytes, 5, 2);
+            sBytes := sBytes + ' ' + Copy(sBytes, 3, 2);
+            sBytes := sBytes + ' ' + Copy(sBytes, 1, 2);
+            sBytes := Copy(sBytes, 9, 11);
+            writeln(sBytes);
+            newbytePattern := StringToByteArray(sBytes);
+            Move(newbytePattern[0], b[pos], Length(newbytePattern));
+
+            sBytes := '00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00'
+                   + ' 00 00 00 00 FF FF FF FF 01 00 40 80';
+            bytePattern := StringToByteArray(sBytes);
+            pos := GetAOBPos(bytePattern, b);
+            pos := pos - 4;
+            s := '';
+
+
+            sBytes := '00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00'
+                   + ' 00 00 00 00 FF FF FF FF 01 00 40 80';
+            bytePattern := StringToByteArray(sBytes);
+            sBytes := '01 00 00 00 01 00 00 00 00 00 00 00'
+                   + IntToHex(b[pos + 0], 2)
+                   + IntToHex(b[pos + 1], 2)
+                   + IntToHex(b[pos + 2], 2)
+                   + IntToHex(b[pos + 3], 2)
+                   + ' FF FF FF FF 00 00 00 00 00 00 00 00 01 00 00 00'
+                   + ' 00 00 00 00 FF FF FF FF 01 00 40 80';
             newbytePattern := StringToByteArray(sBytes);
             b := ReplaceBytePattern(b, bytePattern, newbytePattern, True);
           end;
