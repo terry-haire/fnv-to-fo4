@@ -2,6 +2,112 @@
 --include "Startup\Materials\BSMaterialUIUtils.ms"
 
 (	
+	fn setLodBorders obj =
+	(
+		--local obj = getNodeByName "Land" --create a Sphere
+		local borderPos = obj.min.z
+		local verts = #()
+		for v = getNumVerts obj to 1 by -1 do
+		(
+			local vert = getVert obj v --get the v-th vertex
+			if vert.z == borderPos then
+			(
+				for j = 1 to getNumVerts obj do
+				(
+					local vert2 = getVert obj j
+					if ((vert.x == vert2.x) and (vert.y == vert2.y)) then
+					(
+						if vert.z < vert2.z then setVert obj v vert.x vert.y (vert2.z - 500)
+						--else setVert obj verts[j] vert2.x vert2.y (vert.z - 250)
+					)
+				)
+			)
+			--vert.z = 0.0 --change the Z coordinate to 0.0
+			--setVert obj v vert --assign back to the v-thvertex
+		)
+		update obj
+	)
+	
+	fn GetMaterialTemplate =
+	(
+		local slMaterialTemplate = #()
+		append slMaterialTemplate "{"
+		append slMaterialTemplate "   \"bAlphaTest\" : false,"
+		append slMaterialTemplate "   \"bAnisoLighting\" : false,"
+		append slMaterialTemplate "   \"bCastShadows\" : true,"
+		append slMaterialTemplate "   \"bDecal\" : false,"
+		append slMaterialTemplate "   \"bDecalNoFade\" : false,"
+		append slMaterialTemplate "   \"bDiffuseEnable\" : false,"
+		append slMaterialTemplate "   \"bDissolveFade\" : false,"
+		append slMaterialTemplate "   \"bEmitEnabled\" : false,"
+		append slMaterialTemplate "   \"bEnableEditorAlphaRef\" : false,"
+		append slMaterialTemplate "   \"bEnvironmentMapping\" : false,"
+		append slMaterialTemplate "   \"bEnvironmentMappingEye\" : false,"
+		append slMaterialTemplate "   \"bEnvironmentMappingLightFade\" : true,"
+		append slMaterialTemplate "   \"bEnvironmentMappingWindow\" : false,"
+		append slMaterialTemplate "   \"bEnvmapEnable\" : false,"
+		append slMaterialTemplate "   \"bExternalEmittance\" : false,"
+		append slMaterialTemplate "   \"bFacegen\" : false,"
+		append slMaterialTemplate "   \"bGlowEnable\" : false,"
+		append slMaterialTemplate "   \"bGlowmap\" : false,"
+		append slMaterialTemplate "   \"bGrayscaleTextureEnable\" : false,"
+		append slMaterialTemplate "   \"bGrayscaleToPaletteColor\" : false,"
+		append slMaterialTemplate "   \"bHair\" : false,"
+		append slMaterialTemplate "   \"bHideSecret\" : false,"
+		append slMaterialTemplate "   \"bModelSpaceNormals\" : false,"
+		append slMaterialTemplate "   \"bNonOccluder\" : false,"
+		append slMaterialTemplate "   \"bNormalEnable\" : false,"
+		append slMaterialTemplate "   \"bRefraction\" : false,"
+		append slMaterialTemplate "   \"bRefractionFalloff\" : false,"
+		append slMaterialTemplate "   \"bScreenSpaceReflections\" : false,"
+		append slMaterialTemplate "   \"bSkinTint\" : false,"
+		append slMaterialTemplate "   \"bSmoothSpecEnable\" : false,"
+		append slMaterialTemplate "   \"bSpecularEnabled\" : true,"
+		append slMaterialTemplate "   \"bSubsurfaceLighting\" : false,"
+		append slMaterialTemplate "   \"bTileU\" : true,"
+		append slMaterialTemplate "   \"bTileV\" : true,"
+		append slMaterialTemplate "   \"bTree\" : false,"
+		append slMaterialTemplate "   \"bTwoSided\" : false,"
+		append slMaterialTemplate "   \"bWrinklesEnable\" : false,"
+		append slMaterialTemplate "   \"bZBufferTest\" : true,"
+		append slMaterialTemplate "   \"bZBufferWrite\" : true,"
+		append slMaterialTemplate "   \"cEmittanceColor\" : \"#000000\","
+		append slMaterialTemplate "   \"cHairTintColor\" : \"#808080\","
+		append slMaterialTemplate "   \"cSpecularColor\" : \"#ffffff\","
+		append slMaterialTemplate "   \"eAlphaBlendMode\" : \"None\","
+		append slMaterialTemplate "   \"eParallaxType\" : \"None\","
+		append slMaterialTemplate "   \"fAlpha\" : 1,"
+		append slMaterialTemplate "   \"fAlphaTestRef\" : 128,"
+		append slMaterialTemplate "   \"fBackLightPower\" : 0,"
+		append slMaterialTemplate "   \"fEmittanceMult\" : 1,"
+		append slMaterialTemplate "   \"fEnvironmentMappingMaskScale\" : 1,"
+		append slMaterialTemplate "   \"fGrayscaleToPaletteScale\" : 0.5,"
+		append slMaterialTemplate "   \"fParallaxInnerLayerUScale\" : 1,"
+		append slMaterialTemplate "   \"fParallaxInnerLayerVScale\" : 1,"
+		append slMaterialTemplate "   \"fParallaxLayerThickness\" : 10,"
+		append slMaterialTemplate "   \"fParallaxOcclusionHeightScale\" : 1,"
+		append slMaterialTemplate "   \"fParallaxOcclusionMaxPasses\" : 4,"
+		append slMaterialTemplate "   \"fParallaxRefractionScale\" : 1,"
+		append slMaterialTemplate "   \"fRefractionPower\" : 0,"
+		append slMaterialTemplate "   \"fSmoothness\" : 1,"
+		append slMaterialTemplate "   \"fSpecularMult\" : 1,"
+		append slMaterialTemplate "   \"fSubsurfaceLightingRolloff\" : 0.30000001192092896,"
+		append slMaterialTemplate "   \"fUOffset\" : 0,"
+		append slMaterialTemplate "   \"fUScale\" : 1,"
+		append slMaterialTemplate "   \"fVOffset\" : 0,"
+		append slMaterialTemplate "   \"fVScale\" : 1,"
+		append slMaterialTemplate "   \"sDiffuseTexture\" : \"\","
+		append slMaterialTemplate "   \"sEnvmapTexture\" : \"\","
+		append slMaterialTemplate "   \"sGlowTexture\" : \"\","
+		append slMaterialTemplate "   \"sGreyscaleTexture\" : \"\","
+		append slMaterialTemplate "   \"sNormalTexture\" : \"\","
+		append slMaterialTemplate "   \"sRootMaterialPath\" : \"\","
+		append slMaterialTemplate "   \"sSmoothSpecTexture\" : \"\","
+		append slMaterialTemplate "   \"sWrinklesTexture\" : \"\""
+		append slMaterialTemplate "}"
+		slMaterialTemplate
+	)
+	
 	fn handleBox = 
 	(
 		local windowHandle = DialogMonitorOPS.GetWindowHandle()
@@ -72,6 +178,12 @@
 	(
 		with undo off
 		(
+			print _TX00
+			print _TX01
+			print _TX02
+			print _TX03
+			print _TX04
+			print _TX05
 			-- BSBlinn seems a better option but materials will more complicated unless material saving functions can be added to BSBlinn
 			setmeditmaterial i (BSLightingFX ())
 			meditMaterials[i].ShowVertexColorParam = off --Or Textures Glitch sometimes
@@ -155,10 +267,6 @@
 				)
 				--if findString (toLower _MatName) "_lod" != undefined then
 				--	meditmaterials[i].ModelSpaceNormalParam = on
-				if bLod == true then
-				(
-					meditmaterials[i].CastShadowsParam = off
-				)
 			)
 			
 			if bLod == false then
@@ -420,10 +528,42 @@
 		_TX05 = undefined
 	)
 	
+	-- Can choose to use a different ini when using a batch file and can use that ini to change plugcfg location
+	_INI_Path = "C:\\Users\\" + sysInfo.username + "\\OneDrive\\Projects\\FNV_to_FO4\\Profiles\\" + sysInfo.computername + "\\FNV_to_FO4.ini"
+	
+	
+	xEditLoc = getINISetting _INI_Path "USERPATHS" "xEdit"
+	fileRoot = getINISetting _INI_Path "USERPATHS" "FNVExtracted"
+	_exportloc = getINISetting _INI_Path "USERPATHS" "FNVConverted"
+	_exportINI = (getINISetting (getMAXIniFile()) "Directories" "PlugCFG") + "\\mimmerse.ini"
+	if not doesFileExist _exportINI then
+	(
+		MessageBox "\"mimmerse.ini\" Not Found"
+		exit
+	)
+	files = getFilesRecursive (fileRoot + "Meshes") "*.nif"
+	startloc = fileRoot + "Meshes\\architecture\\\\mccarran\\nv_mccarran-wall02_lod.nif"
+	startloc = fileRoot + "Meshes\\landscape\\\\lod\\\\bouldercityworld\\bouldercityworld.level4.x-2.y-1.nif"
+	startloc = fileRoot + "Meshes\\architecture\\\\hooverdam\\nv_hooverdam_aagun.nif"
+	startloc = fileRoot + "Meshes\\landscape\\\\lod\\\\bouldercityworld\\\\blocks\\bouldercityworld.level4.x2.y-1.nif"
+	startloc = fileRoot + "Meshes\\landscape\\\\lod\\\\wastelandnv\\wastelandnv.level16.x-16.y-16.nif"
+	startloc = fileRoot + "Meshes\\landscape\\\\lod\\\\wastelandnv\\wastelandnv.level4.x20.y-48.nif"
+	
+	/*
 	xEditLoc = "C:\\Users\Terry\OneDrive\Bethesda\\xEdit\\"
 	fileRoot = "D:\\Games\Fallout New Vegas\FNVExtracted\Data\\"
 	_exportloc = "D:\\Games\\Fallout New Vegas\\FNVFo4 Converted\\Data\\"
 	_exportINI = "C:\\Users\\Terry\\AppData\\Local\\Autodesk\\3dsMax\\2013 - 64bit\\ENU\\en-US\\plugcfg\\mimmerse.ini"
+	files = getFilesRecursive "D:\\Games\Fallout New Vegas\FNVExtracted\Data\\Meshes" "*.nif"
+	startloc = "D:\\Games\\Fallout New Vegas\\FNVExtracted\\Data\\Meshes\\architecture\\\\mccarran\\nv_mccarran-wall02_lod.nif"
+	startloc = "D:\\Games\\Fallout New Vegas\\FNVExtracted\\Data\\Meshes\\landscape\\\\lod\\\\wastelandnv\\wastelandnv.level16.x-16.y-16.nif"
+	startloc = "D:\\Games\\Fallout New Vegas\\FNVExtracted\\Data\\Meshes\\landscape\\\\lod\\\\bouldercityworld\\bouldercityworld.level4.x-2.y-1.nif"
+	startloc = "D:\\Games\\Fallout New Vegas\\FNVExtracted\\Data\\Meshes\\architecture\\\\hooverdam\\nv_hooverdam_aagun.nif"
+	startloc = "D:\\Games\\Fallout New Vegas\\FNVExtracted\\Data\\Meshes\\landscape\\\\lod\\\\bouldercityworld\\\\blocks\\bouldercityworld.level4.x2.y-1.nif"
+	startloc = "D:\\Games\\Fallout New Vegas\\FNVExtracted\\Data\\Meshes\\landscape\\\\lod\\\\wastelandnv\\wastelandnv.level4.x20.y-48.nif"
+	*/
+	
+	
 	_defexportscript = "Script_-_(\"_-_PE_-_Static_-_Art\",\"Export\")_\\n_{_\\n__\\t_Plugin_-_(\"BSNodeAttachTechniques\",\"BSNodeAttachTechniques_-_Plug-in\",\"1.0\",\"PROCESS\")_\\n__\\t_{_\\n__\\t_}_\\n__\\t_Plugin_-_(\"BSHavokProcess\",\"BSHavokProcess_-_Plug-in\",\"1.0\",\"PROCESS\")_\\n__\\t_{_\\n__\\t_}_\\n__\\t_Plugin_-_(\"NiSceneGraphOptimizationPlugin\",\"Scene_-_Graph_-_Optimization\",\"1.1\",\"PROCESS\")_\\n__\\t_{_\\n__\\t__\\t_Parameter_-_(\"AnimationKeyReductionTolerance\",\"0.000100\");_\\n__\\t__\\t_Parameter_-_(\"RemoveDupProperties\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"RemoveChildlessNodes\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"RemoveMultiMtlNodes\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"RemoveUselessChildNodes\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"MergeSiblingNodes\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"RemoveDegenerateTriShapeData\",\"FALSE\");_\\n__\\t__\\t_Parameter_-_(\"NiTriShapeVertexCacheOptimization\",\"FALSE\");_\\n__\\t__\\t_Parameter_-_(\"MergeSiblingTriShapes\",\"FALSE\");_\\n__\\t__\\t_Parameter_-_(\"NoMergeOnAlpha\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"RemoveExtraUVSets\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"RemoveUnnecessaryNormals\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"RemoveUnnecessaryVisControllers\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"RemoveNames\",\"FALSE\");_\\n__\\t__\\t_Parameter_-_(\"NameUnnamedObjects\",\"FALSE\");_\\n__\\t__\\t_Parameter_-_(\"RemoveBadTexturingProps\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"RemoveUnnecessaryExtraData\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"RemoveUnnecessaryLookAtControllers\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"RemoveHiddenBoneGeometry\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"ReduceAnimationKeys\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"SortByTexturingProp\",\"FALSE\");_\\n__\\t__\\t_Parameter_-_(\"WeldSkin\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"ExportPS2SoftwareSkin\",\"FALSE\");_\\n__\\t__\\t_Parameter_-_(\"ExportPS2HardwareSkin\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"ExportSoftwareSkin\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"ExportHardwareSkin\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"BonesPerPartition\",\"180\");_\\n__\\t__\\t_Parameter_-_(\"MoveBonesBeforeSkins\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"MoveEditorMarkersToRoot\",\"TRUE\");_\\n__\\t_}_\\n__\\t_Plugin_-_(\"ShaderLighting\",\"ShaderLighting_-_Plug-in\",\"1.0\",\"PROCESS\")_\\n__\\t_{_\\n__\\t_}_\\n__\\t_Plugin_-_(\"MeshLOD\",\"MeshLOD_-_Plug-in\",\"1.0\",\"PROCESS\")_\\n__\\t_{_\\n__\\t_}_\\n__\\t_Plugin_-_(\"KillHidden\",\"KillHidden_-_Plug-in\",\"1.1\",\"PROCESS\")_\\n__\\t_{_\\n__\\t__\\t_Parameter_-_(\"KILLHIDDEN_UNREFERENCED_BOOL\",\"FALSE\");_\\n__\\t__\\t_Parameter_-_(\"KILLHIDDEN_ALLVERTSSKINNED_BOOL\",\"TRUE\");_\\n__\\t_}_\\n__\\t_Plugin_-_(\"BethsoftProcessPlugin\",\"TES4_-_Requirements_-_Plug-in\",\"1.0\",\"PROCESS\")_\\n__\\t_{_\\n__\\t__\\t_Parameter_-_(\"TES4DDS\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"TES4TexDir\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"TES4IncTex\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"TES4ZeroOrigin\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"TES4AnimFlags\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"TES4NeedBound\",\"FALSE\");_\\n__\\t_}_\\n__\\t_Plugin_-_(\"ExtraData\",\"ExtraData_-_Plug-in\",\"1.0\",\"PROCESS\")_\\n__\\t_{_\\n__\\t_}_\\n__\\t_Plugin_-_(\"BSDestructionNodes\",\"BSDestructionNodes_-_Plug-in\",\"1.0\",\"PROCESS\")_\\n__\\t_{_\\n__\\t_}_\\n__\\t_Plugin_-_(\"BSOrderedNodes\",\"BSOrderedNodes_-_Plug-in\",\"1.0\",\"PROCESS\")_\\n__\\t_{_\\n__\\t_}_\\n__\\t_Plugin_-_(\"BSMultiBoundNodes\",\"BSMultiBoundNodes_-_Plug-in\",\"1.0\",\"PROCESS\")_\\n__\\t_{_\\n__\\t_}_\\n__\\t_Plugin_-_(\"BSFadeNodes\",\"BSFadeNodes_-_Plug-in\",\"1.0\",\"PROCESS\")_\\n__\\t_{_\\n__\\t_}_\\n__\\t_Plugin_-_(\"BSLeafAnimNodes\",\"BSLeafAnimNodes_-_Plug-in\",\"1.0\",\"PROCESS\")_\\n__\\t_{_\\n__\\t_}_\\n__\\t_Plugin_-_(\"BSRenderOrder\",\"BSRenderOrder_-_Plug-in\",\"1.0\",\"PROCESS\")_\\n__\\t_{_\\n__\\t_}_\\n__\\t_Plugin_-_(\"BSOrderSkinGeom\",\"BSOrderSkinGeom_-_Plug-in\",\"1.0\",\"PROCESS\")_\\n__\\t_{_\\n__\\t_}_\\n__\\t_Plugin_-_(\"BSBehaviorGraph\",\"BSBehaviorGraph_-_Plug-in\",\"1.0\",\"PROCESS\")_\\n__\\t_{_\\n__\\t_}_\\n__\\t_Plugin_-_(\"ConvertNiToBS\",\"ConvertNiToBS_-_Plug-in\",\"1.0\",\"PROCESS\")_\\n__\\t_{_\\n__\\t_}_\\n__\\t_Plugin_-_(\"NifExportPlugin\",\"NIF_-_Exporter\",\"1.0\",\"EXPORT\")_\\n__\\t_{_\\n__\\t_}_\\n_}_\\n_"
 	_PE_ANIMkey = "Script_-_(\"_-_PE_-_Anim\",\"Export\")_\\n_{_\\n__\\t_Plugin_-_(\"BSNodeAttachTechniques\",\"BSNodeAttachTechniques_-_Plug-in\",\"1.0\",\"PROCESS\")_\\n__\\t_{_\\n__\\t_}_\\n__\\t_Plugin_-_(\"BSHavokProcess\",\"BSHavokProcess_-_Plug-in\",\"1.0\",\"PROCESS\")_\\n__\\t_{_\\n__\\t_}_\\n__\\t_Plugin_-_(\"NiSceneGraphOptimizationPlugin\",\"Scene_-_Graph_-_Optimization\",\"1.1\",\"PROCESS\")_\\n__\\t_{_\\n__\\t__\\t_Parameter_-_(\"AnimationKeyReductionTolerance\",\"0.000100\");_\\n__\\t__\\t_Parameter_-_(\"RemoveDupProperties\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"RemoveChildlessNodes\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"RemoveMultiMtlNodes\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"RemoveUselessChildNodes\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"MergeSiblingNodes\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"RemoveDegenerateTriShapeData\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"NiTriShapeVertexCacheOptimization\",\"FALSE\");_\\n__\\t__\\t_Parameter_-_(\"MergeSiblingTriShapes\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"NoMergeOnAlpha\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"RemoveExtraUVSets\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"RemoveUnnecessaryNormals\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"RemoveUnnecessaryVisControllers\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"RemoveNames\",\"FALSE\");_\\n__\\t__\\t_Parameter_-_(\"NameUnnamedObjects\",\"FALSE\");_\\n__\\t__\\t_Parameter_-_(\"RemoveBadTexturingProps\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"RemoveUnnecessaryExtraData\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"RemoveUnnecessaryLookAtControllers\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"RemoveHiddenBoneGeometry\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"ReduceAnimationKeys\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"SortByTexturingProp\",\"FALSE\");_\\n__\\t__\\t_Parameter_-_(\"WeldSkin\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"ExportPS2SoftwareSkin\",\"FALSE\");_\\n__\\t__\\t_Parameter_-_(\"ExportPS2HardwareSkin\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"ExportSoftwareSkin\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"ExportHardwareSkin\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"BonesPerPartition\",\"180\");_\\n__\\t__\\t_Parameter_-_(\"MoveBonesBeforeSkins\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"MoveEditorMarkersToRoot\",\"TRUE\");_\\n__\\t_}_\\n__\\t_Plugin_-_(\"ShaderLighting\",\"ShaderLighting_-_Plug-in\",\"1.0\",\"PROCESS\")_\\n__\\t_{_\\n__\\t_}_\\n__\\t_Plugin_-_(\"MeshLODClean\",\"MeshLODClean_-_Plug-in\",\"1.0\",\"PROCESS\")_\\n__\\t_{_\\n__\\t_}_\\n__\\t_Plugin_-_(\"BethsoftProcessPlugin\",\"TES4_-_Requirements_-_Plug-in\",\"1.0\",\"PROCESS\")_\\n__\\t_{_\\n__\\t__\\t_Parameter_-_(\"TES4DDS\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"TES4TexDir\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"TES4IncTex\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"TES4ZeroOrigin\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"TES4AnimFlags\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"TES4NeedBound\",\"FALSE\");_\\n__\\t__\\t_Parameter_-_(\"TES4Keyframes\",\"FALSE\");_\\n__\\t_}_\\n__\\t_Plugin_-_(\"ExtraData\",\"ExtraData_-_Plug-in\",\"1.0\",\"PROCESS\")_\\n__\\t_{_\\n__\\t_}_\\n__\\t_Plugin_-_(\"BSDestructionNodes\",\"BSDestructionNodes_-_Plug-in\",\"1.0\",\"PROCESS\")_\\n__\\t_{_\\n__\\t_}_\\n__\\t_Plugin_-_(\"BSSequenceMaker\",\"BSSequenceMaker_-_Plug-in\",\"1.0\",\"PROCESS\")_\\n__\\t_{_\\n__\\t_}_\\n__\\t_Plugin_-_(\"BSOrderedNodes\",\"BSOrderedNodes_-_Plug-in\",\"1.0\",\"PROCESS\")_\\n__\\t_{_\\n__\\t_}_\\n__\\t_Plugin_-_(\"BSMultiBoundNodes\",\"BSMultiBoundNodes_-_Plug-in\",\"1.0\",\"PROCESS\")_\\n__\\t_{_\\n__\\t_}_\\n__\\t_Plugin_-_(\"BSFadeNodes\",\"BSFadeNodes_-_Plug-in\",\"1.0\",\"PROCESS\")_\\n__\\t_{_\\n__\\t_}_\\n__\\t_Plugin_-_(\"BSLeafAnimNodes\",\"BSLeafAnimNodes_-_Plug-in\",\"1.0\",\"PROCESS\")_\\n__\\t_{_\\n__\\t_}_\\n__\\t_Plugin_-_(\"BSRenderOrder\",\"BSRenderOrder_-_Plug-in\",\"1.0\",\"PROCESS\")_\\n__\\t_{_\\n__\\t_}_\\n__\\t_Plugin_-_(\"BSRotAccumIntrp\",\"BSRotAccumIntrp_-_Plug-in\",\"1.0\",\"PROCESS\")_\\n__\\t_{_\\n__\\t_}_\\n__\\t_Plugin_-_(\"BSBehaviorGraph\",\"BSBehaviorGraph_-_Plug-in\",\"1.0\",\"PROCESS\")_\\n__\\t_{_\\n__\\t_}_\\n__\\t_Plugin_-_(\"ConvertNiToBS\",\"ConvertNiToBS_-_Plug-in\",\"1.0\",\"PROCESS\")_\\n__\\t_{_\\n__\\t_}_\\n__\\t_Plugin_-_(\"NifExportPlugin\",\"NIF_-_Exporter\",\"1.0\",\"EXPORT\")_\\n__\\t_{_\\n__\\t_}_\\n_}_\\n_"
 	_PE_WEAPkey = "Script_-_(\"_-_PE_-_Weapon\",\"Export\")_\\n_{_\\n__\\t_Plugin_-_(\"KillHidden\",\"KillHidden_-_Plug-in\",\"1.1\",\"PROCESS\")_\\n__\\t_{_\\n__\\t__\\t_Parameter_-_(\"KILLHIDDEN_UNREFERENCED_BOOL\",\"TRUE\");_\\n__\\t_}_\\n__\\t_Plugin_-_(\"BSHavokProcess\",\"BSHavokProcess_-_Plug-in\",\"1.0\",\"PROCESS\")_\\n__\\t_{_\\n__\\t_}_\\n__\\t_Plugin_-_(\"AddOnPart\",\"AddOnPart_-_Plug-in\",\"1.1\",\"PROCESS\")_\\n__\\t_{_\\n__\\t_}_\\n__\\t_Plugin_-_(\"NiSceneGraphOptimizationPlugin\",\"Scene_-_Graph_-_Optimization\",\"1.1\",\"PROCESS\")_\\n__\\t_{_\\n__\\t__\\t_Parameter_-_(\"AnimationKeyReductionTolerance\",\"0.000100\");_\\n__\\t__\\t_Parameter_-_(\"RemoveDupProperties\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"RemoveChildlessNodes\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"RemoveMultiMtlNodes\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"RemoveUselessChildNodes\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"MergeSiblingNodes\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"RemoveDegenerateTriShapeData\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"NiTriShapeVertexCacheOptimization\",\"FALSE\");_\\n__\\t__\\t_Parameter_-_(\"MergeSiblingTriShapes\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"NoMergeOnAlpha\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"RemoveExtraUVSets\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"RemoveUnnecessaryNormals\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"RemoveUnnecessaryVisControllers\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"RemoveNames\",\"FALSE\");_\\n__\\t__\\t_Parameter_-_(\"NameUnnamedObjects\",\"FALSE\");_\\n__\\t__\\t_Parameter_-_(\"RemoveBadTexturingProps\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"RemoveUnnecessaryExtraData\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"RemoveUnnecessaryLookAtControllers\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"RemoveHiddenBoneGeometry\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"ReduceAnimationKeys\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"SortByTexturingProp\",\"FALSE\");_\\n__\\t__\\t_Parameter_-_(\"WeldSkin\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"ExportPS2SoftwareSkin\",\"FALSE\");_\\n__\\t__\\t_Parameter_-_(\"ExportPS2HardwareSkin\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"ExportSoftwareSkin\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"ExportHardwareSkin\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"BonesPerPartition\",\"180\");_\\n__\\t__\\t_Parameter_-_(\"MoveBonesBeforeSkins\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"MoveEditorMarkersToRoot\",\"FALSE\");_\\n__\\t_}_\\n__\\t_Plugin_-_(\"ShaderLighting\",\"ShaderLighting_-_Plug-in\",\"1.0\",\"PROCESS\")_\\n__\\t_{_\\n__\\t_}_\\n__\\t_Plugin_-_(\"MeshLODClean\",\"MeshLODClean_-_Plug-in\",\"1.0\",\"PROCESS\")_\\n__\\t_{_\\n__\\t_}_\\n__\\t_Plugin_-_(\"BethsoftProcessPlugin\",\"TES4_-_Requirements_-_Plug-in\",\"1.0\",\"PROCESS\")_\\n__\\t_{_\\n__\\t__\\t_Parameter_-_(\"TES4DDS\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"TES4TexDir\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"TES4IncTex\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"TES4ZeroOrigin\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"TES4AnimFlags\",\"TRUE\");_\\n__\\t__\\t_Parameter_-_(\"TES4NeedBound\",\"FALSE\");_\\n__\\t__\\t_Parameter_-_(\"TES4Keyframes\",\"TRUE\");_\\n__\\t_}_\\n__\\t_Plugin_-_(\"ExtraData\",\"ExtraData_-_Plug-in\",\"1.0\",\"PROCESS\")_\\n__\\t_{_\\n__\\t_}_\\n__\\t_Plugin_-_(\"BSDestructionNodes\",\"BSDestructionNodes_-_Plug-in\",\"1.0\",\"PROCESS\")_\\n__\\t_{_\\n__\\t_}_\\n__\\t_Plugin_-_(\"BSOrderedNodes\",\"BSOrderedNodes_-_Plug-in\",\"1.0\",\"PROCESS\")_\\n__\\t_{_\\n__\\t_}_\\n__\\t_Plugin_-_(\"BSMultiBoundNodes\",\"BSMultiBoundNodes_-_Plug-in\",\"1.0\",\"PROCESS\")_\\n__\\t_{_\\n__\\t_}_\\n__\\t_Plugin_-_(\"BSFadeNodes\",\"BSFadeNodes_-_Plug-in\",\"1.0\",\"PROCESS\")_\\n__\\t_{_\\n__\\t_}_\\n__\\t_Plugin_-_(\"BSLeafAnimNodes\",\"BSLeafAnimNodes_-_Plug-in\",\"1.0\",\"PROCESS\")_\\n__\\t_{_\\n__\\t_}_\\n__\\t_Plugin_-_(\"BSRenderOrder\",\"BSRenderOrder_-_Plug-in\",\"1.0\",\"PROCESS\")_\\n__\\t_{_\\n__\\t_}_\\n__\\t_Plugin_-_(\"BSOrderSkinGeom\",\"BSOrderSkinGeom_-_Plug-in\",\"1.0\",\"PROCESS\")_\\n__\\t_{_\\n__\\t_}_\\n__\\t_Plugin_-_(\"BSBehaviorGraph\",\"BSBehaviorGraph_-_Plug-in\",\"1.0\",\"PROCESS\")_\\n__\\t_{_\\n__\\t_}_\\n__\\t_Plugin_-_(\"ConvertNiToBS\",\"ConvertNiToBS_-_Plug-in\",\"1.0\",\"PROCESS\")_\\n__\\t_{_\\n__\\t_}_\\n__\\t_Plugin_-_(\"NifExportPlugin\",\"NIF_-_Exporter\",\"1.0\",\"EXPORT\")_\\n__\\t_{_\\n__\\t_}_\\n_}_\\n_"
@@ -455,12 +595,11 @@
 	)
 	*/
 	
-	slMatTemplate = (dotnetClass "System.IO.File").ReadAllLines (fileRoot + "templateEmpty.BGSM")
+	slMatTemplate = GetMaterialTemplate()
+	--slMatTemplate = (dotnetClass "System.IO.File").ReadAllLines (fileRoot + "templateEmpty.BGSM")
 	for s in slMatTemplate do print s
 	
 	MatCount = 0
-		
-	files = getFilesRecursive "D:\\Games\Fallout New Vegas\FNVExtracted\Data\\Meshes" "*.nif"
 	--files = #("D:\\Games\Fallout New Vegas\FNVExtracted\Data\meshes\Weapons\2HandAutomatic\AssaultRifle.NIF")
 	--files = #("D:\Games\Fallout New Vegas\FNVExtracted\Data\Meshes\effects\haroldheartroots.nif")
 	--files = #("D:\\Games\Fallout New Vegas\FNVExtracted\Data\meshes\architecture\strip\gamorrahyard.nif")
@@ -468,15 +607,10 @@
 	--files = getFiles "D:\\Games\Fallout New Vegas\FNVExtracted\Data\\Meshes\\*.nif"
 	print files.count
 	FileCount = 0
-	startloc = "D:\\Games\\Fallout New Vegas\\FNVExtracted\\Data\\Meshes\\architecture\\\\mccarran\\nv_mccarran-wall02_lod.nif"
-	startloc = "D:\\Games\\Fallout New Vegas\\FNVExtracted\\Data\\Meshes\\landscape\\\\lod\\\\wastelandnv\\wastelandnv.level16.x-16.y-16.nif"
-	startloc = "D:\\Games\\Fallout New Vegas\\FNVExtracted\\Data\\Meshes\\landscape\\\\lod\\\\bouldercityworld\\bouldercityworld.level4.x-2.y-1.nif"
-	startloc = "D:\\Games\\Fallout New Vegas\\FNVExtracted\\Data\\Meshes\\architecture\\\\hooverdam\\nv_hooverdam_aagun.nif"
-	startloc = "D:\\Games\\Fallout New Vegas\\FNVExtracted\\Data\\Meshes\\landscape\\\\lod\\\\bouldercityworld\\\\blocks\\bouldercityworld.level4.x2.y-1.nif"
-	startloc = "D:\\Games\\Fallout New Vegas\\FNVExtracted\\Data\\Meshes\\landscape\\\\lod\\\\wastelandnv\\wastelandnv.level4.x20.y-48.nif"
 	--startloc = undefined
 	startpoint = false
 	bLod = false
+	bObjLodOnly = true
 	bLodOnly = true
 	
 	gc() --Garbage Collection.
@@ -500,7 +634,6 @@
 	(
 		s=timeStamp() 
 		f = files[k]
-		--print (substituteString f "\\" "\\\\")
 		if f == startloc then 
 		(
 			startpoint = true
@@ -516,11 +649,14 @@
 					exit
 		)
 		if startpoint == false then continue
-		if f == "D:\\Games\\Fallout New Vegas\\FNVExtracted\\Data\\Meshes\\nvdlc04\\\\effects\\nvdlc04_wastelandnukeexp.nif" then continue
-		if f == "D:\\Games\\Fallout New Vegas\\FNVExtracted\\Data\\Meshes\\pipboy3000\\pipboyarm.nif" then continue
+		if f == (fileRoot + "Meshes\\nvdlc04\\\\effects\\nvdlc04_wastelandnukeexp.nif") then continue
+		if f == (fileRoot + "Meshes\\pipboy3000\\pipboyarm.nif") then continue
 		if findString (replace (substituteString (toLower f) "\\\\" "\\") 1 fileRoot.count "") "meshes\\landscape\\lod\\" == 1 then bLod = true
 		if bLod == false then
 			if bLodOnly == true then
+				continue
+		if bObjLodOnly == true then
+			if findString (replace (substituteString (toLower f) "\\\\" "\\") 1 fileRoot.count "") "meshes\\landscape\\lod\\wastelandnv\\blocks\\" != 1 then
 				continue
 		
 		print (substituteString f "\\" "\\\\")
@@ -721,6 +857,17 @@
 		if bLod == false then
 			for j = 1 to selection.count do ConvertToPoly selection[j]
 		/*
+		else
+		(
+			for j = 1 to selection.count where selection[j].faces.count != 0 do 
+			(
+				setLodBorders(selection[j])
+				ConvertToPoly selection[j]
+			)
+		)
+		*/
+			
+		/*
 		for o in objects where not classOf o == BoneGeometry do
 		(
 			ConvertToPoly o 
@@ -742,7 +889,7 @@
 		if bLod == false then
 			select (for o in objects where ((o.modifiers[#Shape] == undefined) and (not classOf o == BoneGeometry)) collect o)
 		else
-			select (for o in objects where classOf o == Editable_mesh collect o)
+			select (for o in objects where not classOf o == BoneGeometry collect o)
 		
 		
 		if selection.count>0 do
@@ -827,7 +974,7 @@
 						(
 							_TexNormal = selection[i].material.maps[9].normal_map.name --Normal
 							if findString _TexNormal "Data\\" == 1 then _Texnormal = replace _Texnormal 1 5 ""
-							_TexNormal = replace _TexNormal 1 8 (fileRoot + "textures\\new_vegas")
+							_TexNormal = replace _TexNormal 1 8 (_exportloc + "textures\\new_vegas")
 						)						
 						if selection[i].material.maps[7] != undefined then _TexSpecMask = selection[i].material.maps[7].filename --Alpha
 						if selection[i].material.maps[10] != undefined then 
@@ -863,7 +1010,8 @@
 					--return messageBox(selection[i].name)
 				)
 			)
-		)		
+		)	
+		
 		
 		--if root != "undefined" then deselect root
 		if bLod == false then
@@ -1018,13 +1166,64 @@
 					local obj = GetNodeByName ""
 					obj.name = "Land"
 					if obj.material.diffuseMap != undefined then
+					(
 						local mat = copy obj.material
+					)
 					if obj.faces.count == 0 then delete obj
 				)
-				(GetNodeByName "Land").material = mat
+				while objects.count > 2 do
+				(
+					delete objects[3]
+				)
+				local obj = GetNodeByName "Land"
+				mat.DecalParam = off
+				mat.ExternalEmittanceParam = off
+				mat.DecalNoFadeParam = off
+				mat.HideSecretParam = off
+				mat.ScreenSpaceReflectionsParam = off
+				mat.ModelSpaceNormalParam = on
+				mat.TwoSidedParam = off
+				mat.CastShadowsParam = off
+				mat.DissolveFadeParam = off
+				mat.NonOccluderParam = off
 				
+				mat.AlphaParam = off
+				mat.EditorAlphaTestRef = off
+				mat.ZTestParam = on
+				mat.ZWriteParam = on
+				mat.SubSurfaceLightingParam = off
+				mat.SpecularParam = off
+				mat.AnisoLightingParam = off
+				mat.ShowEmitParam = on
+				mat.ApplyGlowmapToEmitParam = off
+				mat.RefractionParam = off
+				mat.RefractionFireParam = off
+				mat.ParallaxOccParam = off
+				mat.MultiLayerParallaxParam = off
+				mat.HairParam = off
+				mat.EnvmapEyeParam = off
+				mat.EnvmapWindowParam = off
+				mat.EnvmapLightFadeParam = off
+				mat.TreeParam = off
+				mat.GrayscaleColorParam = off
+				mat.TwoSidedParam = off
+				mat.ModelSpaceNormalParam = on
+				mat.DecalParam = off
+				mat.DecalNoFadeParam = off
+				mat.ExternalEmittanceParam = off
+				mat.HideSecretParam = off
+				mat.CastShadowsParam = off
+				mat.DissolveFadeParam = off
+				mat.ScreenSpaceReflectionsParam = off
+				mat.NonOccluderParam = off
+				mat.SkinTintParam = off
+				mat.UTilingParam = off
+				mat.VTilingParam = off
+				mat.BGSMatInit = off
+				obj.material = mat
 				
 				objects[2].pos = [0, 0, 0]
+				setLodBorders(GetNodeByName "Land")
 				
 				if setINISetting _exportINI "MAXIMMERSE" "EXPORT_SCRIPT" _PE_SKYkey == false then
 				(
@@ -1044,7 +1243,60 @@
 				(
 					local obj = GetNodeByName ""
 					obj.name = "obj"
-					if obj.faces.count == 0 then delete obj
+					if obj.faces.count == 0 then 
+						delete obj
+					else
+					(
+						convertto obj PolyMeshObject
+						local mat = obj.material
+						-- FSF2 LOD Objects needs patching
+						mat.DecalParam = off
+						mat.ExternalEmittanceParam = off
+						mat.DecalNoFadeParam = off
+						mat.HideSecretParam = off
+						mat.ScreenSpaceReflectionsParam = off
+						mat.ModelSpaceNormalParam = on
+						mat.TwoSidedParam = off
+						mat.CastShadowsParam = off
+						mat.DissolveFadeParam = off
+						mat.NonOccluderParam = off
+						
+						mat.AlphaParam = off
+						mat.EditorAlphaTestRef = off
+						mat.ZTestParam = on
+						mat.ZWriteParam = on
+						mat.SubSurfaceLightingParam = off
+						mat.SpecularParam = on
+						mat.AnisoLightingParam = off
+						mat.ShowEmitParam = on
+						mat.ApplyGlowmapToEmitParam = off
+						mat.RefractionParam = off
+						mat.RefractionFireParam = off
+						mat.ParallaxOccParam = off
+						mat.MultiLayerParallaxParam = off
+						mat.HairParam = off
+						mat.EnvmapEyeParam = off
+						mat.EnvmapWindowParam = off
+						mat.EnvmapLightFadeParam = off
+						mat.TreeParam = off
+						mat.GrayscaleColorParam = off
+						mat.TwoSidedParam = off
+						mat.ModelSpaceNormalParam = off
+						mat.DecalParam = off
+						mat.DecalNoFadeParam = off
+						mat.ExternalEmittanceParam = off
+						mat.HideSecretParam = off
+						mat.CastShadowsParam = off
+						mat.DissolveFadeParam = off
+						mat.ScreenSpaceReflectionsParam = off
+						mat.NonOccluderParam = off
+						mat.SkinTintParam = off
+						mat.UTilingParam = off
+						mat.VTilingParam = off
+						mat.BGSMatInit = off
+						mat.GrayscaleColorScaleParam = 1
+						obj.material = mat
+					)
 				)
 			)
 			setUserPropBuffer root ""
@@ -1074,7 +1326,7 @@
 			oMultibound.material = BSBlinn()
 			oMultibound.material[#Standard].wire = on
 			oMultibound.material[#Standard][#Shader_Basic_Parameters].Diffuse = color 255 0 0
-			
+			--scale objects[2] [0.5, 0.5, 0.5]
 			--objects[2].material.CastShadowsParam = off
 		)
 		
@@ -1185,18 +1437,19 @@
 		windows.processPostedMessages()
 		format "%s\n" ((e-s)/1000.0) 
 		if batchstart == undefined then
+		(
 			FileCount += 1
-			print (FileCount as string)
-			if BSLightingFXMode == true then
-				if FileCount == 483 then
-					exit
 			if keyboard.escPressed do 
 			(
 				enableSceneRedraw()
 				ShowTextures()
 				exit
 			)
-		exit
+		)
+		print (FileCount as string)
+		if BSLightingFXMode == true then
+			if FileCount == 483 then
+				exit
 	)
 	enableSceneRedraw()
 	ShowTextures()
@@ -1205,10 +1458,15 @@
 	if LODList.count > 0 then
 	(
 		local LODListPath = _exportloc + "Meshes\\Terrain\\LODList.csv"
+		if not doesFileExist LODListPath then
+		(
+			makeDir (getFilenamePath LODListPath) all:true
+			out_file = createfile LODListPath
+			close out_file
+		)
 		if batchstart == undefined then
 		(
-			if doesFileExist LODListPath then 
-				local out_file = openFile LODListPath mode:"wt" --Remove Contents
+			local out_file = openFile LODListPath mode:"wt" --Remove Contents
 		)
 		else
 			local out_file = openFile LODListPath mode:"at" --Append Text Mode

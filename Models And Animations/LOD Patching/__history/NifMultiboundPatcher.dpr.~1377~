@@ -21,7 +21,8 @@ uses
   Vcl.StdCtrls,
   StrUtils,
   Types,
-  Masks;
+  Masks,
+  IniFiles;
 
 
 type
@@ -151,9 +152,9 @@ begin
         SetLength(Result, (Length(Data) + (Length(NewPattern) - Length(OldPattern))));
         Move(Data[0], Result[0], (i + 1));
         Move(NewPattern[0], Result[i], Length(NewPattern));
-        Writeln(IntToStr(Length(Result) - (i + Length(OldPattern))));
-        Writeln(IntToStr(Length(Data) - i - Length(NewPattern)));
-        Move(Data[i + Length(OldPattern)], Result[i + Length(NewPattern)], (Length(Data) - i - Length(NewPattern)));
+//        Writeln(IntToStr(Length(Result) - (i + Length(OldPattern))));
+//        Writeln(IntToStr(Length(Data) - i - Length(NewPattern)));
+        Move(Data[i + Length(OldPattern)], Result[i + Length(NewPattern)], (Length(Data) - i - Length(OldPattern)));
         iLastPatternPos := i;
         if bFirstOnly then Break;
 //        Move(NewPattern[0], Data[i], Length(NewPattern));
@@ -169,13 +170,43 @@ begin
   end;
 end;
 
+
+// Finds first occurence of byte array
+function GetAOBPos(Pattern: TBytes; Data: TBytes): Integer;
+var
+bMatch: Boolean;
+i, j: Integer;
+begin
+  Result := 0;
+  for i := 0 to (Length(Data) - 1) do
+  begin
+    if Pattern[0] = Data[i] then
+    begin
+      bMatch := True;
+      for j := i to (Length(Pattern) - 1 + i) do
+      begin
+        if Pattern[j - i] <> Data[j] then bMatch := False;
+      end;
+      if bMatch then
+      begin
+        Result := i;
+        Exit;
+      end;
+    end;
+  end;
+end;
+
+//function Patch_AOB_By_Offset(Offset: Integer; Length: Integer; NewPattern: TBytes; Mask:
+
 var
 //Dllx: TBytes;
 Data:ARRAY [0..27] OF Byte = ($00,$43,$00,$3A,$00,$5C,$00,$4D,$00,$53,$00,$31,$00,$30,$00,$30,$00,$34,$00,$36,$00,$2E,$00,$64,$00,$6C,$00,$6C);
 Pattern:ARRAY [0..1] OF Byte = ($00,$30);
-b, baSource, bytePattern, newbytePattern: TBytes;
-i, j : integer;
-bConvert: Boolean;
+b, baSource, bytePattern, newbytePattern, bNew: TBytes;
+i, j, OldSize, NewSize, vertCount : integer;
+bConvert, bAddVertData: Boolean;
+
+INI: TINIFile;
 
 pBSMultiBoundNode,
 pBSMultiBoundOBB,
@@ -196,7 +227,7 @@ s,
 fileType: String;
 
 slFiles, slSourceFiles, slWorldSpaces, slDel: TStringList;
-iMultiBoundDataPos: Integer;
+iMultiBoundDataPos, pos: Integer;
 openDialog : topendialog;
 self: TComponent;
 //byteArray  : array of Byte;
@@ -251,9 +282,12 @@ begin
       { TODO -oUser -cConsole Main : Insert code here }
       if bConvert then
       begin
+        INI := TINIFile.Create('C:\Users\' + GetEnvironmentVariable('USERNAME') + '\OneDrive\Projects\FNV_to_FO4\Profiles\' + GetEnvironmentVariable('COMPUTERNAME') + '\FNV_to_FO4.ini');
         PathRootSource := 'D:\Games\Fallout New Vegas\FNVExtracted\Data\';
-        PathSource := PathRootSource + 'meshes\landscape\lod\';
         PathRootDest := 'D:\Games\Fallout New Vegas\FNVFo4 Converted\Data\';
+        PathRootSource := INI.ReadString('USERPATHS', 'FNVExtracted', '');
+        PathRootDest := INI.ReadString('USERPATHS', 'FNVConverted', '');
+        PathSource := PathRootSource + 'meshes\landscape\lod\';
         slSourceFiles.LoadFromFile(PathRootDest + 'Meshes\Terrain\LODList.csv');
         slDel := TStringList.Create;
         slDel.Delimiter := ';';
@@ -327,9 +361,9 @@ begin
             newbytePattern := StringToByteArray(pNameLandCorrected);
 
             // Access violation sometimes
-            Writeln('HERE');
+//            Writeln('HERE');
             b := ReplaceBytePattern(b, bytePattern, newbytePattern, True);
-            Readln;
+//            Readln;
 
             bytePattern := StringToByteArray(pChunkDataOld);
             newbytePattern := StringToByteArray(pChunkDataNew);
@@ -426,6 +460,230 @@ begin
             Delete(b, (iMultiBoundDataPos + Length(newbytePattern)), MaxInt);
             Writeln(IntToStr(Length(b)));
           end;
+
+          if fileType = '.BTR' then
+          begin
+            // Vertex Data Block Size
+            // Multibound AABB
+            sBytes := '42 53 4D 75 6C 74 69 42 6F 75 6E 64 41 41 42 42';
+            bytePattern := StringToByteArray(sBytes);
+            pos := GetAOBPos(bytePattern, b);
+
+            // Vert Count
+            s := IntToHex(b[pos + $11D], 2);
+            s := IntToHex(b[pos + $11D + 1], 2) + s;
+            s := '$' + s;
+            vertCount := StrToInt(s);
+            writeln(IntToStr(vertCount));
+
+            // Vertex Flags
+            bAddVertData := True;
+            if b[pos + $116] = $30 then
+             bAddVertData := False;
+
+            if pos > 0 then pos := pos + $20;
+            s := '';
+            sBytes := '';
+            SetLength(bytePattern, 4);
+            Writeln(IntToStr(Length(bytePattern)));
+            Move(b[pos], bytePattern[0], 4);
+            Writeln(IntToStr(Length(bytePattern)));
+            for j := 0 to 3 do
+            begin
+              s := IntToHex(b[pos + j], 2) + s;
+            end;
+            writeln(s);
+            s := '$' + s;
+            OldSize := StrToInt(s);
+            NewSize := OldSize + vertCount*4;
+            sBytes := (IntToHex(NewSize, 8));
+            sBytes := sBytes + Copy(sBytes, 7, 2);
+            sBytes := sBytes + ' ' + Copy(sBytes, 5, 2);
+            sBytes := sBytes + ' ' + Copy(sBytes, 3, 2);
+            sBytes := sBytes + ' ' + Copy(sBytes, 1, 2);
+            sBytes := Copy(sBytes, 9, 11);
+            newbytePattern := StringToByteArray(sBytes);
+            Writeln(IntToStr(Length(bytePattern)));
+            Writeln(IntToStr(Length(newbytePattern)));
+            if bAddVertData = True then
+              b := ReplaceBytePattern(b, bytePattern, newbytePattern, False);
+            writeln(IntToStr(NewSize));
+
+
+//            31540
+//            Move(New Size, b[pos], 4);
+
+
+            // Vertex Data
+            sBytes := '02 00 00 00 00 10 00 00 75 14 00 00 69 12 06 0E 01 00 00';
+            bytePattern := StringToByteArray(sBytes);
+            pos := GetAOBPos(bytePattern, b);
+            sBytes := '02 00 00 00 00 30 00 00 75 14 00 00 69 12 06 0E 01 00 00';
+            newbytePattern := StringToByteArray(sBytes);
+            b := ReplaceBytePattern(b, bytePattern, newbytePattern, True);
+            pos := pos + Length(bytePattern);
+//            bNew :=
+
+            if bAddVertData = True then
+            begin
+              SetLength(bNew, (Length(b) + vertCount*4));
+              Move(b[0], bNew[0], (pos));
+              Move(b[pos + vertCount*8], bNew[pos + vertCount*12], (Length(b) - (pos + vertCount*8)));
+              sBytes := '00 00 00 00';
+              bytePattern := StringToByteArray(sBytes);
+              SetLength(newbytePattern, 12);
+              writeln(IntToStr((vertCount - 1)));
+              for j := 0 to (vertCount - 1) do
+              begin
+//                writeln(IntToStr(pos + j * 8));
+                Move(b[pos + j * 8], newbytePattern[0], 8);
+                Move(bytePattern[0], newbytePattern[8], 4);
+                Move(newbytePattern[0], bNew[pos + j * 12], Length(newbytePattern));
+              end;
+              SetLength(b, Length(bNew));
+              Move(bNew[0], b[0], Length(bNew));
+            end;
+
+            // Shader Data
+            sBytes := '00 00 00 00 02 00 00 00 00 00 00 00 FF FF FF FF'
+                   + ' 00 10 40 80 01 00 00 00 00 00 00 00 00 00 00 00'
+                   + ' 00 00 80 3F 00 00 80 3F 03 00 00 00 00 00 00 00'
+                   + ' 00 00 00 00 00 00 00 00 00 00 80 3F 02 00 00 00'
+                   + ' 00 00 00 00 00 00 80 3F 00 00 00 00 00 00 80 3F'
+                   + ' 00 00 80 3F 00 00 80 3F 00 00 80 3F 00 00 80 3F'
+                   + ' 00 00 00 00 FF FF 7F 7F 00 00 00 00 00 00 00 3F'
+                   + ' 00 00 A0 40 00 00 80 BF 00 00 80 BF 00 00 80';
+            bytePattern := StringToByteArray(sBytes);
+            sBytes := '12 00 00 00 02 00 00 00 00 00 00 00 FF FF FF FF'
+                   + ' 00 10 40 80 03 00 00 00 00 00 00 00 00 00 00 00'
+                   + ' 00 00 80 3F 00 00 80 3F 03 00 00 00 00 00 00 00'
+                   + ' 00 00 00 00 00 00 00 00 00 00 80 3F 02 00 00 00'
+                   + ' 00 00 00 00 00 00 80 3F 00 00 00 00 00 00 00 00'
+                   + ' 00 00 80 3F 00 00 80 3F 00 00 80 3F 00 00 80 3F'
+                   + ' 00 00 00 00 FF FF 7F 7F 00 00 00 00 00 00 80 3F'
+                   + ' 00 00 A0 40 00 00 80 BF 00 00 80 BF 00 00 80';
+            newbytePattern := StringToByteArray(sBytes);
+            b := ReplaceBytePattern(b, bytePattern, newbytePattern, True);
+
+            // MultiboundAABB String
+            sBytes := '42 53 4D 75 6C 74 69 42 6F 75 6E 64 41 41 42 42';
+            bytePattern := StringToByteArray(sBytes);
+            pos := GetAOBPos(bytePattern, b);
+            bytePattern := StringToByteArray('05');
+            Move(bytePattern[0], b[pos + $38], Length(bytePattern));
+            //Unknown Int
+            bytePattern := StringToByteArray('01');
+            Move(bytePattern[0], b[pos + $A9], Length(bytePattern));
+            bytePattern := StringToByteArray('0E');
+            Move(bytePattern[0], b[pos + $B9], Length(bytePattern));
+            bytePattern := StringToByteArray('40');
+            Move(bytePattern[0], b[pos + $F0], Length(bytePattern));
+            bytePattern := StringToByteArray('03 02');
+            Move(bytePattern[0], b[pos + 273], Length(bytePattern));
+
+            // Scale
+            bytePattern := StringToByteArray('00 00 80 3F');
+            Move(bytePattern[0], b[pos + $ED], Length(bytePattern));
+          end
+          else
+          begin
+            // BSFadeNode to NiNode
+            sBytes := '0A 00 00 00 42 53 46 61 64 65 4E 6F 64 65';
+            bytePattern := StringToByteArray(sBytes);
+            sBytes := '06 00 00 00 4E 69 4E 6F 64 65';
+            newbytePattern := StringToByteArray(sBytes);
+            b := ReplaceBytePattern(b, bytePattern, newbytePattern, True);
+//            pos := GetAOBPos(bytePattern, b);
+
+            // Shader Data
+            // FSF2 LOD Objects flag
+            // String pointer
+            sBytes := '03 00 00 00 00 00 00 00 FF FF FF FF 01 00 40 80'
+                   + ' 01 00 00 00 00 00 00 00 00 00 00 00 00 00 80 3F'
+                   + ' 00 00 80 3F 04 00 00 00 00 00 00 00 00 00 00 00'
+                   + ' 00 00 00 00 00 00 80 3F 03';
+            bytePattern := StringToByteArray(sBytes);
+            sBytes := '01 00 00 00 00 00 00 00 FF FF FF FF 01 00 40 80'
+                   + ' 05 00 00 00 00 00 00 00 00 00 00 00 00 00 80 3F'
+                   + ' 00 00 80 3F 04 00 00 00 00 00 00 00 00 00 00 00'
+                   + ' 00 00 00 00 00 00 80 3F 01';
+            newbytePattern := StringToByteArray(sBytes);
+            b := ReplaceBytePattern(b, bytePattern, newbytePattern, True);
+
+            // NiNode Flags
+            sBytes := 'FF FF FF FF 0E 40 00 20 00';
+            bytePattern := StringToByteArray(sBytes);
+            sBytes := 'FF FF FF FF 0E 00 00 00 00';
+            newbytePattern := StringToByteArray(sBytes);
+            b := ReplaceBytePattern(b, bytePattern, newbytePattern, True);
+
+            // BSMultiboundNode
+            // Flags
+            // Unknown Int
+            sBytes := 'FF FF FF FF 0E 00 00 20 00 00 00 00 00 00 00 00'
+                   + ' 00 00 00 00 00 00 80 3F 00 00 00 00 00 00 00 00'
+                   + ' 00 00 00 00 00 00 80 3F 00 00 00 00 00 00 00 00'
+                   + ' 00 00 00 00 00 00 80 3F 00 00 80 3F FF FF FF FF'
+                   + ' 01 00 00 00 02 00 00 00 05 00 00 00 00';
+            bytePattern := StringToByteArray(sBytes);
+            sBytes := 'FF FF FF FF 0E 00 00 00 00 00 00 00 00 00 00 00'
+                   + ' 00 00 00 00 00 00 80 3F 00 00 00 00 00 00 00 00'
+                   + ' 00 00 00 00 00 00 80 3F 00 00 00 00 00 00 00 00'
+                   + ' 00 00 00 00 00 00 80 3F 00 00 80 3F FF FF FF FF'
+                   + ' 01 00 00 00 02 00 00 00 05 00 00 00 01';
+            newbytePattern := StringToByteArray(sBytes);
+            b := ReplaceBytePattern(b, bytePattern, newbytePattern, True);
+
+            // TriShape Flags
+            sBytes := 'FF FF FF FF 18 00 00 00';
+            bytePattern := StringToByteArray(sBytes);
+            sBytes := 'FF FF FF FF 0E 00 00 00';
+            newbytePattern := StringToByteArray(sBytes);
+            b := ReplaceBytePattern(b, bytePattern, newbytePattern, True);
+
+            // Convert to BSSubindexTriShape
+            sBytes := '0A 00 00 00 42 53 54 72 69 53 68 61 70 65';
+            bytePattern := StringToByteArray(sBytes);
+            sBytes := '12 00 00 00 42 53 53 75 62 49 6E 64 65 78 54 72 69 53 68 61 70 65';
+            newbytePattern := StringToByteArray(sBytes);
+            b := ReplaceBytePattern(b, bytePattern, newbytePattern, True);
+
+            // Multibound AABB
+            sBytes := '42 53 4D 75 6C 74 69 42 6F 75 6E 64 41 41 42 42';
+            bytePattern := StringToByteArray(sBytes);
+            pos := GetAOBPos(bytePattern, b);
+            pos := pos + $26;
+
+            // BlockSize
+//            bytePattern := StringToByteArray('46');
+            s := '';
+            for j := 0 to 3 do
+            begin
+              s := IntToHex(b[pos + j], 2) + s;
+            end;
+            writeln(IntToStr(pos));
+            writeln(s);
+            s := '$' + s;
+            OldSize := StrToInt(s);
+            NewSize := OldSize + 12;
+            sBytes := (IntToHex(NewSize, 8));
+            sBytes := sBytes + Copy(sBytes, 7, 2);
+            sBytes := sBytes + ' ' + Copy(sBytes, 5, 2);
+            sBytes := sBytes + ' ' + Copy(sBytes, 3, 2);
+            sBytes := sBytes + ' ' + Copy(sBytes, 1, 2);
+            sBytes := Copy(sBytes, 9, 11);
+            newbytePattern := StringToByteArray(sBytes);
+            Move(bytePattern[0], b[pos], Length(bytePattern));
+
+            // BSSubindexTriShape Data
+            sBytes := '01 00 00 00 00 00 00 00 FF FF FF FF 01 00 40 80';
+            bytePattern := StringToByteArray(sBytes);
+            sBytes := '00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00 00 00 00 00 FF FF FF FF 01 00 40 80';
+            newbytePattern := StringToByteArray(sBytes);
+            b := ReplaceBytePattern(b, bytePattern, newbytePattern, True);
+          end;
+
+
           if slSourceFiles.Count > 0 then
           begin
             TFile.WriteAllBytes(PathDest, b)
@@ -436,7 +694,7 @@ begin
         end;
       end;
       Writeln('Done');
-//      Readln;
+      Readln;
     end;
   except
     on E: Exception do
