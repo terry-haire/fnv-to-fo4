@@ -1,12 +1,19 @@
 @echo off
 set cnt=0
-set FNVExtracted=C:\Games\FalloutNV\Extracted\Data\
-set FNVConverted=C:\Games\FalloutNV\Converted\Data\
+
+rem LAPTOP
+rem set FNVExtracted=C:\Games\FalloutNV\Extracted\Data\
+rem set FNVConverted=C:\Games\FalloutNV\Converted\Data\
+
+rem DESKTOP
+set FNVExtracted=D:\Games\Fallout New Vegas\FNVExtracted\Data\
+set FNVConverted=D:\Games\Fallout New Vegas\FNVFo4 Converted\Data\
+
 for /R "%FNVExtracted%meshes" %%A in (*.nif) do set /a cnt+=1
 set /a cnt = cnt/483
 rem set iStart to 0 for normal operation
 del "%FNVConverted%Meshes\Terrain\LODList.csv"
-set iStart=21
+set iStart=0
 echo File count = %cnt%
 FOR /L %%B IN (%iStart%,1,%cnt%) DO (
   ECHO %%B

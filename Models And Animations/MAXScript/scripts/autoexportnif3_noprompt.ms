@@ -178,12 +178,6 @@
 	(
 		with undo off
 		(
-			print _TX00
-			print _TX01
-			print _TX02
-			print _TX03
-			print _TX04
-			print _TX05
 			-- BSBlinn seems a better option but materials will more complicated unless material saving functions can be added to BSBlinn
 			setmeditmaterial i (BSLightingFX ())
 			meditMaterials[i].ShowVertexColorParam = off --Or Textures Glitch sometimes
@@ -548,6 +542,7 @@
 	startloc = fileRoot + "Meshes\\landscape\\\\lod\\\\bouldercityworld\\\\blocks\\bouldercityworld.level4.x2.y-1.nif"
 	startloc = fileRoot + "Meshes\\landscape\\\\lod\\\\wastelandnv\\wastelandnv.level16.x-16.y-16.nif"
 	startloc = fileRoot + "Meshes\\landscape\\\\lod\\\\wastelandnv\\wastelandnv.level4.x20.y-48.nif"
+	startloc = "D:\\Games\\Fallout New Vegas\\FNVExtracted\\Data\\Meshes\\landscape\\\\lod\\\\wastelandnv\\\\blocks\\wastelandnv.level4.high.x-4.y12.nif"
 	
 	/*
 	xEditLoc = "C:\\Users\Terry\OneDrive\Bethesda\\xEdit\\"
@@ -609,9 +604,12 @@
 	FileCount = 0
 	--startloc = undefined
 	startpoint = false
+	bSingleFile = false
 	bLod = false
-	bObjLodOnly = true
-	bLodOnly = true
+	bObjLodOnly = false
+	bLodOnly = false
+	
+	bFinalize = false
 	
 	gc() --Garbage Collection.
 	freescenebitmaps() --Cleans up in texture memory.
@@ -632,6 +630,7 @@
 	--for f in files while(not keyboard.escPressed) do with undo off
 	for k = k to files.count do with undo off
 	(
+		if k == files.count then bFinalize = true
 		s=timeStamp() 
 		f = files[k]
 		if f == startloc then 
@@ -663,7 +662,7 @@
 		--Turn off import vertex colors in nif import options
 		--delete objects
 		resetMaxFile #noPrompt
-		disableSceneRedraw()
+		--disableSceneRedraw()
 		gc() --Garbage Collection.
 		freescenebitmaps() --Cleans up in texture memory.
 		clearUndoBuffer() --Removes your Undo's
@@ -714,10 +713,7 @@
 				if index == 25 then index = 19 --itemPick to small debris
 				-- if index == 13 then index =
 				--messageBox index
-				--print index
-				--print indexskiplist[(index + 1)]
 				index = indexskiplist[(index + 1)] -- Object Type
-				--print index
 				if index != undefined then index = indexlist[(index + 1)]
 				
 			)
@@ -1143,6 +1139,7 @@
 			delete(getnodebyname "Bip01 L ForeTwistDriver")
 		)
 		
+		
 		--lod
 		if bLod == true then
 		(
@@ -1173,8 +1170,16 @@
 				)
 				while objects.count > 2 do
 				(
+					--Should be mesh already
+					--converttomesh objects[1]
+					meshop.attach objects[3] objects[2] attachMat:#IDToMat condenseMat:true
+				)
+				/*
+				while objects.count > 2 do
+				(
 					delete objects[3]
 				)
+				*/
 				local obj = GetNodeByName "Land"
 				mat.DecalParam = off
 				mat.ExternalEmittanceParam = off
@@ -1330,8 +1335,9 @@
 			--objects[2].material.CastShadowsParam = off
 		)
 		
+		
 		select objects[1]
-		print (ClassOf selection[1] as string)
+		--print (ClassOf selection[1] as string)
 		if (ClassOf selection[1] as string) != "BoneGeometry" then 
 		(
 			--messagebox(ClassOf selection[1] as string)
@@ -1387,37 +1393,125 @@
 			Exit
 		)
 		
+		
+		
 		if bLod == true then
 		(
-			local _newpath = replace (substituteString (toLower file) "\\\\" "\\") 1 fileRoot.count ""
-			local _newpath = replace _newpath 1 21 ""
-			local _newname = getFilenameFile _newpath
-			local _newname = substituteString _newname ".level" "."
-			local _newname = substituteString _newname ".x-" ".-"
-			local _newname = substituteString _newname ".y-" ".-"
-			local _newname = substituteString _newname ".x" "."
-			local _newname = substituteString _newname ".y" "."
+			local _newpath
+			local _newname
+			_newpath = replace (substituteString (toLower file) "\\\\" "\\") 1 fileRoot.count ""
+			_newpath = replace _newpath 1 21 ""
+			_newname = getFilenameFile _newpath
+			_newname = substituteString _newname ".level" "."
+			_newname = substituteString _newname ".x-" ".-"
+			_newname = substituteString _newname ".y-" ".-"
+			_newname = substituteString _newname ".x" "."
+			_newname = substituteString _newname ".y" "."
 			if findstring _newpath "\\blocks\\" != undefined then
 			(
-				local _newpath = substituteString _newpath "\\blocks\\" "\\objects\\"
-				local _newname = _newname + ".BTO"				
+				_newpath = substituteString _newpath "\\blocks\\" "\\objects\\"
+				_newname = _newname + ".BTO"				
 			)
 			else
-				local _newname = _newname + ".BTR"
-			local _newpath = _exportloc + "Meshes\\Terrain\\" + _newpath
-			local _newpath = getFilenamePath _newpath
+				_newname = _newname + ".BTR"
+			_newpath = _exportloc + "Meshes\\Terrain\\" + _newpath
+			_newpath = getFilenamePath _newpath
 			makeDir _newpath all:true
-			if doesFileExist (_newpath + _newname) then
-				deleteFile (_newpath + _newname)
-			if renameFile _exportfile (_newpath + _newname) == false then
-			(
-				MessageBox "Failed to rename lod"
-				Exit
-			)
-			print ("Lod renamed to: " + _newpath + _newname)
 			
-			append LODList ((substituteString file "\\\\" "\\") + ";" + _newpath + _newname)
+			local iLevels
+			if findstring _newname ".4.high." != undefined then
+			(
+				iLevels = 3
+				local _newnameCopy = copy _newname
+			)
+			else
+				iLevels = 1
+			for i = 1 to iLevels do
+			(
+				if iLevels > 1 then
+				(
+					-- Starts at level 8
+					local iLevel = (2^(i+2))
+					_newname = substituteString _newnameCopy ".4.high." ("." + (iLevel as string) + ".")
+					
+					-- e.g.  wastelandnv.16.-20.-28.BTO to wastelandbv, 16, -20, -28, BTO	
+					local slCoords = (filterString _newname ".")
+					
+					local iCoord_x = (slCoords[slCoords.count - 2] as integer)
+					local iCoord_y = (slCoords[slCoords.count - 1] as integer)
+					local iBlockSize = 4096 -- level 4 block div 4
+					local iCoord_xDiff = mod iCoord_x iLevel
+					local iCoord_yDiff = mod iCoord_y iLevel
+						
+					for o in objects where (ClassOf o != BoneGeometry) do o.parent = undefined
+					if ClassOf objects[1] == BoneGeometry then delete objects[1]
+					if getNodeByName "Multibound" != undefined then
+						delete (getNodeByName "Multibound")
+					
+					if ((iCoord_xDiff != 0) or (iCoord_yDiff != 0)) then
+					(
+						--To Positive then subtract level
+						if iCoord_xDiff < 0 then iCoord_xDiff = - iCoord_xDiff - iLevel
+						if iCoord_yDiff < 0 then iCoord_yDiff = - iCoord_yDiff - iLevel
+							
+						-- Always move negative
+						if iCoord_xDiff > 0 then iCoord_xDiff = - iCoord_xDiff
+						if iCoord_yDiff > 0 then iCoord_yDiff = - iCoord_yDiff
+						--move objects[1] [(iCoord_xDiff*iBlockSize),(iCoord_yDiff*iBlockSize),0]
+						--print (objects[1].pos.x + iCoord_xDiff*iBlockSize)
+						local obj = objects[1]
+						/*
+						obj.pivot = [0,0,0]
+						obj.scale.x = (obj.scale.x)/iLevel
+						obj.scale.y = (obj.scale.y)/iLevel
+						obj.scale.z = (obj.scale.z)/iLevel
+						iBlockSize = iBlockSize/iLevel
+						*/
+						
+						objects[1].pos = [(objects[1].pos.x + iCoord_xDiff*iBlockSize),(objects[1].pos.y + iCoord_yDiff*iBlockSize),0]
+						--resetxform obj
+						--maxOps.CollapseNode obj true
+						
+					)
+					
+					local _newname2 = Copy _newname
+					_newname = ""
+					for j = 1 to (slCoords.count - 3) do
+						_newname = _newname + slCoords[j] + "."
+					iCoord_x = (iCoord_x + iCoord_xDiff) as integer
+					iCoord_y = (iCoord_y + iCoord_yDiff) as integer
+					_newname = _newname + (iCoord_x as string) + "."
+					_newname = _newname + (iCoord_y as string)
+					
+					--Save it with the original name
+					makeDir (_newpath + "groups\\" + _newname) all:true
+					saveMaxFile (_newpath + "groups\\" + _newname + "\\"  + _newname2 + ".MAX")
+					
+					_newname = _newname + ".BTO"
+				)
+				if doesFileExist (_newpath + _newname) then
+					deleteFile (_newpath + _newname)
+				if i == iLevels then
+				(
+					if renameFile _exportfile (_newpath + _newname) == false then
+					(
+						MessageBox "Failed to rename lod"
+						Exit
+					)
+				)
+				else
+				(
+					if copyFile _exportfile (_newpath + _newname) == false then
+					(
+						MessageBox "Failed to Copy lod"
+						Exit
+					)
+				)
+				print ("Lod renamed to: " + _newpath + _newname)			
+				append LODList ((substituteString file "\\\\" "\\") + ";" + _newpath + _newname)
+			)
 			bLod = false
+			
 		)
 		
 		/*
@@ -1450,8 +1544,11 @@
 		if BSLightingFXMode == true then
 			if FileCount == 483 then
 				exit
+			
+		--if FileCount == 8 then exit
+		if bSingleFile == true then exit
 	)
-	enableSceneRedraw()
+	--enableSceneRedraw()
 	ShowTextures()
 	viewport.ResetAllViews() 
 	print (LODList.count as string)
@@ -1476,5 +1573,81 @@
 			format "\n" to:out_file
 		)
 		close out_file
+	)
+	
+	--if bFinalize == true then
+	(
+		local _INI_Path = "C:\\Users\\" + sysInfo.username + "\\OneDrive\\Projects\\FNV_to_FO4\\Profiles\\" + sysInfo.computername + "\\FNV_to_FO4.ini"
+		local _exportloc = getINISetting _INI_Path "USERPATHS" "FNVConverted"
+		_source = _exportloc + "Meshes\\Terrain\\"
+		local dirsWorldSpaces = getDirectories (_source + "*")
+		for dWrld in dirsWorldSpaces do
+		(
+			local _path = dWrld + "objects\\groups\\"
+			local dirsGroups = getDirectories (_path + "*")
+			for dGroup in dirsGroups do
+			(
+				resetMaxFile #noPrompt
+				local root = BoneSys.createBone [0,0,0] [0,0,0] [0,0,0]
+				root.name = "obj"
+				root.width = 5
+				root.height = 5
+				resetxform root
+				maxOps.CollapseNode root true
+				local files = getFiles (dGroup + "*")
+				--mergeMAXFile "D:\Games\Fallout New Vegas\FNVFo4 Converted\Data\Meshes\Terrain\wastelandnv\objects\groups\wastelandnv.8.-8.8"
+				--return messagebox "return"
+				for f in files do
+				(
+					--mergeMAXFile f #renameMtlDups #autoRenameDups
+					mergeMAXFile f #mergeDups #useMergedMtlDups
+				)
+				if objects.count > 1 then
+				(
+					objects[2].name = "obj"
+					while objects.count > 2 do
+						polyop.attach objects[2] objects[3]
+					--return messagebox "return"
+					objects[2].parent = objects[1]
+					select objects[1]
+					local slName = (filterString (filenameFromPath dGroup) ".")
+					local iLevel = slName[slName.count - 2] as integer
+					local _exportname = dWrld + "objects\\"
+					_exportname = _exportname + replace dGroup  1 (_path.count) ""
+					_exportname = replace _exportname _exportname.count 1 ""
+					
+					-- Multibound
+					(
+						oMultibound = box()
+						oMultibound.name = "Multibound"
+						oMultibound.parent = root
+						
+						oMultibound.pos.x = (objects[2].max.x) - ((objects[2].max.x - objects[2].min.x)/2)
+						oMultibound.pos.y = (objects[2].max.y) - ((objects[2].max.y - objects[2].min.y)/2)
+						oMultibound.pos.z = (objects[2].min.z) -- - ((objects[2].max.z - objects[2].min.z)/2)
+						
+						oMultibound.width = objects[2].max.x - objects[2].min.x
+						oMultibound.length = objects[2].max.y - objects[2].min.y
+						oMultibound.height = objects[2].max.z - objects[2].min.z
+						
+						oMultibound.material = BSBlinn()
+						oMultibound.material[#Standard].wire = on
+						oMultibound.material[#Standard][#Shader_Basic_Parameters].Diffuse = color 255 0 0
+					)
+					
+					SaveMaxFile (_exportname + ".max")
+					print _exportname
+					exportFile (_exportname + ".nif") #noPrompt selectedOnly: true using: nif_export_class
+					
+					if doesFileExist (_exportname + ".BTO") then
+						deleteFile (_exportname + ".BTO")
+					if renameFile (_exportname + ".nif") (_exportname + ".BTO") == false then
+					(
+						MessageBox "Failed to rename lod"
+						Exit
+					)
+				)
+			)
+		)
 	)
 )
