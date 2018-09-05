@@ -191,6 +191,9 @@
 			)
 			*/
 			
+			-- Set Default Glossiness to 0
+			meditmaterials[i].SmoothnessParam = 0
+			
 			if _TX00 != undefined then 
 			(
 				_TX00 = (substituteString _TX00 "\\\\" "\\")
@@ -259,8 +262,7 @@
 					meditmaterials[i].AlphaParam = on
 					meditmaterials[i].AlphaValueParam = srcMat.opacity / 100 as float
 				)
-				--if findString (toLower _MatName) "_lod" != undefined then
-				--	meditmaterials[i].ModelSpaceNormalParam = on
+				meditmaterials[i].SmoothnessParam = srcMat.glossiness / 100 as float
 			)
 			
 			if bLod == false then
@@ -628,7 +630,7 @@
 	)
 	
 	--for f in files while(not keyboard.escPressed) do with undo off
-	for k = k to files.count do with undo off
+	for k = k to files.count do with undo off, with animate off, with redraw off
 	(
 		if k == files.count then bFinalize = true
 		s=timeStamp() 
@@ -1145,6 +1147,8 @@
 		(
 			local root = objects[1]
 			
+			--for o in objects where (o.wirecolor == (color 88 199 225))
+			
 			-- TEST works but no difference in export
 			/*
 			delete root
@@ -1172,6 +1176,8 @@
 				(
 					--Should be mesh already
 					--converttomesh objects[1]
+					objects[2].pos = [0,0,0]
+					objects[3].pos = [0,0,0]
 					meshop.attach objects[3] objects[2] attachMat:#IDToMat condenseMat:true
 				)
 				/*
@@ -1181,55 +1187,58 @@
 				)
 				*/
 				local obj = GetNodeByName "Land"
-				mat.DecalParam = off
-				mat.ExternalEmittanceParam = off
-				mat.DecalNoFadeParam = off
-				mat.HideSecretParam = off
-				mat.ScreenSpaceReflectionsParam = off
-				mat.ModelSpaceNormalParam = on
-				mat.TwoSidedParam = off
-				mat.CastShadowsParam = off
-				mat.DissolveFadeParam = off
-				mat.NonOccluderParam = off
-				
-				mat.AlphaParam = off
-				mat.EditorAlphaTestRef = off
-				mat.ZTestParam = on
-				mat.ZWriteParam = on
-				mat.SubSurfaceLightingParam = off
-				mat.SpecularParam = off
-				mat.AnisoLightingParam = off
-				mat.ShowEmitParam = on
-				mat.ApplyGlowmapToEmitParam = off
-				mat.RefractionParam = off
-				mat.RefractionFireParam = off
-				mat.ParallaxOccParam = off
-				mat.MultiLayerParallaxParam = off
-				mat.HairParam = off
-				mat.EnvmapEyeParam = off
-				mat.EnvmapWindowParam = off
-				mat.EnvmapLightFadeParam = off
-				mat.TreeParam = off
-				mat.GrayscaleColorParam = off
-				mat.TwoSidedParam = off
-				mat.ModelSpaceNormalParam = on
-				mat.DecalParam = off
-				mat.DecalNoFadeParam = off
-				mat.ExternalEmittanceParam = off
-				mat.HideSecretParam = off
-				mat.CastShadowsParam = off
-				mat.DissolveFadeParam = off
-				mat.ScreenSpaceReflectionsParam = off
-				mat.NonOccluderParam = off
-				mat.SkinTintParam = off
-				mat.UTilingParam = off
-				mat.VTilingParam = off
-				mat.BGSMatInit = off
-				obj.material = mat
-				
-				objects[2].pos = [0, 0, 0]
-				setLodBorders(GetNodeByName "Land")
-				
+				if obj != undefined then
+				(
+					mat.DecalParam = off
+					mat.ExternalEmittanceParam = off
+					mat.DecalNoFadeParam = off
+					mat.HideSecretParam = off
+					mat.ScreenSpaceReflectionsParam = off
+					mat.ModelSpaceNormalParam = on
+					mat.TwoSidedParam = off
+					mat.CastShadowsParam = off
+					mat.DissolveFadeParam = off
+					mat.NonOccluderParam = off
+					
+					mat.AlphaParam = off
+					mat.EditorAlphaTestRef = off
+					mat.ZTestParam = on
+					mat.ZWriteParam = on
+					mat.SubSurfaceLightingParam = off
+					mat.SpecularParam = off
+					mat.AnisoLightingParam = off
+					mat.ShowEmitParam = on
+					mat.ApplyGlowmapToEmitParam = off
+					mat.RefractionParam = off
+					mat.RefractionFireParam = off
+					mat.ParallaxOccParam = off
+					mat.MultiLayerParallaxParam = off
+					mat.HairParam = off
+					mat.EnvmapEyeParam = off
+					mat.EnvmapWindowParam = off
+					mat.EnvmapLightFadeParam = off
+					mat.TreeParam = off
+					mat.GrayscaleColorParam = off
+					mat.TwoSidedParam = off
+					mat.ModelSpaceNormalParam = on
+					mat.DecalParam = off
+					mat.DecalNoFadeParam = off
+					mat.ExternalEmittanceParam = off
+					mat.HideSecretParam = off
+					mat.CastShadowsParam = off
+					mat.DissolveFadeParam = off
+					mat.ScreenSpaceReflectionsParam = off
+					mat.NonOccluderParam = off
+					mat.SkinTintParam = off
+					mat.UTilingParam = off
+					mat.VTilingParam = off
+					mat.BGSMatInit = off
+					obj.material = mat
+					
+					objects[2].pos = [0, 0, 0]
+					setLodBorders(obj)
+				)
+					
 				if setINISetting _exportINI "MAXIMMERSE" "EXPORT_SCRIPT" _PE_SKYkey == false then
 				(
 					MessageBox "Failed to set export settings"
