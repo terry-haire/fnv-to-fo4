@@ -826,7 +826,7 @@ begin
             // Segment
             if Length(baSource) = 0 then
             begin
-              sBytes := '01 00 00 00'  // Start Index
+              sBytes := '00 00 00 00'  // Start Index
                      + ' 00 00 00 00'  // Num Primitives
                      + ' FF FF FF FF'  // Parent Array Index
                      + ' 00 00 00 00'; // Num Sub Segments
@@ -840,7 +840,7 @@ begin
             end
             else
             begin
-              Move(bytePattern[0],
+              Move(bytePattern[0], b[pos], Length(bytePattern));
             end;
 
             // TriShape Block Size pos.
@@ -904,6 +904,84 @@ begin
                    + ' 00 00 00 00 FF FF FF FF 01 00 40 80';
             newbytePattern := StringToByteArray(sBytes);
             b := ReplaceBytePattern(b, bytePattern, newbytePattern, True);
+
+
+            // Alpha Property
+
+
+            // Num blocks (unsigned int32)
+            pos := $30;
+            NewSize := littleEndian(b, pos) + 1;
+            newbytePattern := littleEndianToByteArray(NewSize);
+            Move(newbytePattern[0], b[pos], 4);
+
+
+            // Num block types. (unsigned int 16);
+
+            // Multibound AABB pos.
+            sBytes := '42 53 4D 75 6C 74 69 42 6F 75 6E 64 41 41 42 42';
+            bytePattern := StringToByteArray(sBytes);
+            pos := GetAOBPos(bytePattern, b);
+            pos2 := pos;
+
+            pos := pos - $7D;
+            SetLength(newbytePattern, 2);
+            sBytes := '$' + IntToStr(b[pos]) + IntToStr(b[pos + 1]);
+            NewSize := StrToInt(sBytes);
+            OldSize := NewSize;
+            NewSize := NewSize + 1;
+            sBytes := IntToHex(NewSize, 4);
+            sBytes.Insert(2, ' ');
+            Writeln(sBytes);
+            newbytePattern := StringToByteArray(sBytes);
+            Move(newbytePattern[0], b[pos], Length(newbytePattern));
+
+
+            // Block type (sized string).
+            pos := pos2 + $10;
+            sBytes := '0F 00 00 00 4E 69 41 6C 70 68 61 50 72 6F 70 65 72 74 79';
+            newbytePattern := StringToByteArray(sBytes);
+            NewSize := $13;
+            SetLength(b, Length(b) + NewSize);
+            Move(b[pos], b[pos + NewSize], Length(b) - (pos + NewSize));
+            Move(newbytePattern[0], b[pos], Length(newbytePattern));
+
+
+            // Block type index (signed int16).
+            // Only patch the last byte.
+            pos := pos2 + $30;
+            NewSize := $2;
+            SetLength(b, Length(b) + NewSize);
+            Move(b[pos], b[pos + NewSize], Length(b) - (pos + NewSize));
+            sBytes := '00 ' + IntToHex(OldSize, 2);
+            newbytePattern := StringToByteArray(sBytes);
+            Move(newbytePattern[0], b[pos], Length(newbytePattern));
+
+
+            // Block Size (unsigned int32).
+            pos := pos2 + $4C;
+            NewSize := $4;
+            SetLength(b, Length(b) + NewSize);
+            Move(b[pos], b[pos + NewSize], Length(b) - (pos + NewSize));
+            sBytes := '00 00 00 0F';
+            newbytePattern := StringToByteArray(sBytes);
+            Move(newbytePattern[0], b[pos], Length(newbytePattern));
+
+
+            // NiAlphaProperty
+            pos := Length(b) - $8;
+            sBytes := 'FF FF FF FF 00 00 00 00 FF FF FF FF EC 12 80 01 00 00 00 00 00 00 00';
+            newbytePattern := StringToByteArray(sBytes);
+            SetLength(b, pos + Length(newbytePattern));
+            Move(newbytePattern[0], b[pos], Length(newbytePattern));
+
+
+            // TriShape BS Properties.
+            pos := pos2 + 376;
+            Writeln(IntToStr(pos));
+            sBytes := 'FF FF FF FF';
+            newbytePattern := StringToByteArray(sBytes);
+            Move(newbytePattern[0], b[pos], Length(newbytePattern));
 
           end;
 
