@@ -10,6 +10,7 @@ program NifMultiboundPatcher;
 uses
   System.SysUtils,
   System.IOUtils,
+  System.UITypes,
   Winapi.Windows,
   Winapi.Messages,
   System.Variants,
@@ -17,13 +18,13 @@ uses
   Vcl.Graphics,
   Vcl.Controls,
   Vcl.Forms,
-  Vcl.Dialogs, // Automatically added by IDE
+  Vcl.Dialogs,
   Vcl.StdCtrls,
   StrUtils,
   Types,
   Masks,
-  IniFiles;
-
+  IniFiles,
+  aobFunctions in 'aobFunctions.pas';
 
 type
   TForm1 = class(TForm)
@@ -41,99 +42,11 @@ iLastPatternPos: Integer;
 //
 //{$R *.dfm}
 
-function GetFiles2(const Path: String): TStringList;
-var
-  i     : Integer;
-  PathArray : TStringDynArray;
-
-begin
-  // Get the current folder
-  Result := TStringList.Create;
-  Writeln('Project Files in : ' + Path + ' :');
-  Writeln;
-
-  // Get all project files in this folder
-  PathArray := System.IOUtils.TDirectory.GetFiles(Path, '*.BTR');
-  for i := 0 to (Length(PathArray) - 1) do
-    Result.Add(PathArray[i]);
-end;
-
-function MyGetFiles(const Path, Masks: string): TStringList;
-var
-  MaskArray, PathArray: TStringDynArray;
-  Predicate: TDirectory.TFilterPredicate;
-  i: Integer;
-  SearchOption: TSearchOption;
-begin
-  Result := TStringList.Create;
-  MaskArray := SplitString(Masks, ';');
-  SearchOption := TSearchOption.soAllDirectories;
-  Predicate :=
-    function(const Path: string; const SearchRec: TSearchRec): Boolean
-    var
-      Mask: string;
-    begin
-      for Mask in MaskArray do
-        if MatchesMask(SearchRec.Name, Mask) then
-          exit(True);
-      exit(False);
-    end;
-  PathArray := TDirectory.GetFiles(Path, Predicate);
-  for i := 0 to (Length(PathArray) - 1) do
-    Result.Add(PathArray[i]);
-end;
-
-function GetLODPaths(const Path: String): TStringList;
-var
-i: Integer;
-PathArray: TStringDynArray;
-begin
-  Result := TStringList.Create;
-  PathArray := TDirectory.GetDirectories(Path);
-  for i := 0 to (Length(PathArray) - 1) do
-  begin
-    Result.AddStrings(MyGetFiles((PathArray[i] + '\'), '*.nif'));
-    if DirectoryExists(PathArray[i]+ '\blocks\') then
-      Result.AddStrings(MyGetFiles((PathArray[i]+ '\blocks\'), '*nif'));
-  end;
-end;
-
-function GetWorldSpaces(const Path: String): TStringList;
-var
-i: Integer;
-PathArray: TStringDynArray;
-begin
-  Result := TStringList.Create;
-  PathArray := TDirectory.GetDirectories(Path);
-  for i := 0 to (Length(PathArray) - 1) do
-    Result.Add(Copy(PathArray[i], (Length(Path) + 1), MaxInt));
-end;
-
-function StringToByteArray(const pattern: String): TBytes;
-var
-  slAOB: TStringList;
-  i: Integer;
-begin
-
-      slAOB := TStringList.Create;
-      slAOB.Delimiter := ' ';
-      slAOB.StrictDelimiter := True;
-      slAOB.DelimitedText := pattern;
-//      for i := 0 to (slAOB.Count - 1) do
-//        Writeln(slAOB[i]);
-//      SetLength(byteArray, slAOB.Count);
-      SetLength(Result, slAOB.Count);
-      for i := 0 to (slAOB.Count - 1) do
-        Result[i] := StrToInt('$' + slAOB[i]);
-//        byteArray[i] := StrToInt('$' + slAOB[i]);
-end;
-
 function ReplaceBytePattern(Data: TBytes; OldPattern: TBytes; NewPattern: TBytes; bFirstOnly: Boolean): TBytes;
 var
 i, j: Integer;
 bMatch: Boolean;
 begin
-//  Move(Data[0], Result[0], MaxInt);
   Result := Data;
   for i := 0 to (Length(Data) - Length(OldPattern)) do
   begin
@@ -147,97 +60,16 @@ begin
       if bMatch then
       begin
         Writeln('Match found at position: ' + IntToStr(i));
-//        Insert(Data, NewPattern, i);
-//        Delete(Data, (i + Length(NewPattern)), Length(OldPattern));
         SetLength(Result, (Length(Data) + (Length(NewPattern) - Length(OldPattern))));
         Move(Data[0], Result[0], (i + 1));
         Move(NewPattern[0], Result[i], Length(NewPattern));
-//        Writeln(IntToStr(Length(Result) - (i + Length(OldPattern))));
-//        Writeln(IntToStr(Length(Data) - i - Length(NewPattern)));
         Move(Data[i + Length(OldPattern)], Result[i + Length(NewPattern)], (Length(Data) - i - Length(OldPattern)));
         iLastPatternPos := i;
         if bFirstOnly then Break;
-//        Move(NewPattern[0], Data[i], Length(NewPattern));
-//        Move(Data[i], (Data[i + (Length(NewPattern) - Length(OldPattern))]), (Length(Data) - i + (Length(NewPattern) - Length(OldPattern))))
-//        for j := i to (Length(NewPattern) - 1 + i) do
-//        begin
-//          if (j - i) > Length(OldPattern) then
-//          Data[j] := NewPattern[j - i];
-//        end;
-//        Result := Data;
       end;
     end;
   end;
 end;
-
-
-// Finds first occurence of byte array
-function GetAOBPos(Pattern: TBytes; Data: TBytes): Integer;
-var
-bMatch: Boolean;
-i, j: Integer;
-begin
-  Result := 0;
-  for i := 0 to (Length(Data) - 1) do
-  begin
-    if Pattern[0] = Data[i] then
-    begin
-      bMatch := True;
-      for j := i to (Length(Pattern) - 1 + i) do
-      begin
-        if Pattern[j - i] <> Data[j] then bMatch := False;
-      end;
-      if bMatch then
-      begin
-        Result := i;
-        Exit;
-      end;
-    end;
-  end;
-end;
-
-procedure printBytePattern(Pattern: TBytes);
-var
-i: Integer;
-s: String;
-begin
-  s := '';
-  for i := 0 to (Length(Pattern) - 1) do
-  begin
-    s := s + IntToHex(Pattern[i], 2) + ' ';
-  end;
-  writeln(s);
-end;
-
-// Get little endian value from a position in a pattern.
-function littleEndian(Pattern: TBytes; pos: Integer): Integer;
-var
-i: Integer;
-s: String;
-begin
-  s := '';
-  for i := 0 to 3 do
-  begin
-    s := IntToHex(Pattern[pos + i], 2) + s;
-  end;
-  s := '$' + s;
-  Result := StrToInt(s);
-end;
-
-function littleEndianToByteArray(value: Integer): TBytes;
-var
-s: String;
-begin
-  s := (IntToHex(value, 8));
-  s := s + Copy(s, 7, 2);
-  s := s + ' ' + Copy(s, 5, 2);
-  s := s + ' ' + Copy(s, 3, 2);
-  s := s + ' ' + Copy(s, 1, 2);
-  s := Copy(s, 9, 11);
-  Result := StringToByteArray(s);
-end;
-
-//function Patch_AOB_By_Offset(Offset: Integer; Length: Integer; NewPattern: TBytes; Mask:
 
 var
 //Dllx: TBytes;

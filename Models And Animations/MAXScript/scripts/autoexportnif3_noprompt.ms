@@ -493,8 +493,9 @@
 			
 			if bLod == false then
 			(
-				makeDir (getFilenamePath _MatName) all:true
-				--print _MatName
+				makeDir (getFilenamePath _MatName) all:true				
+				--if findString (toLower _MatName) "\\new_vegas\\effects\\\\" != 0 then
+				--	meditmaterials[i].AlphaParam = on
 				_MatName = (substituteString _MatName "\\\\" "\\")
 				if stricmp (filenameFromPath _MatName) "Default.bgsm" == 0 then
 				(
@@ -777,6 +778,7 @@
 	startloc = "D:\\Games\\Fallout New Vegas\\FNVExtracted\\Data\\Meshes\\landscape\\\\lod\\\\thestripworldnew\\thestripworldnew.level4.x12.y-4.nif"
 	startloc = "D:\\Games\\Fallout New Vegas\\FNVExtracted\\Data\\Meshes\\ammo\\9mmammo.nif"
 	startloc = "D:\\Games\\Fallout New Vegas\\FNVExtracted\\Data\\Meshes\\ammo\\357magnumammo.nif"
+	startloc = "D:\\Games\\Fallout New Vegas\\FNVExtracted\\Data\\Meshes\\effects\\\\ambient\\fxvulturesnv.nif"
 	
 	/*
 	xEditLoc = "C:\\Users\Terry\OneDrive\Bethesda\\xEdit\\"
@@ -841,11 +843,11 @@
 	-- Default: False
 	startpoint = false
 	-- Default: False
-	bSingleFile = false
+	bSingleFile = true
 	-- Default: False
-	bObjLodOnly = true
+	bLodOnly = false
 	-- Default: False
-	bLodOnly = true
+	bObjLodOnly = false
 	-- Default: False
 	bFinalize = false
 	
