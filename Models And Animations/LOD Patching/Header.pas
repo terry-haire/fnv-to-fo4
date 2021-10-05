@@ -12,28 +12,35 @@ type
   THeader = class(TBlock)
   private
     { Private declarations }
-    values : Array of TValue;
+//    values : Array of TValue;
+    version : Integer;
   public
     { Public declarations }
     constructor Create(nif: TBytes);
   // Externally accessible and inspectable fields and methods
   published
+    property getVersion : Integer
+      read version;
     function getIntNumBlocks(): Integer;
     function getIntNumBlockTypes(): Integer;
     function getBlockSize(index: Integer): Integer;
     procedure setBlockSize(index: Integer; newSize: Integer);
     function getIntNumStrings(): Integer;
     procedure removeBlock(index: Integer);
+    procedure insertBlock(index: Integer; newBlock: TBlock);
+    procedure insertBlockType(index: Integer; blockType: TBytes);
     procedure setIntNumBlocks(value: Integer);
     function getData(): TBytes;
 //    procedure Append(value: TValue); overload;
 //    procedure Append(bytePattern: TBytes; pos: Integer; count: Integer; name: String; subIndex: Integer); overload;
-    function findValue(name: String;  subIndex: Integer): Integer;
     function getLength(): Integer;
     function removeBlockType(blockType: TBytes): TIntegerDynArray;
     procedure setIntNumBlockType(value: Integer);
     function getTypeOfBlock(index: Integer): TBytes;
+    function getBlockTypeIndex(blockType: TBytes): Integer;
     procedure Append(bytePattern: TBytes; pos: Integer; count: Integer; name: String; subIndex: Integer);
+    function addString(s: String): Integer;
+    procedure removeUnusedTypes();
     // Note that properties must use different names to local defs
   end;
 
@@ -46,6 +53,7 @@ uses
 constructor THeader.Create(nif: TBytes);
 var
 i, j, k, len: Integer;
+userVersion: TBytes;
 begin
   i := 0;
 
@@ -67,7 +75,9 @@ begin
   Inc(i);
 
   // User Version
+//  self.Append([$0C, $00, $00, $00], 0, 4, 'User Version', 0);
   self.Append(nif, i, 4, 'User Version', 0);
+  userVersion := Copy(nif, i, 4);
   Inc(i, 4);
 
   // Num Blocks
@@ -75,7 +85,9 @@ begin
   Inc(i, 4);
 
   // User Version 2
+//  self.Append([$82, $00, $00, $00], 0, 4, 'User Version 2', 0);
   self.Append(nif, i, 4, 'User Version 2', 0);
+  Insert(Copy(nif, i, 4), userVersion, Length(userVersion));
   Inc(i, 4);
 
   // Creator ShortString
@@ -89,6 +101,14 @@ begin
   // Export Info 2
   self.Append(nif, i, nif[i] + 1, 'Export Info 2', 0);
   Inc(i, nif[i] + 1);
+
+  // Export Info 3 (Fallout 4)
+  if compareBytePattern(userVersion, [$0C, $00, $00, $00, $82, $00, $00, $00]) then
+  begin
+    self.version := 4;
+    self.Append(nif, i, nif[i] + 1, 'Export Info 3', 0);
+    Inc(i, nif[i] + 1);
+  end;
 
   // Num block types unsigned int16
   self.Append(nif, i, 2, 'Num Block Types', 0);
@@ -151,17 +171,6 @@ begin
 end;
 
 {##############################################################################}
-
-function THeader.findValue(name: String;  subIndex: Integer): Integer;
-var
-i: Integer;
-begin
-  i := 0;
-  while(self.values[i].getName <> name) do
-    Inc(i);
-  i := i + subIndex;
-  Result := i;
-end;
 
 function THeader.getIntNumBlocks(): Integer;
 var
@@ -270,6 +279,24 @@ begin
   Result := self.values[j + index2].getValue;
 end;
 
+function THeader.getBlockTypeIndex(blockType: TBytes): Integer;
+var
+i, j: Integer;
+begin
+  j := self.findValue('Block Type', 0);
+  Result := -1;
+  for i := 0 to self.getIntNumBlockTypes - 1 do
+  begin
+    if compareBytePattern(blockType, self.values[i + j].getValue) then
+    begin
+      Result := i;
+      Exit;
+    end;
+  end;
+  Writeln('Block Type not found');
+  readln;
+end;
+
 // TODO: Remove block type from heaeder if it is no longer needed.
 // TODO: Remove data from header.
 procedure THeader.removeBlock(index: Integer);
@@ -291,9 +318,67 @@ begin
   for j := 0 to numBlocks - 2 do
     self.values[i + j].setSubIndex(j);
 
-  Dec(numBlocks, 1);
+  Dec(numBlocks);
 
   self.setIntNumBlocks(numBlocks);
+end;
+
+procedure THeader.insertBlock(index: Integer; newBlock: TBlock);
+var
+i, j, k, numBlocks, iBlockType: Integer;
+blockSize, blockTypeIndex: TBytes;
+begin
+  numBlocks := self.getIntNumBlocks;
+  Inc(numBlocks);
+
+  i := self.findValue('Block Size', 0);
+  k := i + index;
+  blockSize := littleEndianToByteArray(newBlock.getSize, 4);
+  Insert(TValue.Create(blockSize, 'Block Size', index), self.values, k);
+  for j := 0 to numBlocks - 1 do
+    self.values[i + j].setSubIndex(j);
+
+
+  i := self.findValue('Block Type Index', 0);
+  // Why + 1???
+  k := i + index + 1;
+  iBlockType := self.getBlockTypeIndex(newBlock.getBlockType);
+  if iBlockType = -1 then
+  begin
+    iBlockType := self.getIntNumBlockTypes;
+    self.insertBlockType(iBlockType, newBlock.getBlockType);
+  end;
+  blockTypeIndex := littleEndianToByteArray(iBlockType, 2);
+  Insert(TValue.Create(blockTypeIndex, 'Block Type Index', index), self.values, k);
+  for j := 0 to numBlocks - 1 do
+    self.values[i + j].setSubIndex(j);
+
+
+  self.setIntNumBlocks(numBlocks);
+end;
+
+procedure THeader.insertBlockType(index: Integer; blockType: TBytes);
+var
+i, typeIndex, typeCount, pos, numBlocks, counter, j, k: Integer;
+bFound: Boolean;
+indexAsBytes: TBytes;
+begin
+  // Insert block type
+  typeCount := self.getIntNumBlockTypes;
+  typeIndex := self.findValue('Block Type', 0);
+  Insert(TValue.Create(blockType, 'Block Type', index), self.values, typeIndex + index);
+  Inc(typeCount);
+  self.setIntNumBlockType(typeCount);
+
+  // Update block type index
+//  indexAsBytes := littleEndianToByteArray(index, 2);
+  pos := self.findValue('Block Type Index', 0);
+  for i := 0 to self.getIntNumBlocks - 1 do
+  begin
+    k := littleEndian(self.values[i + pos].getValue, 2);
+    if k >= index then
+      self.values[i + pos].setValue(littleEndianToByteArray(k + 1, 2));
+  end;
 end;
 
 function THeader.removeBlockType(blockType: TBytes): TIntegerDynArray;
@@ -344,15 +429,54 @@ begin
     end;
   end;
 
-  if not bFound then
-  begin
-    writeln('Index not Found');
-    readln;
-    exit;
-  end;
-
   Dec(typeCount, 1);
   self.setIntNumBlockType(typeCount);
+end;
+
+function THeader.addString(s: String): Integer;
+var
+b: TBytes;
+i, stringCount, maxLength, j, k, len: Integer;
+begin
+  // Make String
+  Writeln('Making string');
+  s := String2Hex(s);
+  Writeln('#' + s);
+  len := Length(s) div 2;
+  for i := len - 1 downto 1 do
+    Insert(' ', s, i * 2 + 1);
+  Writeln('##' + s);
+  b := littleEndianToByteArray(len, 4);
+  printBytePattern(b);
+  SetLength(b, 4 + len);
+  Move(StringToByteArray(s)[0], b[4], len);
+  printBytePattern(StringToByteArray(s));
+
+  //
+  i := self.findValue('Num Strings', 0);
+  stringCount := littleEndian(self.values[i].getValue, 0, 4);
+
+  j := self.findValue('Max String Length', 0);
+  maxLength := littleEndian(self.values[i].getValue, 0, 4);
+
+  // last string + 1
+  k := j + stringCount + 1;
+  Insert(TValue.Create(b, 'String', stringCount), self.values, k);
+  Inc(stringCount);
+  if len > maxLength then
+    self.values[j].setValue(littleEndianToByteArray(len, 4));
+  self.values[i].setValue(littleEndianToByteArray(stringCount, 4));
+
+  Result := stringCount - 1;
+end;
+
+procedure THeader.removeUnusedTypes();
+var
+types: TIntegerDynArray;
+i: Integer;
+begin
+//  for i := 0 to self.getIntNumBlocks - 1 do
+//    Insert(
 end;
 
 end.

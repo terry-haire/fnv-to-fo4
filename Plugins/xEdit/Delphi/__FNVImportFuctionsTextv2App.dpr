@@ -30,7 +30,8 @@ uses
   __PrintFileReferences in '..\Edit Scripts\__PrintFileReferences.pas',
   __FNVConversionFunctions in '..\Edit Scripts\__FNVConversionFunctions.pas',
   __DeleteInvalidRefrs in '..\Edit Scripts\__DeleteInvalidRefrs.pas',
-  __PrintFileReferences2 in '..\Edit Scripts\__PrintFileReferences2.pas';
+  __PrintFileReferences2 in '..\Edit Scripts\__PrintFileReferences2.pas',
+  __ObjectsInCell in '..\Edit Scripts\__ObjectsInCell.pas';
 
 begin
   try

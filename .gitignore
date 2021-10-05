@@ -3,3 +3,12 @@
 *.exe
 *.ba2
 /Models And Animations/nifTools
+**/__history
+testing
+*.identcache
+*.local
+Models And Animations/LOD Patching/Win32
+Plugins/xEdit/Delphi/Win32/Debug/
+*.stat
+*.res
+Models And Animations/LOD Patching/blocks/

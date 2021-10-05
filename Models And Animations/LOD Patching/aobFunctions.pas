@@ -36,6 +36,7 @@ function insertBytePattern(bytePattern: TBytes; newBytePattern: TBytes; position
 function removeBytePattern(bytePattern: TBytes; position: Integer; amount: Integer): TBytes;
 function compareBytePattern(b1: TBytes; b2: TBytes): Boolean;
 function getUnsignedInt(Pattern: TBytes): Integer;
+function String2Hex(const Buffer: Ansistring): string;
 
 implementation
 
@@ -298,6 +299,12 @@ begin
   for i in b do
     s := s + IntToHex(i, 2);
   Result := StrToInt(s);
+end;
+
+function String2Hex(const Buffer: Ansistring): string;
+begin
+  SetLength(result, 2*Length(Buffer));
+  BinToHex(@Buffer[1], PWideChar(@result[1]), Length(Buffer));
 end;
 
 end.

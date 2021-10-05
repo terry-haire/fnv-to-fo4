@@ -2,6 +2,231 @@
 --include "Startup\Materials\BSMaterialUIUtils.ms"
 
 (	
+	
+	fn setImportSettings iniSection key newValue =
+	(
+		local iniPath = "C:\\Users\\Terry\\AppData\\Local\\Autodesk\\3dsMax\\2013 - 64bit\\ENU\\en-US\\plugcfg\\MaxNifTools.ini"
+		if getINISetting iniPath "MaxNifImport" key != newValue then
+		(
+			if setINISetting iniPath "MaxNifImport" key newValue == false then
+			(
+				MessageBox "Failed to set import settings"
+				sleep(120)
+				Exit
+			)
+		)
+	)
+	
+	fn setImportINI =
+	(
+		-- Enable/Disable Importer Class in max. Default: 1
+		setImportSettings "MaxNifImport" "Enable" "1"
+		-- Current Application to get setting/directory information from. Should match KnownApps above or Auto.
+		-- Auto will check the import file against the known root paths use that app if a directory match is found.
+		setImportSettings "MaxNifImport" "CurrentApp" "Fallout NV"
+		-- Last Selected Application to get setting/directory information from. Should match KnownApps above or Auto.
+		-- If CurrentApp is Auto, this setting will be used if nothing was found
+		setImportSettings "MaxNifImport" "LastSelectedApp" "Fallout NV"
+		-- Wildcard to use on all NiNodes to test whether a biped may be used. Default: Bip*
+		setImportSettings "MaxNifImport" "SkeletonCheck" "Bip\*"
+		-- Use Bones or Biped. Biped is broken right now so use bones or nothing. Default: 0
+		setImportSettings "MaxNifImport" "UseBiped" "0"
+		-- Flip the V coordinate. Default: 1
+		setImportSettings "MaxNifImport" "FlipUVTextures" "1"
+		-- Show Textures in the Viewport. Default: 1
+		setImportSettings "MaxNifImport" "ShowTextures" "1"
+		-- Enable AutoSmooth on meshes. Default: 1
+		setImportSettings "MaxNifImport" "EnableAutoSmooth" "1"
+		-- AutoSmooth angle. Default: 30
+		setImportSettings "MaxNifImport" "AutoSmoothAngle" "30.0"
+		-- Remove Double/Illegal faces on meshes on import. Default:1
+		setImportSettings "MaxNifImport" "RemoveDegenerateFaces" "1"
+		setImportSettings "MaxNifImport" "RemoveIllegalFaces" "1"
+		-- EnableSkinSupport attempt to skin the mesh if bones are available. Default:1
+		setImportSettings "MaxNifImport" "EnableSkinSupport" "1"
+		-- Enable Havok Collision Support. Default:0
+		setImportSettings "MaxNifImport" "EnableCollision" "1"
+		-- Vertex Color Support mode. (0-Disable-- 1-Bake into mesh-- 2-Use VertexPaint Modifier) Default:1
+		setImportSettings "MaxNifImport" "VertexColorMode" "0"
+		-- Merge NonAccum transforms into base node. Default: 1
+		setImportSettings "MaxNifImport" "MergeNonAccum" "1"
+		-- Import Lights. Default: 0
+		setImportSettings "MaxNifImport" "Lights" "1"
+		-- Import Cameras. Default: 1
+		setImportSettings "MaxNifImport" "Cameras" "1"
+		-- Use Niftools Shader for Materials if available. Default:1
+		setImportSettings "MaxNifImport" "UseNiftoolsShader" "0"
+		-- Import User Properties. Default: 1
+		setImportSettings "MaxNifImport" "ImportUPB" "1"
+		-- Ignore Root Node. Default: 1
+		setImportSettings "MaxNifImport" "IgnoreRootNode" "0"
+		-- Weld Vertex Enabled. Default: 0
+		setImportSettings "MaxNifImport" "WeldVertices" "0"
+		-- Weld Vertex Threshold. Default: 0.01
+		setImportSettings "MaxNifImport" "WeldVertexThresh" "0.01"
+		-- Weld Normals Threshold. Default: 0.01
+		setImportSettings "MaxNifImport" "WeldNormThresh" "0.01"
+		-- Weld UVW Threshold. Default: 0.01
+		setImportSettings "MaxNifImport" "WeldUVWThresh" "0.01"
+		-- Show Dummy Bones as Lines rather than defaults
+		setImportSettings "MaxNifImport" "DummyBonesAsLines" "0"
+		-- Import Bones as Dummy Objects instead of as bones
+		setImportSettings "MaxNifImport" "ImportBonesAsDummy" "0"
+		-- Disable BSDismemberSkinModifier. Default: 0
+		setImportSettings "MaxNifImport" "DisableBSDismemberSkinModifier" "0"
+		 
+		-- Enable/Disable Exporter Class in max. Default: 1
+		setImportSettings "NifFurniture" "Enable" "1"
+		 
+		-- Enable/Disable Property Utilities Class in max. Default: 1
+		setImportSettings "NifProps" "Enable" "1"
+		 
+		-- Top level bone import setting. Default:1
+		setImportSettings "BipedImport" "ImportBones" "1"
+		-- Biped Height. Default: 131.90
+		setImportSettings "BipedImport" "BipedHeight" "131.90"
+		-- Biped initial rotation. Default: 90.0
+		setImportSettings "BipedImport" "BipedAngle" "90.0"
+		-- Biped Ankle Attach. Default: 0.2
+		setImportSettings "BipedImport" "BipedAnkleAttach" "0.2"
+		-- Use Triangle Pelvis. Default: 0
+		setImportSettings "BipedImport" "BipedTrianglePelvis" "0"
+		-- Remove unused bones from the biped on import of a mesh. Default: 0
+		setImportSettings "BipedImport" "RemoveUnusedImportedBones" "0"
+		-- Minimum Bone Width / Maximum Bone Width / Ratio of Width to Length
+		setImportSettings "BipedImport" "MinBoneWidth" "0.001"
+		setImportSettings "BipedImport" "MaxBoneWidth" "5"
+		setImportSettings "BipedImport" "BoneWidthToLengthRatio" "0.25"
+		-- Force nub to point back to parent at expense of loss of rotation data. Default: 1
+		setImportSettings "BipedImport" "ForceRotation" "0"
+		-- DefaultName for Skeletons (use if in same directory as imported nif)
+		setImportSettings "BipedImport" "DefaultSkeletonName" "skeleton.nif"
+		-- Create Dummy nodes for bones that appear to be helper objects. Default: 0
+		setImportSettings "BipedImport" "CreateNubsForBones" "1"
+		-- Dummy nodes wildcard matching. (Hide these when not created as Dummy) Default: Bip??--Bip* NonAccum
+		setImportSettings "BipedImport" "DummyNodeMatches" "Bip??"--* NonAccum
+		-- Make Billboard nodes to Dummy nodes rather than bones. Default: 1
+		setImportSettings "BipedImport" "ConvertBillboardsToDummyNodes" "1"
+		-- Add Bones not controlled by a controller as dummy. Default: 0
+		setImportSettings "BipedImport" "UncontrolledDummies" "0"
+		 
+		-- Enable Animation Import. Default: 1
+		setImportSettings "AnimationImport" "EnableAnimations" "0"
+		-- Require Multiple Keys to be present to before importing animation. (Kludge to workaround DAoC issues.) Default: 1
+		setImportSettings "AnimationImport" "RequireMultipleKeys" "1"
+		-- Replace TCB Rotation with Bezier (workaround for unexpected behavior with TCB rotations)
+		setImportSettings "AnimationImport" "ReplaceTCBRotationWithBezier" "1"
+		-- Apply the overall transform to skin and bones. Default: 1
+		setImportSettings "AnimationImport" "ApplyOverallTransformToSkinAndBones" "1"
+		-- Clear Animation on Import. Default: 1
+		setImportSettings "AnimationImport" "ClearAnimation" "1"
+		setImportSettings "AnimationImport" "AddNoteTracks" "1"
+		setImportSettings "AnimationImport" "AddTimeTags" "1"
+	)
+	
+	fn setMatPropsLodLand mat =
+	(
+		mat.DecalParam = off
+		mat.ExternalEmittanceParam = off
+		mat.DecalNoFadeParam = off
+		mat.HideSecretParam = off
+		mat.ScreenSpaceReflectionsParam = off
+		mat.ModelSpaceNormalParam = on
+		mat.TwoSidedParam = off
+		mat.CastShadowsParam = off
+		mat.DissolveFadeParam = off
+		mat.NonOccluderParam = off
+		
+		mat.AlphaParam = off
+		mat.EditorAlphaTestRef = off
+		mat.ZTestParam = on
+		mat.ZWriteParam = on
+		mat.SubSurfaceLightingParam = off
+		mat.SpecularParam = off
+		mat.AnisoLightingParam = off
+		mat.ShowEmitParam = on
+		mat.ApplyGlowmapToEmitParam = off
+		mat.RefractionParam = off
+		mat.RefractionFireParam = off
+		mat.ParallaxOccParam = off
+		mat.MultiLayerParallaxParam = off
+		mat.HairParam = off
+		mat.EnvmapEyeParam = off
+		mat.EnvmapWindowParam = off
+		mat.EnvmapLightFadeParam = off
+		mat.TreeParam = off
+		mat.GrayscaleColorParam = off
+		mat.TwoSidedParam = off
+		mat.DecalParam = off
+		mat.DecalNoFadeParam = off
+		mat.ExternalEmittanceParam = off
+		mat.HideSecretParam = off
+		mat.CastShadowsParam = off
+		mat.DissolveFadeParam = off
+		mat.ScreenSpaceReflectionsParam = off
+		mat.NonOccluderParam = off
+		mat.SkinTintParam = off
+		mat.UTilingParam = off
+		mat.VTilingParam = off
+		mat.BGSMatInit = off
+		
+		mat.SmoothnessParam = 0.1
+		
+		mat
+	)
+	
+	fn setMatPropsLodObj mat =
+	(
+		-- FSF2 LOD Objects needs patching
+		mat.DecalParam = off
+		mat.ExternalEmittanceParam = off
+		mat.DecalNoFadeParam = off
+		mat.HideSecretParam = off
+		mat.ScreenSpaceReflectionsParam = off
+		mat.ModelSpaceNormalParam = on
+		mat.TwoSidedParam = off
+		mat.CastShadowsParam = off
+		mat.DissolveFadeParam = off
+		mat.NonOccluderParam = off
+		
+		mat.AlphaParam = off
+		mat.EditorAlphaTestRef = off
+		mat.ZTestParam = on
+		mat.ZWriteParam = on
+		mat.SubSurfaceLightingParam = off
+		mat.SpecularParam = on
+		mat.AnisoLightingParam = off
+		mat.ShowEmitParam = on
+		mat.ApplyGlowmapToEmitParam = off
+		mat.RefractionParam = off
+		mat.RefractionFireParam = off
+		mat.ParallaxOccParam = off
+		mat.MultiLayerParallaxParam = off
+		mat.HairParam = off
+		mat.EnvmapEyeParam = off
+		mat.EnvmapWindowParam = off
+		mat.EnvmapLightFadeParam = off
+		mat.TreeParam = off
+		mat.GrayscaleColorParam = off
+		mat.TwoSidedParam = off
+		mat.ModelSpaceNormalParam = off
+		mat.DecalParam = off
+		mat.DecalNoFadeParam = off
+		mat.ExternalEmittanceParam = off
+		mat.HideSecretParam = off
+		mat.CastShadowsParam = off
+		mat.DissolveFadeParam = off
+		mat.ScreenSpaceReflectionsParam = off
+		mat.NonOccluderParam = off
+		mat.SkinTintParam = off
+		mat.UTilingParam = off
+		mat.VTilingParam = off
+		mat.BGSMatInit = off
+		mat.GrayscaleColorScaleParam = 1
+		
+		mat
+	)
+	
 	fn setLodBorders obj =
 	(
 		--local obj = getNodeByName "Land" --create a Sphere
@@ -134,6 +359,7 @@
 			else
 			(
 				MessageBox "Unknown Error Occured"
+				sleep(120)
 				true
 			)
 		)
@@ -178,12 +404,6 @@
 	(
 		with undo off
 		(
-			print _TX00
-			print _TX01
-			print _TX02
-			print _TX03
-			print _TX04
-			print _TX05
 			-- BSBlinn seems a better option but materials will more complicated unless material saving functions can be added to BSBlinn
 			setmeditmaterial i (BSLightingFX ())
 			meditMaterials[i].ShowVertexColorParam = off --Or Textures Glitch sometimes
@@ -196,6 +416,9 @@
 				_TX01 = undefined
 			)
 			*/
+			
+			-- Set Default Glossiness to 0
+			meditmaterials[i].SmoothnessParam = 0
 			
 			if _TX00 != undefined then 
 			(
@@ -265,14 +488,14 @@
 					meditmaterials[i].AlphaParam = on
 					meditmaterials[i].AlphaValueParam = srcMat.opacity / 100 as float
 				)
-				--if findString (toLower _MatName) "_lod" != undefined then
-				--	meditmaterials[i].ModelSpaceNormalParam = on
+				meditmaterials[i].SmoothnessParam = srcMat.glossiness / 100 as float
 			)
 			
 			if bLod == false then
 			(
-				makeDir (getFilenamePath _MatName) all:true
-				--print _MatName
+				makeDir (getFilenamePath _MatName) all:true				
+				--if findString (toLower _MatName) "\\new_vegas\\effects\\\\" != 0 then
+				--	meditmaterials[i].AlphaParam = on
 				_MatName = (substituteString _MatName "\\\\" "\\")
 				if stricmp (filenameFromPath _MatName) "Default.bgsm" == 0 then
 				(
@@ -539,6 +762,7 @@
 	if not doesFileExist _exportINI then
 	(
 		MessageBox "\"mimmerse.ini\" Not Found"
+		sleep(120)
 		exit
 	)
 	files = getFilesRecursive (fileRoot + "Meshes") "*.nif"
@@ -548,6 +772,13 @@
 	startloc = fileRoot + "Meshes\\landscape\\\\lod\\\\bouldercityworld\\\\blocks\\bouldercityworld.level4.x2.y-1.nif"
 	startloc = fileRoot + "Meshes\\landscape\\\\lod\\\\wastelandnv\\wastelandnv.level16.x-16.y-16.nif"
 	startloc = fileRoot + "Meshes\\landscape\\\\lod\\\\wastelandnv\\wastelandnv.level4.x20.y-48.nif"
+	startloc = "D:\\Games\\Fallout New Vegas\\FNVExtracted\\Data\\Meshes\\landscape\\\\lod\\\\wastelandnv\\\\blocks\\wastelandnv.level4.high.x-4.y12.nif"
+	startloc = fileRoot + "Meshes\\landscape\\\\lod\\\\wastelandnv\\wastelandnv.level32.x32.y0.nif"
+	startloc = fileRoot + "Meshes\\landscape\\\\lod\\\\wastelandnv\\wastelandnv.level8.x8.y8.nif"
+	startloc = "D:\\Games\\Fallout New Vegas\\FNVExtracted\\Data\\Meshes\\landscape\\\\lod\\\\thestripworldnew\\thestripworldnew.level4.x12.y-4.nif"
+	startloc = "D:\\Games\\Fallout New Vegas\\FNVExtracted\\Data\\Meshes\\ammo\\9mmammo.nif"
+	startloc = "D:\\Games\\Fallout New Vegas\\FNVExtracted\\Data\\Meshes\\ammo\\357magnumammo.nif"
+	startloc = "D:\\Games\\Fallout New Vegas\\FNVExtracted\\Data\\Meshes\\effects\\\\ambient\\fxvulturesnv.nif"
 	
 	/*
 	xEditLoc = "C:\\Users\Terry\OneDrive\Bethesda\\xEdit\\"
@@ -608,12 +839,19 @@
 	print files.count
 	FileCount = 0
 	--startloc = undefined
-	startpoint = false
-	bLod = false
-	bObjLodOnly = true
-	bLodOnly = true
 	
+	-- Default: False
+	startpoint = false
+	-- Default: False
+	bSingleFile = true
+	-- Default: False
+	bLodOnly = false
+	-- Default: False
+	bObjLodOnly = false
+	-- Default: False
 	bFinalize = false
+	
+	--batchstart = undefined
 	
 	gc() --Garbage Collection.
 	freescenebitmaps() --Cleans up in texture memory.
@@ -629,11 +867,16 @@
 		k = (k * 483 + 1)
 		startpoint = true
 		BSLightingFXMode = true
+		setImportINI()
 	)
 	
 	--for f in files while(not keyboard.escPressed) do with undo off
-	for k = k to files.count do with undo off
+	for k = k to files.count do with undo off, with animate off, with redraw off
 	(
+		
+		-- Set Variables for new loop to defaults
+		bLod = false
+		
 		if k == files.count then bFinalize = true
 		s=timeStamp() 
 		f = files[k]
@@ -717,10 +960,7 @@
 				if index == 25 then index = 19 --itemPick to small debris
 				-- if index == 13 then index =
 				--messageBox index
-				--print index
-				--print indexskiplist[(index + 1)]
 				index = indexskiplist[(index + 1)] -- Object Type
-				--print index
 				if index != undefined then index = indexlist[(index + 1)]
 				
 			)
@@ -792,6 +1032,17 @@
 				--if index2 == undefined then messageBox("Index2 undefined in " + file)
 				index2 = undefined
 			)
+			else if index == 10 then
+				if root != undefined then
+					if root.vertices.count == 8 then -- most likely a box
+						if root.parent.children.count == 2 then
+						(
+							if root.parent.children[1] != root then
+								root.center = root.parent.children[1].center
+							else
+								root.center = root.parent.children[2].center
+						)
+			
 			--if index2 == undefined then return messageBox("Index2 undefined in " + file)
 			
 			if root != "undefined" then
@@ -1115,11 +1366,13 @@
 			if setINISetting _exportINI "MAXIMMERSE" "EXPORT_SCRIPT" _PE_WEAPkey == false then
 			(
 				MessageBox "Failed to set export settings"
+				sleep(120)
 				Exit
 			)			
 			if setINISetting _exportINI "MAXIMMERSE" "EXPORT_SCRIPT_NAME" "_-_PE_-_Weapon" == false then
 			(
 				MessageBox "Failed to set export settings"
+				sleep(120)
 				Exit
 			)		
 		)
@@ -1146,10 +1399,13 @@
 			delete(getnodebyname "Bip01 L ForeTwistDriver")
 		)
 		
+		
 		--lod
 		if bLod == true then
 		(
 			local root = objects[1]
+			
+			--for o in objects where (o.wirecolor == (color 88 199 225))
 			
 			-- TEST works but no difference in export
 			/*
@@ -1158,10 +1414,10 @@
 			for o in objects where not o == root do o.parent = root
 			*/
 			
-			root.pos = [0, 0, 0]
 			local _newpath = replace (substituteString (toLower file) "\\\\" "\\") 1 fileRoot.count ""
 			if findstring _newpath "\\blocks\\" == undefined then
 			(
+				root.pos = [0, 0, 0]
 				
 				root.name = "chunk"	
 				while GetNodeByName "" != undefined do
@@ -1174,76 +1430,42 @@
 					)
 					if obj.faces.count == 0 then delete obj
 				)
+				
 				while objects.count > 2 do
 				(
 					--Should be mesh already
 					--converttomesh objects[1]
+					objects[2].pos = [0,0,0]
+					objects[3].pos = [0,0,0]
 					meshop.attach objects[3] objects[2] attachMat:#IDToMat condenseMat:true
 				)
+				
 				/*
 				while objects.count > 2 do
 				(
 					delete objects[3]
 				)
 				*/
+				
+				
 				local obj = GetNodeByName "Land"
-				mat.DecalParam = off
-				mat.ExternalEmittanceParam = off
-				mat.DecalNoFadeParam = off
-				mat.HideSecretParam = off
-				mat.ScreenSpaceReflectionsParam = off
-				mat.ModelSpaceNormalParam = on
-				mat.TwoSidedParam = off
-				mat.CastShadowsParam = off
-				mat.DissolveFadeParam = off
-				mat.NonOccluderParam = off
-				
-				mat.AlphaParam = off
-				mat.EditorAlphaTestRef = off
-				mat.ZTestParam = on
-				mat.ZWriteParam = on
-				mat.SubSurfaceLightingParam = off
-				mat.SpecularParam = off
-				mat.AnisoLightingParam = off
-				mat.ShowEmitParam = on
-				mat.ApplyGlowmapToEmitParam = off
-				mat.RefractionParam = off
-				mat.RefractionFireParam = off
-				mat.ParallaxOccParam = off
-				mat.MultiLayerParallaxParam = off
-				mat.HairParam = off
-				mat.EnvmapEyeParam = off
-				mat.EnvmapWindowParam = off
-				mat.EnvmapLightFadeParam = off
-				mat.TreeParam = off
-				mat.GrayscaleColorParam = off
-				mat.TwoSidedParam = off
-				mat.ModelSpaceNormalParam = on
-				mat.DecalParam = off
-				mat.DecalNoFadeParam = off
-				mat.ExternalEmittanceParam = off
-				mat.HideSecretParam = off
-				mat.CastShadowsParam = off
-				mat.DissolveFadeParam = off
-				mat.ScreenSpaceReflectionsParam = off
-				mat.NonOccluderParam = off
-				mat.SkinTintParam = off
-				mat.UTilingParam = off
-				mat.VTilingParam = off
-				mat.BGSMatInit = off
-				obj.material = mat
-				
-				objects[2].pos = [0, 0, 0]
-				setLodBorders(GetNodeByName "Land")
-				
+				if obj != undefined then
+				(
+					obj.material = setMatPropsLodLand(mat)
+					objects[2].pos = [0, 0, 0]
+					setLodBorders(obj)
+				)
+					
 				if setINISetting _exportINI "MAXIMMERSE" "EXPORT_SCRIPT" _PE_SKYkey == false then
 				(
 					MessageBox "Failed to set export settings"
+					sleep(120)
 					Exit
 				)			
 				if setINISetting _exportINI "MAXIMMERSE" "EXPORT_SCRIPT_NAME" "_-_PE_-_Sky" == false then
 				(
 					MessageBox "Failed to set export settings"
+					sleep(120)
 					Exit
 				)		
 			)
@@ -1260,56 +1482,11 @@
 					(
 						convertto obj PolyMeshObject
 						local mat = obj.material
-						-- FSF2 LOD Objects needs patching
-						mat.DecalParam = off
-						mat.ExternalEmittanceParam = off
-						mat.DecalNoFadeParam = off
-						mat.HideSecretParam = off
-						mat.ScreenSpaceReflectionsParam = off
-						mat.ModelSpaceNormalParam = on
-						mat.TwoSidedParam = off
-						mat.CastShadowsParam = off
-						mat.DissolveFadeParam = off
-						mat.NonOccluderParam = off
-						
-						mat.AlphaParam = off
-						mat.EditorAlphaTestRef = off
-						mat.ZTestParam = on
-						mat.ZWriteParam = on
-						mat.SubSurfaceLightingParam = off
-						mat.SpecularParam = on
-						mat.AnisoLightingParam = off
-						mat.ShowEmitParam = on
-						mat.ApplyGlowmapToEmitParam = off
-						mat.RefractionParam = off
-						mat.RefractionFireParam = off
-						mat.ParallaxOccParam = off
-						mat.MultiLayerParallaxParam = off
-						mat.HairParam = off
-						mat.EnvmapEyeParam = off
-						mat.EnvmapWindowParam = off
-						mat.EnvmapLightFadeParam = off
-						mat.TreeParam = off
-						mat.GrayscaleColorParam = off
-						mat.TwoSidedParam = off
-						mat.ModelSpaceNormalParam = off
-						mat.DecalParam = off
-						mat.DecalNoFadeParam = off
-						mat.ExternalEmittanceParam = off
-						mat.HideSecretParam = off
-						mat.CastShadowsParam = off
-						mat.DissolveFadeParam = off
-						mat.ScreenSpaceReflectionsParam = off
-						mat.NonOccluderParam = off
-						mat.SkinTintParam = off
-						mat.UTilingParam = off
-						mat.VTilingParam = off
-						mat.BGSMatInit = off
-						mat.GrayscaleColorScaleParam = 1
-						obj.material = mat
+						obj.material = setMatPropsLodObj(mat)
 					)
 				)
 			)
+			
 			setUserPropBuffer root ""
 			
 			oMultibound = box()
@@ -1341,8 +1518,24 @@
 			--objects[2].material.CastShadowsParam = off
 		)
 		
-		select objects[1]
-		print (ClassOf selection[1] as string)
+		--untested
+		select(for o in objects where (o.parent == undefined) collect o)
+		if selection.count > 1 then
+		(	
+			local sceneRoot = BoneSys.createBone [0,0,0] [0,0,0] [0,0,0]
+			sceneRoot.name = "sceneRoot"
+			sceneRoot.width = 5
+			sceneRoot.height = 5
+			resetxform sceneRoot
+			maxOps.CollapseNode sceneRoot true
+			selection.parent = sceneRoot
+			select sceneRoot
+		)
+		else
+			select objects[1]
+		
+		
+		--print (ClassOf selection[1] as string)
 		if (ClassOf selection[1] as string) != "BoneGeometry" then 
 		(
 			--messagebox(ClassOf selection[1] as string)
@@ -1390,13 +1583,17 @@
 		if setINISetting _exportINI "MAXIMMERSE" "EXPORT_SCRIPT" _defexportscript == false then
 		(
 			MessageBox "Failed to reset export settings"
+			sleep(120)
 			Exit
 		)
 		if setINISetting _exportINI "MAXIMMERSE" "EXPORT_SCRIPT_NAME" "_-_PE_-_Static_-_Art" == false then
 		(
 			MessageBox "Failed to reset export settings"
+			sleep(120)
 			Exit
 		)
+		
+		
 		
 		if bLod == true then
 		(
@@ -1460,29 +1657,17 @@
 						-- Always move negative
 						if iCoord_xDiff > 0 then iCoord_xDiff = - iCoord_xDiff
 						if iCoord_yDiff > 0 then iCoord_yDiff = - iCoord_yDiff
-						--move objects[1] [(iCoord_xDiff*iBlockSize),(iCoord_yDiff*iBlockSize),0]
-						print (objects[1].pos.x + iCoord_xDiff*iBlockSize)
 						local obj = objects[1]
-						obj.pivot = [0,0,0]
-						obj.scale.x = (obj.scale.x)/iLevel
-						obj.scale.y = (obj.scale.y)/iLevel
-						obj.scale.z = (obj.scale.z)/iLevel
-						iBlockSize = iBlockSize/iLevel
-						resetxform obj
-						maxOps.CollapseNode obj true
-						objects[1].pos = [(objects[1].pos.x + iCoord_xDiff*iBlockSize),(objects[1].pos.y + iCoord_yDiff*iBlockSize),0]
 					)
 					
 					local _newname2 = Copy _newname
 					_newname = ""
 					for j = 1 to (slCoords.count - 3) do
 						_newname = _newname + slCoords[j] + "."
-					print _newname
 					iCoord_x = (iCoord_x + iCoord_xDiff) as integer
 					iCoord_y = (iCoord_y + iCoord_yDiff) as integer
 					_newname = _newname + (iCoord_x as string) + "."
 					_newname = _newname + (iCoord_y as string)
-					print _newname
 					
 					--Save it with the original name
 					makeDir (_newpath + "groups\\" + _newname) all:true
@@ -1497,6 +1682,7 @@
 					if renameFile _exportfile (_newpath + _newname) == false then
 					(
 						MessageBox "Failed to rename lod"
+						sleep(120)
 						Exit
 					)
 				)
@@ -1505,6 +1691,7 @@
 					if copyFile _exportfile (_newpath + _newname) == false then
 					(
 						MessageBox "Failed to Copy lod"
+						sleep(120)
 						Exit
 					)
 				)
@@ -1546,7 +1733,8 @@
 			if FileCount == 483 then
 				exit
 			
-		if FileCount == 8 then exit
+		--if FileCount == 8 then exit
+		if bSingleFile == true then exit
 	)
 	--enableSceneRedraw()
 	ShowTextures()
@@ -1575,7 +1763,8 @@
 		close out_file
 	)
 	
-	--if bFinalize == true then
+	bFinalize = false
+	if bFinalize == true then
 	(
 		local _INI_Path = "C:\\Users\\" + sysInfo.username + "\\OneDrive\\Projects\\FNV_to_FO4\\Profiles\\" + sysInfo.computername + "\\FNV_to_FO4.ini"
 		local _exportloc = getINISetting _INI_Path "USERPATHS" "FNVConverted"
@@ -1592,14 +1781,22 @@
 				root.name = "obj"
 				root.width = 5
 				root.height = 5
+				resetxform root
+				maxOps.CollapseNode root true
 				local files = getFiles (dGroup + "*")
+				--mergeMAXFile "D:\Games\Fallout New Vegas\FNVFo4 Converted\Data\Meshes\Terrain\wastelandnv\objects\groups\wastelandnv.8.-8.8"
+				--return messagebox "return"
 				for f in files do
-					mergeMAXFile f #renameMtlDups #autoRenameDups
-					--mergeMAXFile f #mergeDups #useMergedMtlDups
+				(
+					--mergeMAXFile f #renameMtlDups #autoRenameDups
+					mergeMAXFile f #mergeDups #useMergedMtlDups
+				)
 				if objects.count > 1 then
 				(
+					objects[2].name = "obj"
 					while objects.count > 2 do
 						polyop.attach objects[2] objects[3]
+					--return messagebox "return"
 					objects[2].parent = objects[1]
 					select objects[1]
 					local slName = (filterString (filenameFromPath dGroup) ".")
@@ -1607,10 +1804,38 @@
 					local _exportname = dWrld + "objects\\"
 					_exportname = _exportname + replace dGroup  1 (_path.count) ""
 					_exportname = replace _exportname _exportname.count 1 ""
+					
+					-- Multibound
+					(
+						oMultibound = box()
+						oMultibound.name = "Multibound"
+						oMultibound.parent = root
+						
+						oMultibound.pos.x = (objects[2].max.x) - ((objects[2].max.x - objects[2].min.x)/2)
+						oMultibound.pos.y = (objects[2].max.y) - ((objects[2].max.y - objects[2].min.y)/2)
+						oMultibound.pos.z = (objects[2].min.z) -- - ((objects[2].max.z - objects[2].min.z)/2)
+						
+						oMultibound.width = objects[2].max.x - objects[2].min.x
+						oMultibound.length = objects[2].max.y - objects[2].min.y
+						oMultibound.height = objects[2].max.z - objects[2].min.z
+						
+						oMultibound.material = BSBlinn()
+						oMultibound.material[#Standard].wire = on
+						oMultibound.material[#Standard][#Shader_Basic_Parameters].Diffuse = color 255 0 0
+					)
+					
 					SaveMaxFile (_exportname + ".max")
-					_exportname = _exportname + ".nif"
 					print _exportname
-					exportFile _exportname #noPrompt selectedOnly: true using: nif_export_class
+					exportFile (_exportname + ".nif") #noPrompt selectedOnly: true using: nif_export_class
+					
+					if doesFileExist (_exportname + ".BTO") then
+						deleteFile (_exportname + ".BTO")
+					if renameFile (_exportname + ".nif") (_exportname + ".BTO") == false then
+					(
+						MessageBox "Failed to rename lod"
+						sleep(120)
+						Exit
+					)
 				)
 			)
 		)

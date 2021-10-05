@@ -14,6 +14,7 @@ type
     subIndex    : Integer;
     name        : String;
     ref         : Boolean;
+    parentRef   : Boolean;
     hasCount    : Boolean;
     refCount    : String;
   public
@@ -37,8 +38,11 @@ type
       read refCount;
     property getHasCount: Boolean
       read hasCount;
+    property getPrnRef : Boolean
+      read parentRef;
     procedure setValue(b: TBytes);
     procedure setSubIndex(newIndex: Integer);
+    procedure setPrnRef();
   end;
 
 implementation
@@ -105,6 +109,11 @@ begin
   Writeln('Old Index: ' + IntToStr(self.getSubIndex));
   Writeln('New Index: ' + IntToStr(newIndex));
   self.subIndex := newIndex;
+end;
+
+procedure TValue.setPrnRef();
+begin
+  self.parentRef := True;
 end;
 
 end.

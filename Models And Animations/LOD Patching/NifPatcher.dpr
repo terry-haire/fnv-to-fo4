@@ -24,20 +24,69 @@ uses
   Value in 'Value.pas',
   Block in 'Block.pas',
   Nif in 'Nif.pas',
-  Header in 'Header.pas';
+  Header in 'Header.pas',
+  Unit1 in 'blocks\Unit1.pas';
 
-function processFile(bytes: TBytes): TBytes;
+function processFile(bytes: TBytes; bytes2: TBytes): TBytes;
 var
-nif: TNif;
+nif, nif2: TNif;
 sBytes: String;
-bytePattern: TBytes;
+bytePattern, b2: TBytes;
+template: TBlock;
 begin
   nif := TNif.Create(bytes);
+  nif2 := TNif.Create(bytes2);
+
+  // Dummy node (Hopefully nothing has all the these flags)
+  sBytes := 'FF FF FF FF 00 00 00 00 FF FF FF FF FF FF FF FF'
+         + ' 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 3F'
+         + ' 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 3F'
+         + ' 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 3F'
+         + ' 00 00 80 3F 00 00 00 00 FF FF FF FF 00 00 00 00'
+         + ' 00 00 00 00';
+  bytePattern := StringToByteArray(sBytes);
+  b2 := [$06, $00, $00, $00, $4E, $69, $4E, $6F, $64, $65];
+  template := TBlock.Create(bytePattern, b2, 130);
+
   // NiTriStripsData
   sBytes := '0F 00 00 00 4E 69 54 72 69 53 74 72 69 70 73 44 61 74 61';
   bytePattern := StringToByteArray(sBytes);
+  nif.ReplaceTypeByTemplate(bytePattern, template, False, True);
+  nif.RemoveType(bytePattern);
+//  nif.ReplaceBlock(11, template);
+  // NiAlphaProperty
+  sBytes := '0F 00 00 00 4E 69 41 6C 70 68 61 50 72 6F 70 65 72 74 79';
+  bytePattern := StringToByteArray(sBytes);
+  nif.ReplaceTypeByTemplate(bytePattern, template, False, True);
+  nif.RemoveType(bytePattern);
   // NiMaterialProperty
-  bytePattern := [$12, $00, $00, $00, $4E, $69, $4D, $61, $74, $65, $72, $69, $61, $6C, $50, $72, $6F, $70, $65, $72, $74, $79];
+  sBytes := '12 00 00 00 4E 69 4D 61 74 65 72 69 61 6C 50 72 6F 70 65 72 74 79';
+  bytePattern := StringToByteArray(sBytes);
+  nif.ReplaceTypeByTemplate(bytePattern, template, False, True);
+  nif.RemoveType(bytePattern);
+  // BSShaderTextureSet
+  sBytes := '12 00 00 00 42 53 53 68 61 64 65 72 54 65 78 74 75 72 65 53 65 74';
+  bytePattern := StringToByteArray(sBytes);
+  nif.ReplaceTypeByTemplate(bytePattern, template, False, True);
+  nif.RemoveType(bytePattern);
+  // BSShaderPPLightingProperty
+  sBytes := '1A 00 00 00 42 53 53 68 61 64 65 72 50 50 4C 69 67 68 74 69 6E 67 50 72 6F 70 65 72 74 79';
+  bytePattern := StringToByteArray(sBytes);
+  nif.ReplaceTypeByTemplate(bytePattern, template, True, True);
+  nif.RemoveType(bytePattern);
+  // NiTriStrips
+  sBytes := '0B 00 00 00 4E 69 54 72 69 53 74 72 69 70 73';
+  bytePattern := StringToByteArray(sBytes);
+  nif.ReplaceTypeByTemplate(bytePattern, template, True, True);
+  nif.RemoveType(bytePattern);
+
+//  nif.ReplaceBlockWithBranch(6, nif2.getBranch(2));
+
+
+  // NiMaterialProperty
+
+//  bytePattern := [$12, $00, $00, $00, $4E, $69, $4D, $61, $74, $65, $72, $69, $61, $6C, $50, $72, $6F, $70, $65, $72, $74, $79];
+
   // Need renumber blocks and their references
 //  nif.Remove(195);
 //  nif.Remove(194);
@@ -53,66 +102,50 @@ begin
 //  nif.Remove(192);
 //  nif.Remove(191);
 
-  nif.RemoveType(bytePattern);
   Result := nif.getData;
 end;
 
 procedure convertFiles(slFiles: TStringList);
 var
 pathSource,
+pathExports,
 pathDestination,
-pathSourceRoot,
-pathDestinationRoot,
 newPath,
-filePath:String;
+srcPath,
+pathExportFile:String;
 
 slDel, slSourceFiles: TStringList;
 
 INI: TIniFile;
 
-bytes: TBytes;
+bytes, bytes2: TBytes;
 
 i: Integer;
 begin
   INI := TINIFile.Create('C:\Users\' + GetEnvironmentVariable('USERNAME') + '\OneDrive\Projects\FNV_to_FO4\Profiles\' + GetEnvironmentVariable('COMPUTERNAME') + '\FNV_to_FO4.ini');
 
-  pathSource                      := 'D:\Games\Fallout New Vegas\FNVExtracted\Data\';
-  pathDestination                 := 'D:\Games\Fallout New Vegas\FNVFo4 Converted\Data\';
-  pathSourceRoot                  := INI.ReadString('USERPATHS', 'FNVExtracted', '');
-  pathDestinationRoot             := INI.ReadString('USERPATHS', 'FNVConverted', '');
+  pathSource                      := INI.ReadString('USERPATHS', 'FNVExtracted', '') + 'meshes';
+  pathExports                     := INI.ReadString('USERPATHS', 'FNVConverted', '') + 'meshes\new_vegas';
+  pathDestination                 := INI.ReadString('USERPATHS', 'FNVConverted', '') + 'meshes\patched';
 
-  if slFiles.Count = 0 then
+  for pathExportFile in slFiles do
   begin
-    slSourceFiles := TStringList.Create;
-    slSourceFiles.LoadFromFile(pathDestinationRoot + 'MeshList.csv');
-
-    Readln;
-
-    slDel := TStringList.Create;
-    slDel.Delimiter := ';';
-    slDel.StrictDelimiter := True;
-    for i := 0 to (slSourceFiles.Count - 1) do
-    begin
-      slDel.DelimitedText := slSourceFiles[i];
-      if slDel.Count = 2 then
-      begin
-        slSourceFiles[i] := slDel[0];
-        slFiles.Add(slDel[1]);
-      end;
-    end;
-  end;
-
-  for filePath in slFiles do
-  begin
-    Writeln('Processing ' + filePath);
-    bytes := TFile.ReadAllBytes(filePath);
-    bytes := processFile(bytes);
-    newPath := StringReplace(filePath, pathDestinationRoot, pathDestinationRoot + 'PatchedMeshed\', [rfIgnoreCase]);
-    if newPath = filePath then
-      newPath := 'C:\Temp\Bytes.nif';
+    Writeln('Processing ' + pathExportFile);
+    bytes := TFile.ReadAllBytes(pathExportFile);
+    srcPath := StringReplace(pathExportFile, pathSource, pathExports, [rfIgnoreCase]);
+    Writeln(srcPath);
+    bytes2 := TFile.ReadAllBytes(srcPath);
+    bytes := processFile(bytes, bytes2);
+    newPath := StringReplace(pathExportFile, pathSource, pathDestination, [rfIgnoreCase]);
     Writeln(newPath);
     readln;
-    TFile.WriteAllBytes(newPath, bytes);
+
+    if ForceDirectories(ExtractFilePath(newPath))then
+      TFile.WriteAllBytes(newPath, bytes)
+    else
+    begin
+      writeln('Create directory Failed!');
+    end;
   end;
 end;
 
