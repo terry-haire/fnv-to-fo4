@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<ElricOptionsFile>
+  <MeshConverter xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <OptOptions>
+      <EndianConvert>false</EndianConvert>
+      <NamefilePath></NamefilePath>
+      <BoneSupport>Both</BoneSupport>
+      <ObjectName>LeaveAll</ObjectName>
+      <BonesPerPartition>100</BonesPerPartition>
+      <AnimKeyTolerance>0.0001</AnimKeyTolerance>
+      <WeldHardwareSkin>true</WeldHardwareSkin>
+      <SortByTexturingProperties>false</SortByTexturingProperties>
+      <RemoveExtraData>true</RemoveExtraData>
+      <ReduceAnimationKeys>false</ReduceAnimationKeys>
+      <CreateExtendedMeshShapes>false</CreateExtendedMeshShapes>
+      <PreprocessCollisionGeometry>true</PreprocessCollisionGeometry>
+      <RemoveHiddenBones>false</RemoveHiddenBones>
+      <RemoveExtraLookAt>true</RemoveExtraLookAt>
+      <RemoveExtraVis>false</RemoveExtraVis>
+      <RemoveExtraNormals>true</RemoveExtraNormals>
+      <RemoveExtraTextureCoords>true</RemoveExtraTextureCoords>
+      <RemoveDegenerateTriShapeData>false</RemoveDegenerateTriShapeData>
+      <NiTriShapeVertexCacheOptimization>false</NiTriShapeVertexCacheOptimization>
+      <DontMergeAlphaBlended>true</DontMergeAlphaBlended>
+      <MergeSiblingTriShapes>false</MergeSiblingTriShapes>
+      <MergeSiblingNodes>false</MergeSiblingNodes>
+      <RemoveUselessChildNodes>false</RemoveUselessChildNodes>
+      <RemoveChildlessNodes>false</RemoveChildlessNodes>
+      <RemoveMultiMaterialNodes>true</RemoveMultiMaterialNodes>
+      <RemoveBadTextureProperties>true</RemoveBadTextureProperties>
+      <RemoveDuplicateProperties>false</RemoveDuplicateProperties>
+      <MoveBonesBeforeSkins>true</MoveBonesBeforeSkins>
+      <RemoveEditorMarkers>false</RemoveEditorMarkers>
+      <MoveEditorMarkersToRoot>true</MoveEditorMarkersToRoot>
+      <OptimizeTriangleOrder>false</OptimizeTriangleOrder>
+	  <ClearUnusedMaterialValues>true</ClearUnusedMaterialValues>
+    </OptOptions>
+    <OptimizeMeshes>true</OptimizeMeshes>
+	<ProcessAsHead>false</ProcessAsHead>
+  </MeshConverter>
+  <TextureConverter xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <SaveForPlatform>PC</SaveForPlatform>
+    <ForcedFormat>NONE</ForcedFormat>
+    <GenerateMipMaps>true</GenerateMipMaps>
+    <KeepFormat>false</KeepFormat>
+    <MultiThreadConvert>false</MultiThreadConvert>
+    <QuarteringThreshold>NONE</QuarteringThreshold>
+    <BC7QuarteringThreshold>1024</BC7QuarteringThreshold>
+    <QuarterNormals>false</QuarterNormals>
+    <ForceBelowThreshold>false</ForceBelowThreshold>
+  </TextureConverter>
+  <ElricOptions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <OutputDirectory>.\Processed\</OutputDirectory>
+    <UseFilterScript>true</UseFilterScript>
+    <FilterScript>.\Settings\PCFilter.cs</FilterScript>
+    <SaveLog>false</SaveLog>
+    <LogFile>.\Logs\PCMeshes-%m-%d-%y_%h-%n-%s.elf</LogFile>
+    <CloseWhenFinished>true</CloseWhenFinished>
+    <DoSubdirectories>true</DoSubdirectories>
+    <ForceOverwrite>true</ForceOverwrite>
+    <OverwriteIfNewer>false</OverwriteIfNewer>
+    <AutoStartConversion>true</AutoStartConversion>
+    <ConvertTarget>.\Source\Meshes\</ConvertTarget>
+	<Platform>PC</Platform>
+  </ElricOptions>
+</ElricOptionsFile>
