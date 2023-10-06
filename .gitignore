@@ -1,14 +1,14 @@
-/Plugins/xEdit/data
 *.txt
 *.exe
 *.ba2
-/Models And Animations/nifTools
 **/__history
-testing
 *.identcache
 *.local
-Models And Animations/LOD Patching/Win32
-Plugins/xEdit/Delphi/Win32/Debug/
 *.stat
 *.res
-Models And Animations/LOD Patching/blocks/
+
+/src/plugins/xEdit/data
+/src/models-and-animations/nifTools
+/src/models-and-animations/LOD Patching/blocks/
+/src/models-and-animations/LOD Patching/Win32
+/src/plugins/xEdit/Delphi/Win32/Debug/
