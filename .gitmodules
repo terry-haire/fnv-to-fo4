@@ -1,0 +1,3 @@
+[submodule "src/models-and-animations/nifskope_converter"]
+	path = src/models-and-animations/nifskope_converter
+	url = git@github.com:terry-haire/nifskope.git
