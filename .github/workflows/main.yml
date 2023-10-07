@@ -61,15 +61,15 @@ jobs:
               7z x jom.zip -ojom
 
       - name: (6) Create build directory
-        run:  mkdir ${{ runner.temp }}\build
+        run:  mkdir ${{ env.SOURCE_DIR }}\build\nifskope_converter
 
       - name: (7) Set up Visual Studio shell
         uses: egor-tensin/vs-shell@v2
         with:
           arch: x64
 
-      - name: (8) Build
-        working-directory: ${{ runner.temp }}\build
+      - name: (8) Build NifSkope
+        working-directory: ${{ env.SOURCE_DIR }}\build\nifskope_converter
         run:  |
               qmake -r ${{ env.SOURCE_DIR }}\src\models-and-animations\nifskope_converter\NifSkope.pro
               ${{ runner.temp }}\jom\jom -j2
@@ -80,13 +80,67 @@ jobs:
               copy C:\Windows\System32\msvcp140.dll .
               copy C:\Windows\System32\vcruntime140.dll .
 
-      - name: (9) Zip build
-        working-directory: ${{ runner.temp }}
-        run:  |
-              7z a nifskope-build.zip ${{ runner.temp }}\build\* -r
+      # - name: (9) Build others
 
-      - name: (10) Save build artifact
-        uses: actions/upload-artifact@master
+      - name: (10) Zip build
+        working-directory: ${{ env.SOURCE_DIR }}
+        run:  |
+              7z a nifskope-build.zip ${{ env.SOURCE_DIR }}\build\nifskope_converter\release\* -r
+
+      - name: (11) Save build artifact
+        uses: actions/upload-artifact@v3
         with:
           name: ${{ env.ARTIFACT }}
-          path: ${{ runner.temp }}\${{ env.ARTIFACT }}
+          path: |
+            ${{ env.SOURCE_DIR }}\build\nifskope_converter\release\
+            ${{ env.SOURCE_DIR }}\src\models-and-animations\elric\
+            ${{ env.SOURCE_DIR }}\src\convert.ps1
+            ${{ env.SOURCE_DIR }}\convert.bat
+            ${{ env.SOURCE_DIR }}\README.md
+            ${{ env.SOURCE_DIR }}\images\
+
+  release:
+    name: Release
+    runs-on:  ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.ARTIFACT }}
+
+      # - name: Conventional Changelog Action
+      #   uses: TriPSs/conventional-changelog-action@v3
+      #   with:
+      #     github-token: ${{ secrets.github_token }}
+
+      - name: Create Release
+        id: create-release
+        uses: actions/create-release@v1
+        # if: ${{ steps.changelog.outputs.skipped == 'false' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.github_token }}
+        with:
+          # tag_name: ${{ steps.changelog.outputs.tag }}
+          # release_name: ${{ steps.changelog.outputs.tag }}
+          # body: ${{ steps.changelog.outputs.clean_changelog }}
+          tag_name: ${{ github.run_number }}
+          release_name: ${{ github.run_number }}
+          draft: false
+          prerelease: true
+
+      - name: Archive Artifacts
+        run: |
+          zip -r ${{ env.ARTIFACT }}.zip ${{ env.ARTIFACT }}
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create-release.outputs.upload_url }}
+          asset_path: ./${{ env.ARTIFACT }}.zip
+          asset_name: ${{ env.ARTIFACT }}.zip
+          asset_content_type: application/zip
+
