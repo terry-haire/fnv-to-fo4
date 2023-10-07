@@ -98,3 +98,34 @@ jobs:
             ${{ env.SOURCE_DIR }}\convert.bat
             ${{ env.SOURCE_DIR }}\README.md
             ${{ env.SOURCE_DIR }}\images\
+
+      - name: Download Artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.ARTIFACT }}
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: true
+          
+      - name: Archive Artifacts
+        run: |
+          zip -r ${{ env.ARTIFACT }}.zip ${{ env.ARTIFACT }}
+      
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./${{ env.ARTIFACT }}.zip
+          asset_name: ${{ env.ARTIFACT }}.zip
+          asset_content_type: application/zip
+
