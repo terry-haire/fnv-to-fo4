@@ -61,7 +61,7 @@ jobs:
               7z x jom.zip -ojom
 
       - name: (6) Create build directory
-        run:  mkdir ${{ runner.temp }}\build\nifskope_converter
+        run:  mkdir ${{ env.SOURCE_DIR }}\build\nifskope_converter
 
       - name: (7) Set up Visual Studio shell
         uses: egor-tensin/vs-shell@v2
@@ -69,7 +69,7 @@ jobs:
           arch: x64
 
       - name: (8) Build NifSkope
-        working-directory: ${{ runner.temp }}\build\nifskope_converter
+        working-directory: ${{ env.SOURCE_DIR }}\build\nifskope_converter
         run:  |
               qmake -r ${{ env.SOURCE_DIR }}\src\models-and-animations\nifskope_converter\NifSkope.pro
               ${{ runner.temp }}\jom\jom -j2
@@ -83,16 +83,16 @@ jobs:
       # - name: (9) Build others
 
       - name: (10) Zip build
-        working-directory: ${{ runner.temp }}
+        working-directory: ${{ env.SOURCE_DIR }}
         run:  |
-              7z a nifskope-build.zip ${{ runner.temp }}\build\nifskope_converter\release\* -r
+              7z a nifskope-build.zip ${{ env.SOURCE_DIR }}\build\nifskope_converter\release\* -r
 
       - name: (11) Save build artifact
         uses: actions/upload-artifact@v3
         with:
           name: ${{ env.ARTIFACT }}
           path: |
-            ${{ runner.temp }}\build\nifskope_converter\release\
+            ${{ env.SOURCE_DIR }}\build\nifskope_converter\release\
             ${{ env.SOURCE_DIR }}\src\models-and-animations\elric\
             ${{ env.SOURCE_DIR }}\src\convert.ps1
             ${{ env.SOURCE_DIR }}\convert.bat
