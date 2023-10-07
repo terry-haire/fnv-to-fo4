@@ -20,12 +20,13 @@ defaults:
 env:
   SOURCE_DIR:   ${{ github.workspace }}
   QT_VERSION:   5.9.9
-  ARTIFACT:     nifskope-build.zip
+  ARTIFACT:     build-assets
 
 name: Create Release
 
 jobs:
   build:
+    name: Build
     runs-on:  windows-2019
 
     steps:
@@ -106,9 +107,18 @@ jobs:
 
     steps:
       - name: Download Artifacts
+        id: download
         uses: actions/download-artifact@v3
         with:
           name: ${{ env.ARTIFACT }}
+          path: ${{ runner.temp }}/artifacts
+
+      - name: Zip Folder
+        shell: bash
+        working-directory: ${{ steps.download.outputs.download-path }}
+        run: |
+          mkdir ${{ runner.temp }}/assets
+          zip -r ${{ runner.temp }}/assets/${{ env.ARTIFACT }}.zip .
 
       # - name: Conventional Changelog Action
       #   uses: TriPSs/conventional-changelog-action@v3
@@ -130,17 +140,12 @@ jobs:
           draft: false
           prerelease: true
 
-      - name: Archive Artifacts
-        run: |
-          zip -r ${{ env.ARTIFACT }}.zip ${{ env.ARTIFACT }}
-
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create-release.outputs.upload_url }}
-          asset_path: ./${{ env.ARTIFACT }}.zip
-          asset_name: ${{ env.ARTIFACT }}.zip
+          asset_path: ${{ runner.temp }}/assets/${{ env.ARTIFACT }}.zip
+          asset_name: v${{ github.run_number }}.zip
           asset_content_type: application/zip
-
