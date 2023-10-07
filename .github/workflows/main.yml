@@ -83,7 +83,7 @@ jobs:
       - name: (9) Zip build
         working-directory: ${{ runner.temp }}
         run:  |
-              7z a nifskope-build.zip ${{ runner.temp }}\build\* -r
+              7z a nifskope-build.zip ${{ runner.temp }}\build\release\* -r
 
       - name: (10) Save build artifact
         uses: actions/upload-artifact@master
