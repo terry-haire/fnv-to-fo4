@@ -1,0 +1,91 @@
+# https://medium.com/@TomRvr/continuous-integration-for-a-qt-project-with-github-b19a33b39980
+
+on:
+  push:
+    branches:
+      - 'main'
+      - 'continuous-integration'
+    tags:
+      - 'v*'
+  pull_request:
+    branches:
+    - 'main'
+    - 'continuous-integration'
+
+defaults:
+  run:
+    shell: cmd
+
+env:
+  SOURCE_DIR:   ${{ github.workspace }}
+  QT_VERSION:   5.9.9
+  ARTIFACT:     nifskope-build.zip
+
+name: Create Release
+
+jobs:
+  build:
+    runs-on:  windows-2019
+
+    steps:
+      - name: (1) Checkout repo
+        uses: actions/checkout@v2
+        with:
+          submodules: recursive
+
+      - name: (2) Get all tags for correct version determination
+        working-directory:  ${{ github.workspace }}
+        run: |
+          git fetch --all --tags -f
+      - name: (3) Install Qt
+        uses: jurplel/install-qt-action@v3
+        with:
+          version:      ${{ env.QT_VERSION }}
+          host:         windows
+          target:       desktop
+          arch:         win64_msvc2019_64
+          dir:          ${{ runner.temp }}
+          # modules:      qtcharts qt3d
+          setup-python: false
+
+      - name: (4) Download JOM
+        uses: suisei-cn/actions-download-file@v1
+        with:
+          url:    http://download.qt.io/official_releases/jom/jom.zip
+          target: ${{ runner.temp }}\
+
+      - name: (5) Unzip JOM
+        working-directory: ${{ runner.temp }}
+        run:  |
+              7z x jom.zip -ojom
+
+      - name: (6) Create build directory
+        run:  mkdir ${{ runner.temp }}\build
+
+      - name: (7) Set up Visual Studio shell
+        uses: egor-tensin/vs-shell@v2
+        with:
+          arch: x64
+
+      - name: (8) Build
+        working-directory: ${{ runner.temp }}\build
+        run:  |
+              qmake -r ${{ env.SOURCE_DIR }}\src\models-and-animations\nifskope_converter\NifSkope.pro
+              ${{ runner.temp }}\jom\jom -j2
+              cd release
+              windeployqt --qmldir ${{ env.SOURCE_DIR }} NifSkope.exe --pdb --release --compiler-runtime
+              copy C:\Windows\System32\concrt140.dll .
+              copy C:\Windows\System32\vccorlib140.dll .
+              copy C:\Windows\System32\msvcp140.dll .
+              copy C:\Windows\System32\vcruntime140.dll .
+
+      - name: (9) Zip build
+        working-directory: ${{ runner.temp }}
+        run:  |
+              7z a nifskope-build.zip ${{ runner.temp }}\build\* -r
+
+      - name: (10) Save build artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: ${{ env.ARTIFACT }}
+          path: ${{ runner.temp }}\${{ env.ARTIFACT }}
