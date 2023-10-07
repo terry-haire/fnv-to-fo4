@@ -86,7 +86,7 @@ jobs:
               7z a nifskope-build.zip ${{ runner.temp }}\build\release\* -r
 
       - name: (10) Save build artifact
-        uses: actions/upload-artifact@master
+        uses: actions/upload-artifact@v3
         with:
           name: ${{ env.ARTIFACT }}
-          path: ${{ runner.temp }}\${{ env.ARTIFACT }}
+          path: ${{ runner.temp }}\build\release\
