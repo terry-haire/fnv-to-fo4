@@ -79,9 +79,11 @@ jobs:
             ${{ env.SOURCE_DIR }}\build\nifskope_converter\release\
             ${{ env.SOURCE_DIR }}\src\models-and-animations\elric\
             ${{ env.SOURCE_DIR }}\src\convert.ps1
+            ${{ env.SOURCE_DIR }}\src\data\
             ${{ env.SOURCE_DIR }}\convert.bat
             ${{ env.SOURCE_DIR }}\README.md
             ${{ env.SOURCE_DIR }}\images\
+            ${{ env.SOURCE_DIR }}\bin\
 
   release:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
@@ -131,5 +133,5 @@ jobs:
         with:
           upload_url: ${{ steps.create-release.outputs.upload_url }}
           asset_path: ${{ runner.temp }}/assets/${{ env.ARTIFACT }}.zip
-          asset_name: v${{ github.run_number }}.zip
+          asset_name: fnv-to-fo4-v${{ github.run_number }}.zip
           asset_content_type: application/zip
