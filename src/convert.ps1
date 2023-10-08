@@ -15,6 +15,7 @@ if (Test-Path $nifSkopeConverterDebugPath) {
 $tempPath = New-Item -Path "${PSScriptRoot}\..\temp" -ItemType Directory -Force
 $extractedPath = New-Item -Path "${PSScriptRoot}\..\extracted" -ItemType Directory -Force
 $outputPath = New-Item -Path "${PSScriptRoot}\..\output" -ItemType Directory -Force
+$outputPathTextures = New-Item -Path "${PSScriptRoot}\..\output\textures" -ItemType Directory -Force
 $elricOutputPath = New-Item -Path "$outputPath\meshes" -ItemType Directory -Force
 
 Write-Host "[DONE]" -ForegroundColor Green
@@ -32,9 +33,11 @@ Start-Process `
     -Wait `
     -NoNewWindow `
     -ErrorAction Stop
-Write-Host "Extracting meshes... [DONE]" -ForegroundColor Green
+Write-Host "Extracting meshes... " -NoNewline
+Write-Host "[DONE]" -ForegroundColor Green
 
 Write-Host "Extracting textures... " -NoNewline
+Rename-Item -Path "$outputPathTextures\new_vegas" -NewName "textures" -ErrorAction Ignore
 Start-Process `
     -FilePath "${PSScriptRoot}\..\bin\bsab\bsab.exe" `
     -ArgumentList `
@@ -44,11 +47,13 @@ Start-Process `
         "`"$fnvPath\Data\Fallout - Textures.bsa`"", `
         "`"$fnvPath\Data\Fallout - Textures2.bsa`"", `
         "`"$fnvPath\Data\Update.bsa`"", `
-        "`"$outputPath`"" `
+        "`"$outputPathTextures`"" `
     -Wait `
     -NoNewWindow `
     -ErrorAction Stop
-Write-Host "Extracting textures... [DONE]" -ForegroundColor Green
+Rename-Item -Path "$outputPathTextures\textures" -NewName "new_vegas"
+Write-Host "Extracting textures... " -NoNewline
+Write-Host "[DONE]" -ForegroundColor Green
 
 Write-Host "Converting meshes... " -NoNewline
 Start-Process `
@@ -66,7 +71,7 @@ Write-Host "Optimizing meshes... " -NoNewline
 Start-Process `
     -FilePath "${fo4Path}\Tools\Elric\Elrich.exe" `
     -ArgumentList `
-        "`"${cwd}\Settings\PCMeshes.esf`"", `
+        "`".\Settings\PCMeshes.esf`"", `
         "-ElricOptions.ConvertTarget=`"$tempPath\meshes`"", `
         "-ElricOptions.OutputDirectory=`"$elricOutputPath`"" `
     -WorkingDirectory $elricWorkingDirectory `
