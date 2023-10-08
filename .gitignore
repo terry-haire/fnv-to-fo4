@@ -1,4 +1,3 @@
-*.txt
 *.exe
 *.ba2
 **/__history
@@ -6,6 +5,8 @@
 *.local
 *.stat
 *.res
+
+src/*.txt
 
 /src/plugins/xEdit/data
 /src/models-and-animations/nifTools
@@ -15,3 +16,4 @@
 /extracted
 /output
 /temp
+/build
