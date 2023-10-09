@@ -1,1 +1,0 @@
-callbacks.addScript #filepostopen filename:"Gamebryo\\AnimationCompressionConversion.ms" id:#AddAnimCompress persistent:false

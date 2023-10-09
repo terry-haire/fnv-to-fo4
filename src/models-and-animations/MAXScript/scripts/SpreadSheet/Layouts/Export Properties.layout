@@ -1,8 +1,0 @@
-global SpreadSheet_Property_Editing = #(
-#("Object", "Object", " ", " ", 120, false),
-#("Export","EXPORT","BaseObject.BSAttributes.BoneExport","BooleanClass",55,true),
-#("Bone Priority","BONE PRIORITY","BaseObject.BSAttributes.BonePriority","Integer",55,true)
-)
-
-spreadsheet_editor_rollout.EnableFilter ((GetDir #maxroot)+"/Scripts/SpreadSheet/Filters/All Objects.filter") 
-

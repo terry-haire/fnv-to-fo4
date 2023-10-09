@@ -1,1 +1,0 @@
-setMeditMaterial 2 (currentMaterialLibrary["BSLightingFX"])

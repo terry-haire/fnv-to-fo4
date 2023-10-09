@@ -1,1 +1,0 @@
-if doesFileExist @"$scripts\DevTools\ValidateSceneRefHierarchy.ms" do filein @"$scripts\DevTools\ValidateSceneRefHierarchy.ms" 
