@@ -81,6 +81,7 @@ jobs:
             ${{ env.SOURCE_DIR }}\src\models-and-animations\elric\
             ${{ env.SOURCE_DIR }}\src\convert.ps1
             ${{ env.SOURCE_DIR }}\src\data\
+            ${{ env.SOURCE_DIR }}\src\plugins\xEdit
             ${{ env.SOURCE_DIR }}\convert.bat
             ${{ env.SOURCE_DIR }}\README.md
             ${{ env.SOURCE_DIR }}\images\
