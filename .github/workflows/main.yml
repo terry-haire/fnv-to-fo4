@@ -26,7 +26,8 @@ jobs:
           submodules: recursive
           lfs: true
 
-      - uses: robinraju/release-downloader@v1.8
+      - id: download-nifskope-converter
+        uses: robinraju/release-downloader@v1.8
         with:
           # The source repository path.
           # Expected format {owner}/{repo}
@@ -64,6 +65,8 @@ jobs:
         shell: bash
         working-directory: ${{ env.SOURCE_DIR }}
         run: |
+          rm "${{ fromJson(steps.download-nifskope-converter.outputs.downloaded_files)[0] }}"
+
           mkdir ${{ runner.temp }}/assets
           zip -r ${{ runner.temp }}/assets/${{ env.ARTIFACT }}.zip \
           ./build/nifskope_converter/release/ \
