@@ -21,11 +21,11 @@ jobs:
     runs-on:  ubuntu-latest
 
     steps:
-      # - name: Checkout repo
-      #   uses: actions/checkout@v2
-      #   with:
-      #     submodules: recursive
-      #     lfs: true
+      - name: Checkout repo
+        uses: actions/checkout@v2
+        with:
+          submodules: recursive
+          lfs: true
 
       # # - name: Zip Folder
       # #   shell: bash
@@ -73,15 +73,9 @@ jobs:
           # A flag to set if the downloaded assets are archives and should be extracted
           # Checks all downloaded files if they end with zip, tar or tar.gz and extracts them, if true.
           # Prints a warning if enabled but file is not an archive - but does not fail.
-          extract: false
+          extract: true
 
           # token: "${{ secrets.github_token }}"
-
-      - name: Check output
-        shell: bash
-        working-directory: ${{ env.SOURCE_DIR }}
-        run: |
-          ls -l "${{ env.SOURCE_DIR }}/build/nifskope_converter/release/"
 
       - name: Save build artifact
         uses: actions/upload-artifact@v3
