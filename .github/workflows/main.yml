@@ -66,11 +66,11 @@ jobs:
         run: |
           mkdir ${{ runner.temp }}/assets
           zip -r ${{ runner.temp }}/assets/${{ env.ARTIFACT }}.zip \
-          ./build/nifskope_converter/release/
-          ./src/models-and-animations/elric \
+          ./build/nifskope_converter/release/ \
+          ./src/models-and-animations/elric/ \
           ./src/convert.ps1
           ./src/data/
-          ./src/plugins/xEdit
+          ./src/plugins/xEdit/
           ./convert.bat
           ./README.md
           ./images/
