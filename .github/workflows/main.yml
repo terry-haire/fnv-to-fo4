@@ -5,11 +5,7 @@ on:
       - 'main'
   pull_request:
     branches:
-    - 'main'
-
-defaults:
-  run:
-    shell: cmd
+      - 'main'
 
 env:
   SOURCE_DIR:   ${{ github.workspace }}
@@ -22,70 +18,85 @@ jobs:
   # https://medium.com/@TomRvr/continuous-integration-for-a-qt-project-with-github-b19a33b39980
   build:
     name: Build
-    runs-on:  windows-2019
+    runs-on:  ubuntu-latest
 
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v2
+      # - name: Checkout repo
+      #   uses: actions/checkout@v2
+      #   with:
+      #     submodules: recursive
+      #     lfs: true
+
+      # # - name: Zip Folder
+      # #   shell: bash
+      # #   working-directory: ${{ env.SOURCE_DIR }}
+      # #   run: |
+      # #     mkdir ${{ runner.temp }}/assets
+      # #     zip -r ${{ runner.temp }}/assets/${{ env.ARTIFACT }}.zip \
+      # #     ./build/nifskope_converter/release/
+      # #     ./src/models-and-animations/elric \
+      # #     ./src/convert.ps1
+      # #     ./src/data/
+      # #     ./src/plugins/xEdit
+      # #     ./convert.bat
+      # #     ./README.md
+      # #     ./images/
+      # #     ./bin/
+
+      - uses: robinraju/release-downloader@v1.8
         with:
-          submodules: recursive
-          lfs: true
+          # The source repository path.
+          # Expected format {owner}/{repo}
+          # Default: ${{ github.repository }}
+          repository: "terry-haire/nifskope"
 
-      - name: Install Qt
-        uses: jurplel/install-qt-action@v3
-        with:
-          version:      ${{ env.QT_VERSION }}
-          host:         windows
-          target:       desktop
-          arch:         win64_msvc2017_64
-          dir:          ${{ runner.temp }}
-          setup-python: false
+          # A flag to set the download target as latest release
+          # The default value is 'false'
+          latest: true
 
-      - name: Download JOM
-        uses: suisei-cn/actions-download-file@v1
-        with:
-          url:    http://download.qt.io/official_releases/jom/jom.zip
-          target: ${{ runner.temp }}\
+          # # The name of the file to download.
+          # # Use this field only to specify filenames other than tarball or zipball, if any.
+          # # Supports wildcard pattern (eg: '*', '*.deb', '*.zip' etc..)
+          # fileName: ""
 
-      - name: Unzip JOM
-        working-directory: ${{ runner.temp }}
-        run:  |
-              7z x jom.zip -ojom
+          # # Download the attached tarball (*.tar.gz)
+          # tarBall: true
 
-      - name: Create build directory
-        run:  mkdir ${{ env.SOURCE_DIR }}\build\nifskope_converter
+          # # Download the attached zipball (*.zip)
+          # zipBall: true
 
-      - name: Set up Visual Studio shell
-        uses: egor-tensin/vs-shell@v2
-        with:
-          arch: x64
+          # Relative path under $GITHUB_WORKSPACE to place the downloaded file(s)
+          # It will create the target directory automatically if not present
+          # eg: out-file-path: "my-downloads" => It will create directory $GITHUB_WORKSPACE/my-downloads
+          out-file-path: "${{ env.SOURCE_DIR }}/build/nifskope_converter/release/"
 
-      - name: Build NifSkope
-        working-directory: ${{ env.SOURCE_DIR }}\build\nifskope_converter
-        run:  |
-              qmake -r ${{ env.SOURCE_DIR }}\src\models-and-animations\nifskope_converter\NifSkope.pro
-              ${{ runner.temp }}\jom\jom -j2
-              cd release
-              windeployqt --qmldir ${{ env.SOURCE_DIR }} NifSkope.exe --pdb --release --compiler-runtime
-              copy C:\Windows\System32\concrt140.dll .
-              copy C:\Windows\System32\vccorlib140.dll .
-              copy C:\Windows\System32\msvcp140.dll .
-              copy C:\Windows\System32\vcruntime140.dll .
+          # A flag to set if the downloaded assets are archives and should be extracted
+          # Checks all downloaded files if they end with zip, tar or tar.gz and extracts them, if true.
+          # Prints a warning if enabled but file is not an archive - but does not fail.
+          extract: false
+
+          # token: "${{ secrets.github_token }}"
+
+      - name: Check output
+        shell: bash
+        working-directory: ${{ env.SOURCE_DIR }}
+        run: |
+          ls -l "${{ env.SOURCE_DIR }}/build/nifskope_converter/release/"
 
       - name: Save build artifact
         uses: actions/upload-artifact@v3
         with:
           name: ${{ env.ARTIFACT }}
           path: |
-            ${{ env.SOURCE_DIR }}\build\nifskope_converter\release\
-            ${{ env.SOURCE_DIR }}\src\models-and-animations\elric\
-            ${{ env.SOURCE_DIR }}\src\convert.ps1
-            ${{ env.SOURCE_DIR }}\src\data\
-            ${{ env.SOURCE_DIR }}\src\plugins\xEdit
-            ${{ env.SOURCE_DIR }}\convert.bat
-            ${{ env.SOURCE_DIR }}\README.md
-            ${{ env.SOURCE_DIR }}\images\
-            ${{ env.SOURCE_DIR }}\bin\
+            ${{ env.SOURCE_DIR }}/build/nifskope_converter/release/
+            ${{ env.SOURCE_DIR }}/src/models-and-animations/elric/
+            ${{ env.SOURCE_DIR }}/src/convert.ps1
+            ${{ env.SOURCE_DIR }}/src/data/
+            ${{ env.SOURCE_DIR }}/src/plugins/xEdit
+            ${{ env.SOURCE_DIR }}/convert.bat
+            ${{ env.SOURCE_DIR }}/README.md
+            ${{ env.SOURCE_DIR }}/images/
+            ${{ env.SOURCE_DIR }}/bin/
 
   release:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
