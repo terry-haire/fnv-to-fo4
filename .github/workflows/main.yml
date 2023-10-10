@@ -68,12 +68,12 @@ jobs:
           zip -r ${{ runner.temp }}/assets/${{ env.ARTIFACT }}.zip \
           ./build/nifskope_converter/release/ \
           ./src/models-and-animations/elric/ \
-          ./src/convert.ps1
-          ./src/data/
-          ./src/plugins/xEdit/
-          ./convert.bat
-          ./README.md
-          ./images/
+          ./src/convert.ps1 \
+          ./src/data/ \
+          ./src/plugins/xEdit/ \
+          ./convert.bat \
+          ./README.md \
+          ./images/ \
           ./bin/
 
       - name: Save build artifact
