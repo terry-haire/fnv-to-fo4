@@ -29,37 +29,10 @@ jobs:
       - id: download-nifskope-converter
         uses: robinraju/release-downloader@v1.8
         with:
-          # The source repository path.
-          # Expected format {owner}/{repo}
-          # Default: ${{ github.repository }}
           repository: "terry-haire/nifskope"
-
-          # A flag to set the download target as latest release
-          # The default value is 'false'
           latest: true
-
-          # # The name of the file to download.
-          # # Use this field only to specify filenames other than tarball or zipball, if any.
-          # # Supports wildcard pattern (eg: '*', '*.deb', '*.zip' etc..)
-          # fileName: ""
-
-          # # Download the attached tarball (*.tar.gz)
-          # tarBall: true
-
-          # # Download the attached zipball (*.zip)
-          # zipBall: true
-
-          # Relative path under $GITHUB_WORKSPACE to place the downloaded file(s)
-          # It will create the target directory automatically if not present
-          # eg: out-file-path: "my-downloads" => It will create directory $GITHUB_WORKSPACE/my-downloads
           out-file-path: "${{ env.SOURCE_DIR }}/build/nifskope_converter/release/"
-
-          # A flag to set if the downloaded assets are archives and should be extracted
-          # Checks all downloaded files if they end with zip, tar or tar.gz and extracts them, if true.
-          # Prints a warning if enabled but file is not an archive - but does not fail.
           extract: true
-
-          # token: "${{ secrets.github_token }}"
 
       - name: Zip Folder
         shell: bash
@@ -85,35 +58,6 @@ jobs:
           name: ${{ env.ARTIFACT }}
           path: |
             ${{ runner.temp }}/assets/${{ env.ARTIFACT }}.zip
-
-      # - name: Save build artifact
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: ${{ env.ARTIFACT }}
-      #     path: |
-      #       ${{ env.SOURCE_DIR }}/build/nifskope_converter/release/
-      #       ${{ env.SOURCE_DIR }}/src/models-and-animations/elric/
-      #       ${{ env.SOURCE_DIR }}/src/convert.ps1
-      #       ${{ env.SOURCE_DIR }}/src/data/
-      #       ${{ env.SOURCE_DIR }}/src/plugins/xEdit
-      #       ${{ env.SOURCE_DIR }}/convert.bat
-      #       ${{ env.SOURCE_DIR }}/README.md
-      #       ${{ env.SOURCE_DIR }}/images/
-      #       ${{ env.SOURCE_DIR }}/bin/
-
-      # - name: Download Artifacts
-      #   id: download
-      #   uses: actions/download-artifact@v3
-      #   with:
-      #     name: ${{ env.ARTIFACT }}
-      #     path: ${{ runner.temp }}/artifacts
-
-      # - name: Zip Folder
-      #   shell: bash
-      #   working-directory: ${{ steps.download.outputs.download-path }}
-      #   run: |
-      #     mkdir ${{ runner.temp }}/assets
-      #     zip -r ${{ runner.temp }}/assets/${{ env.ARTIFACT }}.zip .
 
       # - name: Conventional Changelog Action
       #   uses: TriPSs/conventional-changelog-action@v3
