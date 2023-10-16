@@ -51,6 +51,7 @@ Start-Process `
     -Wait `
     -NoNewWindow `
     -ErrorAction Stop
+takeown /f "$outputPathTextures\textures"
 Rename-Item -Path "$outputPathTextures\textures" -NewName "new_vegas"
 Write-Host "Extracting textures... " -NoNewline
 Write-Host "[DONE]" -ForegroundColor Green
