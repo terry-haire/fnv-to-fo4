@@ -43,7 +43,7 @@
     <ForcedFormat>NONE</ForcedFormat>
     <GenerateMipMaps>true</GenerateMipMaps>
     <KeepFormat>false</KeepFormat>
-    <MultiThreadConvert>false</MultiThreadConvert>
+    <MultiThreadConvert>true</MultiThreadConvert>
     <QuarteringThreshold>NONE</QuarteringThreshold>
     <BC7QuarteringThreshold>1024</BC7QuarteringThreshold>
     <QuarterNormals>false</QuarterNormals>
