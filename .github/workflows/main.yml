@@ -34,6 +34,14 @@ jobs:
           out-file-path: "${{ env.SOURCE_DIR }}/build/nifskope_converter/release/"
           extract: true
 
+      - id: download-xedit-converter
+        uses: robinraju/release-downloader@v1.8
+        with:
+            repository: "terry-haire/TES5Edit"
+            latest: true
+            out-file-path: "${{ env.SOURCE_DIR }}/build/xedit_converter/"
+            extract: true
+
       - name: Zip Folder
         shell: bash
         working-directory: ${{ env.SOURCE_DIR }}
@@ -43,6 +51,7 @@ jobs:
           mkdir ${{ runner.temp }}/assets
           zip -r ${{ runner.temp }}/assets/${{ env.ARTIFACT }}.zip \
           ./build/nifskope_converter/release/ \
+          ./build/xedit_converter/ \
           ./src/models-and-animations/elric/ \
           ./src/convert.ps1 \
           ./src/data/ \
