@@ -23,7 +23,7 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
         with:
-          submodules: recursive
+          submodules: false
           lfs: true
 
       - id: download-nifskope-converter
@@ -47,6 +47,7 @@ jobs:
         working-directory: ${{ env.SOURCE_DIR }}
         run: |
           rm "${{ fromJson(steps.download-nifskope-converter.outputs.downloaded_files)[0] }}"
+          rm "${{ fromJson(steps.download-xedit-converter.outputs.downloaded_files)[0] }}"
 
           mkdir ${{ runner.temp }}/assets
           zip -r ${{ runner.temp }}/assets/${{ env.ARTIFACT }}.zip \
