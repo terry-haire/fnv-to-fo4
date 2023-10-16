@@ -1,3 +1,6 @@
 [submodule "src/models-and-animations/nifskope_converter"]
 	path = src/models-and-animations/nifskope_converter
 	url = git@github.com:terry-haire/nifskope.git
+[submodule "src/plugins/xEdit-fork"]
+	path = src/plugins/xEdit-fork
+	url = git@github.com:terry-haire/TES5Edit.git
