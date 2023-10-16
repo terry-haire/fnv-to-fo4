@@ -86,3 +86,37 @@ Write-Host "[DONE]" -ForegroundColor Green
 Write-Host "Copying data files... " -NoNewline
 Copy-Item -Path "${PSScriptRoot}\data\*" -Destination "$outputPath" -Recurse -Force
 Write-Host "[DONE]" -ForegroundColor Green
+
+Write-Host "Export FNV data... " -NoNewline
+Start-Process `
+    -FilePath "${PSScriptRoot}\..\build\xedit_converter\xEdit.exe" `
+    -ArgumentList `
+        "-FNV", `
+        "-script:Extract", `
+        "-plugin:FalloutNV.esm", `
+        "-nobuildrefs", `
+        "-autoload", `
+        "-autoexit", `
+        "-IKnowWhatImDoing" `
+    -WorkingDirectory "${PSScriptRoot}\..\build\xedit_converter" `
+    -Wait `
+    -ErrorAction Stop
+Write-Host "[DONE]" -ForegroundColor Green
+
+Write-Host "Import FNV data... " -NoNewline
+Start-Process `
+-FilePath "${PSScriptRoot}\..\build\xedit_converter\xEdit.exe" `
+    -ArgumentList `
+        "-FO4", `
+        "-script:Import", `
+        "-plugin:Fallout4.esm", `
+        "-nobuildrefs", `
+        "-autoload", `
+        "-autoexit", `
+        "-IKnowWhatImDoing" `
+    -WorkingDirectory "${PSScriptRoot}\..\build\xedit_converter" `
+    -Wait `
+    -ErrorAction Stop
+Write-Host "[DONE]" -ForegroundColor Green
+
+Move-Item -Path "$fo4Path\Data\FalloutNV.esm" -Destination $outputPath
