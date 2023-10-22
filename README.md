@@ -13,6 +13,9 @@
   </tr>
 </table>
 
+# Nexus
+https://www.nexusmods.com/fallout4/mods/75425
+
 # Features
 * Fully convert most models from Fallout 3 / Fallout: New Vegas to Fallout 4.
 * Partially convert plugin files (.esp/.esm) from Fallout 3 / Fallout: New Vegas to Fallout 4.
