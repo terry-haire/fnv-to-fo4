@@ -202,7 +202,7 @@ for ($i=0; $i -lt 100; $i++) {
     }
 
     foreach ($file in $existingFiles) {
-        Remove-Item -Path $file
+        Remove-Item -Path $file.FullName
     }
 
     if (-not $failed) {
