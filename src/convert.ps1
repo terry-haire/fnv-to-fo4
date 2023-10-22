@@ -43,9 +43,6 @@ if ($game -eq "fo3") {
     [void]$argumentListTextures.Add("`"$gamePath\Data\Update.bsa`"")
 }
 
-[void]$argumentListMeshes.Add("`"$extractedPath`"")
-[void]$argumentListTextures.Add("`"$outputPathTextures`"")
-
 $elricWorkingDirectory = Resolve-Path -Path "${PSScriptRoot}\models-and-animations\elric\" -ErrorAction Stop
 $nifSkopeConverterPath = "${PSScriptRoot}\..\build\nifskope_converter\release\NifSkope.exe"
 $nifSkopeConverterDebugPath = "${PSScriptRoot}\..\build\nifskope_converter\debug\NifSkope.exe"
@@ -60,6 +57,9 @@ $extractedPath = New-Item -Path "${PSScriptRoot}\..\extracted" -ItemType Directo
 $outputPath = New-Item -Path "${PSScriptRoot}\..\output" -ItemType Directory -Force
 $outputPathTextures = New-Item -Path "${PSScriptRoot}\..\output\textures" -ItemType Directory -Force
 $elricOutputPath = New-Item -Path "$outputPath\meshes" -ItemType Directory -Force
+
+[void]$argumentListMeshes.Add("`"$extractedPath`"")
+[void]$argumentListTextures.Add("`"$outputPathTextures`"")
 
 Write-Host "[DONE]" -ForegroundColor Green
 
