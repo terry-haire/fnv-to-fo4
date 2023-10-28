@@ -32,7 +32,21 @@ jobs:
       run: |
         pip install -r requirements.txt
 
-    - name: Build with PyInstaller
+    - name: Clone PyInstaller repository
+      run: |
+        git clone https://github.com/pyinstaller/pyinstaller.git
+
+    - name: Build the PyInstaller bootloader
+      working-directory: pyinstaller/bootloader
+      run: |
+        python ./waf distclean all
+
+    - name: Install custom PyInstaller
+      working-directory: pyinstaller
+      run: |
+        pip install .
+
+    - name: Build with custom PyInstaller
       working-directory: "${{ env.SOURCE_DIR }}/src/gui"
       run: |
         pyinstaller --onefile --noconsole app.py
