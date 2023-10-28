@@ -29,3 +29,9 @@ src/plugins/xEdit/ElementConverions/MaterialSwaps.csv
 src/plugins/xEdit/ElementConverions/MaterialSwaps3Names.csv
 src/plugins/xEdit/ElementConverions/MaterialSwapsNifs.csv
 src/plugins/xEdit/ElementConverions/__FileReferenceList.csv
+
+# GUI.
+/src/gui/.idea
+/src/gui/__pycache__
+/src/gui/build
+/src/gui/dist
