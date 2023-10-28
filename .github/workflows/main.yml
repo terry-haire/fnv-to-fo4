@@ -15,6 +15,34 @@ env:
 name: Create Release
 
 jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.11
+
+    - name: Install dependencies
+      working-directory: "${{ env.SOURCE_DIR }}/src/gui"
+      run: |
+        pip install -r requirements.txt
+
+    - name: Build with PyInstaller
+      working-directory: "${{ env.SOURCE_DIR }}/src/gui"
+      run: |
+        pyinstaller --onefile --noconsole app.py
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: windows-app
+        path: "${{ env.SOURCE_DIR }}/src/gui/dist/app.exe"
+
   release:
     name: Release
     runs-on:  ubuntu-latest
