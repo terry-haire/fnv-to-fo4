@@ -41,7 +41,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: windows-app
-        path: "${{ env.SOURCE_DIR }}/src/gui/dist/app.exe"
+        path: "${{ env.SOURCE_DIR }}/src/gui/build"
 
   release:
     name: Release
