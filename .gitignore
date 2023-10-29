@@ -4,31 +4,15 @@
 *.local
 *.stat
 *.res
+.vscode
 
 src/*.txt
 
-/src/plugins/xEdit/data/*
-!/src/plugins/xEdit/data/unsorted
-/src/plugins/xEdit/data/unsorted/*
-!/src/plugins/xEdit/data/unsorted/.gitkeep
-/src/plugins/xEdit/FNVEdit_log.txt
-/src/plugins/xEdit/FO3Edit_log.txt
-/src/plugins/xEdit/FO4Edit_log.txt
-/src/plugins/xEdit/TES5Edit_log.txt
-/src/models-and-animations/nifTools
-/src/models-and-animations/LOD Patching/blocks/
-/src/models-and-animations/LOD Patching/Win32
-/src/plugins/xEdit/Delphi/Win32/Debug/
 /extracted
 /output
 /temp
 /tmp
 /build
-src/plugins/xEdit/TES5Edit_bugreport.txt
-src/plugins/xEdit/ElementConverions/MaterialSwaps.csv
-src/plugins/xEdit/ElementConverions/MaterialSwaps3Names.csv
-src/plugins/xEdit/ElementConverions/MaterialSwapsNifs.csv
-src/plugins/xEdit/ElementConverions/__FileReferenceList.csv
 
 # GUI.
 /src/gui/.idea
