@@ -41,7 +41,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: windows-app
-        path: "${{ env.SOURCE_DIR }}/src/gui/build"
+        path: "${{ env.SOURCE_DIR }}/src/gui/build/exe.win-amd64-3.11"
 
   release:
     name: Release
@@ -70,6 +70,12 @@ jobs:
             out-file-path: "${{ env.SOURCE_DIR }}/build/xedit_converter/"
             extract: true
 
+      - name: Download windows-app artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: windows-app
+          path: ${{ runner.temp }}/windows-app
+
       - name: Zip Folder
         shell: bash
         working-directory: ${{ env.SOURCE_DIR }}
@@ -78,6 +84,11 @@ jobs:
           rm "${{ fromJson(steps.download-xedit-converter.outputs.downloaded_files)[0] }}"
 
           mkdir ${{ runner.temp }}/assets
+
+          cd ${{ runner.temp }}/windows-app
+          zip -r ${{ runner.temp }}/assets/${{ env.ARTIFACT }}.zip ./*
+
+          cd ${{ env.SOURCE_DIR }}
           zip -r ${{ runner.temp }}/assets/${{ env.ARTIFACT }}.zip \
           ./build/nifskope_converter/release/ \
           ./build/xedit_converter/ \
