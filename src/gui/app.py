@@ -30,6 +30,8 @@ REQUIRED_PATHS = [
 
 SIDEBAR_ITEMS = [PAGE_NAME_OPTIONS, PAGE_NAME_CONVERT, PAGE_NAME_FINISH]
 
+DEBUG = False
+
 
 def get_game_path(game: str):
     try:
@@ -156,6 +158,9 @@ class DeletePathThread(QtCore.QThread):
         self.mutex.unlock()
 
     def delete_all_in_directory(self, root_dir):
+        if not Path(root_dir).is_dir():
+            return
+
         # List all files and directories in the current directory
         for item in os.listdir(root_dir):
             self.stop_if_requested()
@@ -228,17 +233,6 @@ class ProcessingDialog(QtWidgets.QDialog):
 
 class Installer(QWidget):
     def __init__(self, params: InstallerParams = None):
-        for path in REQUIRED_PATHS:
-            if path.exists():
-                continue
-
-            QtWidgets.QMessageBox.critical(
-                self,
-                "Error",
-                f"The path {path} does not exist. "
-                f"The application will not work as expected."
-            )
-
         super().__init__()
 
         self.params = params
@@ -561,6 +555,10 @@ class Installer(QWidget):
         extracted_path = Path(os.getcwd()) / "extracted"
         temp_path = Path(os.getcwd()) / "temp"
 
+        output_path.mkdir(parents=True, exist_ok=True)
+        extracted_path.mkdir(parents=True, exist_ok=True)
+        temp_path.mkdir(parents=True, exist_ok=True)
+
         for success, msg in [
             check_falloutnv_installation(str(fnv_path)),
             check_fallout4_installation(str(fo4_path)),
@@ -569,8 +567,6 @@ class Installer(QWidget):
                 self.convert_not_ready(msg)
 
                 return
-
-        output_path.mkdir(parents=True, exist_ok=True)
 
         resources = [
             fnv_path / "Data" / "Fallout - Meshes.bsa",
@@ -666,13 +662,60 @@ class Installer(QWidget):
         self.text_edit.insertPlainText(text)
         self.text_edit.moveCursor(QtGui.QTextCursor.MoveOperation.End)
 
-    def handle_exception(self, exception):
+    def handle_exception(self, exception, exc_type=None, tb=None):
+        # Convert traceback to a string if it's provided
+        tb_string = "".join(traceback.format_exception(exc_type, exception, tb)) if tb else ""
+
+        # Display the exception and the traceback (if available) in the QMessageBox
         QtWidgets.QMessageBox.critical(
-            self, "Error", f"An exception occurred: {exception}")
+            self,
+            "Error",
+            f"An exception occurred:\n{exception}\n\nTraceback:\n{tb_string}"
+        )
         self.thread.quit()
 
 
+def error_handler(type_, value, tb):
+    traceback.print_exception(type_, value, tb)
+
+    # Convert traceback to a string
+    tb_string = "".join(traceback.format_exception(type_, value, tb))
+
+    # Display the exception and the traceback in the QMessageBox
+    QtWidgets.QMessageBox.critical(
+        None,
+        "Error",
+        f"An exception occurred:\n{value}\n\nTraceback:\n{tb_string}"
+    )
+
+
+def pre_startup_check():
+    error_msg = (
+        "Failed to find the required files. "
+        "Did you run the application from the correct working directory?"
+    )
+
+    failed = False
+
+    for path in REQUIRED_PATHS:
+        if path.exists():
+            continue
+
+        error_msg += f"\n - {path.absolute()}"
+
+        failed = True
+
+    if not failed:
+        return True
+
+    QtWidgets.QMessageBox.critical(None, "Error", error_msg)
+
+    return False
+
+
 if __name__ == '__main__':
+    sys.excepthook = error_handler
+
     import argparse
 
     parser = argparse.ArgumentParser()
@@ -688,7 +731,13 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
+    if args.debug:
+        DEBUG = True
+
     app = QApplication(sys.argv)
+
+    if not pre_startup_check():
+        sys.exit(1)
 
     window = Installer(params=InstallerParams(
         skip_bsas=args.skip_bsas,

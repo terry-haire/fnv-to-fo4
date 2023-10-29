@@ -3,10 +3,16 @@ import shutil
 import subprocess
 import time
 from pathlib import Path
+import sys
 
 import PySide6.QtCore as QtCore
 
 from InstallerParams import InstallerParams
+
+# Create a STARTUPINFO object
+STARTUPINFO_NO_CONSOLE = subprocess.STARTUPINFO()
+STARTUPINFO_NO_CONSOLE.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+STARTUPINFO_NO_CONSOLE.wShowWindow = subprocess.SW_HIDE
 
 
 class InterruptException(Exception):
@@ -15,7 +21,7 @@ class InterruptException(Exception):
 
 class WorkerThread(QtCore.QThread):
     output_received = QtCore.Signal(str)
-    exception_occurred = QtCore.Signal(Exception)
+    exception_occurred = QtCore.Signal(Exception, type, object)
     task_done = QtCore.Signal()
 
     def __init__(
@@ -82,7 +88,8 @@ class WorkerThread(QtCore.QThread):
         except Exception as e:
             self.failed = True
 
-            self.exception_occurred.emit(e)
+            exc_type, exc_value, tb = sys.exc_info()
+            self.exception_occurred.emit(e, exc_type, tb)
 
             if self.installer_params.debug:
                 raise
@@ -138,6 +145,7 @@ class WorkerThread(QtCore.QThread):
             stderr=subprocess.STDOUT,
             # text=True,
             shell=False,
+            startupinfo=STARTUPINFO_NO_CONSOLE,
         )
 
         for line in process.stdout:
@@ -158,6 +166,7 @@ class WorkerThread(QtCore.QThread):
             stderr=subprocess.STDOUT,
             # text=True,
             shell=False,
+            startupinfo=STARTUPINFO_NO_CONSOLE,
         )
 
         for line in process.stdout:
@@ -172,7 +181,9 @@ class WorkerThread(QtCore.QThread):
 
         subprocess.run(
             ["takeown", "/f", str(output_path_textures)],
-            check=True)
+            startupinfo=STARTUPINFO_NO_CONSOLE,
+            check=True,
+        )
 
         nested_textures_path = output_path_textures / "textures"
 
