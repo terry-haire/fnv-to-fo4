@@ -1,2 +1,2 @@
-.\venv\Scripts\activate.bat && pyinstaller --onefile --noconsole app.py
+.\venv\Scripts\activate.bat && pyinstaller --noconsole app.py
 pause

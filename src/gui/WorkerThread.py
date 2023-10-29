@@ -4,7 +4,7 @@ import subprocess
 import time
 from pathlib import Path
 
-import PyQt6.QtCore as QtCore
+import PySide6.QtCore as QtCore
 
 from InstallerParams import InstallerParams
 
@@ -14,9 +14,9 @@ class InterruptException(Exception):
 
 
 class WorkerThread(QtCore.QThread):
-    output_received = QtCore.pyqtSignal(str)
-    exception_occurred = QtCore.pyqtSignal(Exception)
-    task_done = QtCore.pyqtSignal()
+    output_received = QtCore.Signal(str)
+    exception_occurred = QtCore.Signal(Exception)
+    task_done = QtCore.Signal()
 
     def __init__(
             self,

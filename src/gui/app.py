@@ -5,11 +5,11 @@ import traceback
 import winreg
 from pathlib import Path
 
-import PyQt6.QtCore as QtCore
-import PyQt6.QtGui as QtGui
-import PyQt6.QtWidgets as QtWidgets
-from PyQt6.QtCore import Qt
-from PyQt6.QtWidgets import (
+import PySide6.QtCore as QtCore
+import PySide6.QtGui as QtGui
+import PySide6.QtWidgets as QtWidgets
+from PySide6.QtCore import Qt
+from PySide6.QtWidgets import (
     QApplication, QWidget, QVBoxLayout, QListWidget, QStackedWidget,
     QPushButton, QHBoxLayout, QFileDialog, QLabel, QLineEdit
 )
@@ -98,8 +98,8 @@ class InterruptException(Exception):
 
 
 class DeletePathThread(QtCore.QThread):
-    task_done = QtCore.pyqtSignal()
-    output_received = QtCore.pyqtSignal(str)
+    task_done = QtCore.Signal()
+    output_received = QtCore.Signal(str)
 
     def __init__(self, paths: list[Path]):
         super().__init__()
@@ -207,15 +207,15 @@ class ProcessingDialog(QtWidgets.QDialog):
 
         self.worker.start()
 
-    @QtCore.pyqtSlot()
+    @QtCore.Slot()
     def cancel_task(self):
         self.worker.stop()
 
-    @QtCore.pyqtSlot()
+    @QtCore.Slot()
     def on_task_done(self):
         self.close()
 
-    @QtCore.pyqtSlot(str)
+    @QtCore.Slot(str)
     def update_output(self, text):
         self.label.setText(text)
 
