@@ -137,7 +137,7 @@ class WorkerThread(QtCore.QThread):
         argument_list_meshes.append(str(self.extracted_path))
         argument_list_textures.append(str(output_path_textures))
 
-        self.output_received.emit("Extracting meshes...")
+        self.output_received.emit("Extracting meshes...\n")
 
         process = subprocess.Popen(
             argument_list_meshes,
@@ -156,9 +156,9 @@ class WorkerThread(QtCore.QThread):
 
                 raise InterruptException
 
-        self.output_received.emit("Extracting meshes... [DONE]")
+        self.output_received.emit("Extracting meshes... [DONE]\n")
 
-        self.output_received.emit("Extracting textures...")
+        self.output_received.emit("Extracting textures...\n")
 
         process = subprocess.Popen(
             argument_list_textures,
@@ -177,7 +177,7 @@ class WorkerThread(QtCore.QThread):
 
                 raise InterruptException
 
-        self.output_received.emit("Extracting textures... [DONE]")
+        self.output_received.emit("Extracting textures... [DONE]\n")
 
         subprocess.run(
             ["takeown", "/f", str(output_path_textures)],
@@ -209,7 +209,7 @@ class WorkerThread(QtCore.QThread):
             time.sleep(0.2)
 
     def convert_meshes(self):
-        self.output_received.emit("Converting meshes...")
+        self.output_received.emit("Converting meshes...\n")
 
         path_nifskope = (
                 self.cwd / "build\\nifskope_converter\\release\\NifSkope.exe")
@@ -224,7 +224,7 @@ class WorkerThread(QtCore.QThread):
 
         self.run_long_task(cmd)
 
-        self.output_received.emit("Converting meshes... [DONE]")
+        self.output_received.emit("Converting meshes... [DONE]\n")
 
     def optimize_meshes(self):
         self.output_received.emit("Optimizing meshes...\n")
