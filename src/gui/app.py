@@ -22,6 +22,12 @@ PAGE_NAME_OPTIONS = "Options"
 PAGE_NAME_CONVERT = "Convert"
 PAGE_NAME_FINISH = "Finish"
 
+REQUIRED_PATHS = [
+    Path("build\\nifskope_converter\\release\\NifSkope.exe"),
+    Path("build\\xedit_converter\\xEdit.exe"),
+    Path("bin\\bsab\\bsab.exe"),
+]
+
 SIDEBAR_ITEMS = [PAGE_NAME_OPTIONS, PAGE_NAME_CONVERT, PAGE_NAME_FINISH]
 
 
@@ -222,6 +228,17 @@ class ProcessingDialog(QtWidgets.QDialog):
 
 class Installer(QWidget):
     def __init__(self, params: InstallerParams = None):
+        for path in REQUIRED_PATHS:
+            if path.exists():
+                continue
+
+            QtWidgets.QMessageBox.critical(
+                self,
+                "Error",
+                f"The path {path} does not exist. "
+                f"The application will not work as expected."
+            )
+
         super().__init__()
 
         self.params = params
