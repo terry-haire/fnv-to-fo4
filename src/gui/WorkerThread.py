@@ -232,9 +232,21 @@ class WorkerThread(QtCore.QThread):
         elric_path = self.fo4_path / "Tools" / "Elric" / "Elrich.exe"
         convert_target = self.temp_path / "meshes"
         elric_output_path = self.output_path / "meshes"
-        failed = False
+
+        # Remove meshes that are known to cause problems.
+        for rel_path in [
+            "Terrain\\nvdlc03bigmt\\nvdlc03bigmt.16.-32.-32.BTR",
+        ]:
+            path = self.temp_path / rel_path
+
+            if path.exists():
+                self.output_received.emit(f"Skipping {rel_path}\n")
+
+                os.remove(path)
 
         for _ in range(100):
+            failed = False
+
             self.stop_if_requested()
 
             command = [
@@ -281,11 +293,6 @@ class WorkerThread(QtCore.QThread):
 
             if not failed:
                 break
-
-        if failed:
-            self.output_received.emit(
-                f"Some meshes failed to optimize and will not be included in "
-                f"the output.\n")
 
         self.output_received.emit("Optimizing meshes... [DONE]\n")
 
