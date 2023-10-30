@@ -4,6 +4,7 @@ import sys
 import traceback
 import winreg
 from pathlib import Path
+import json
 
 import PySide6.QtCore as QtCore
 import PySide6.QtGui as QtGui
@@ -269,10 +270,18 @@ class Installer(QWidget):
             name=PAGE_NAME_FINISH,
         )
 
+        self.page_options_custom = PageData(
+            name=PAGE_NAME_OPTIONS,
+        )
+        self.page_options_custom.index = len(SIDEBAR_ITEMS)
+
+        self.templates = self.load_templates()
+
         # First step page
         self.pages.addWidget(self.create_welcome_page())
         self.pages.addWidget(self.create_config_page())
         self.pages.addWidget(self.create_finish_page())
+        self.pages.addWidget(self.create_custom_options_page())
 
         # Connect sidebar selection change to update displayed page
         self.sidebar.currentRowChanged.connect(self.pages.setCurrentIndex)
@@ -384,6 +393,117 @@ class Installer(QWidget):
 
         return page
 
+    def get_fnv_data_path(self):
+        fnv_data_path = Path(self.directory1_line_edit.text()) / "Data"
+
+        if not fnv_data_path.exists():
+            raise FileNotFoundError(
+                f"Path \"{fnv_data_path}\" does not exist.")
+
+        return fnv_data_path
+
+    def open_file_dialog(self):
+        fnv_data_path = self.get_fnv_data_path()
+
+        files, _ = QFileDialog.getOpenFileNames(
+            self, 'Open File',
+            dir=str(fnv_data_path),
+            filter="*.bsa *.esm *.esp"
+        )
+
+        if files:
+            for file in files:
+                self.list_widget.addItem(file)
+
+    def open_folder_dialog(self):
+        fnv_data_path = self.get_fnv_data_path()
+
+        folder = QFileDialog.getExistingDirectory(
+            self, 'Open Folder', dir=str(fnv_data_path))
+        if folder:
+            self.list_widget.addItem(folder)
+
+    def clear_list(self):
+        self.list_widget.clear()
+
+    def create_custom_options_page(self):
+        page = QWidget()
+        layout = QVBoxLayout()
+
+        welcome_label = QLabel("Custom conversion")
+        welcome_label.setAlignment(Qt.AlignmentFlag.AlignTop)
+
+        layout.addWidget(welcome_label)
+
+        file_options_layout = QHBoxLayout()
+
+        # Create buttons for file/folder selection and list clearing
+        self.btn_select_files = QPushButton('Select Files')
+        self.btn_select_folders = QPushButton('Select Folders')
+        self.btn_clear_list = QPushButton('Clear List')
+
+        # Create a list widget to display selected files/folders
+        self.list_widget = QListWidget()
+
+        # Connect buttons to their respective functions
+        self.btn_select_files.clicked.connect(self.open_file_dialog)
+        self.btn_select_folders.clicked.connect(self.open_folder_dialog)
+        self.btn_clear_list.clicked.connect(self.clear_list)
+
+        # Add widgets to the layout
+        file_options_layout.addWidget(self.btn_select_files)
+        file_options_layout.addWidget(self.btn_select_folders)
+        file_options_layout.addWidget(self.btn_clear_list)
+        layout.addLayout(file_options_layout)
+        layout.addWidget(self.list_widget)
+
+        navbox_layout = QHBoxLayout()
+
+        self.custom_options_back_btn = QPushButton("Back")
+        self.custom_options_back_btn.clicked.connect(self.goto_start_page)
+        self.custom_options_next_btn = QPushButton("Start")
+        self.custom_options_next_btn.clicked.connect(
+            lambda: self.goto_convert_page(using_custom_options=True))
+
+        # checkbox_skip_bsas = QtWidgets.QCheckBox("Skip BSAs")
+        # # checkbox_skip_bsas.stateChanged.connect(
+        #
+        # layout.addWidget(QtWidgets.QCheckBox("Skip BSAs"))
+        # layout.addWidget(QtWidgets.QCheckBox("Skip mesh conversion"))
+        # layout.addWidget(QtWidgets.QCheckBox("Skip mesh optimization"))
+        # layout.addWidget(QtWidgets.QCheckBox("Skip plugin extract"))
+        # layout.addWidget(QtWidgets.QCheckBox("Skip plugin import"))
+        # layout.addWidget(QtWidgets.QCheckBox("Ignore existing files"))
+
+        navbox_layout.addWidget(self.custom_options_back_btn)
+        navbox_layout.addWidget(self.custom_options_next_btn)
+
+        layout.addLayout(navbox_layout)
+
+
+        page.setLayout(layout)
+
+        return page
+
+    def load_templates(self):
+        with open("src/gui/templates.json") as f:
+            templates = json.load(f)
+
+        return templates
+
+    def create_template_options(self):
+        self.template_selector = QtWidgets.QComboBox()
+        self.template_selector.addItems(self.templates.keys())
+        self.template_selector.currentTextChanged.connect(self.template_selected)
+
+        # Initialize current template.
+        self.template_selected(self.template_selector.currentText())
+
+        return self.template_selector
+
+    def template_selected(self, selected):
+        self.current_template = self.templates[selected]
+
     def create_install_mode_selector(self):
         layout = QVBoxLayout()
 
@@ -393,9 +513,7 @@ class Installer(QWidget):
         self.radio_button_express = (
             QtWidgets.QRadioButton(text="Express conversion", checked=True))
 
-        combobox1 = QtWidgets.QComboBox()
-        combobox1.addItem('Base game')
-        combobox1.setEnabled(False)
+        combobox1 = self.create_template_options()
 
         # adding signal and slot
         self.radio_button_express.toggled.connect(self.express_mode_selected)
@@ -406,8 +524,8 @@ class Installer(QWidget):
         # Radio button for female
         self.radio_button_custom = (
             QtWidgets.QRadioButton(text="Custom conversion"))
-        self.radio_button_custom.setCheckable(False)
-        self.radio_button_custom.setEnabled(False)
+        # self.radio_button_custom.setCheckable(False)
+        # self.radio_button_custom.setEnabled(False)
 
         # adding signal and slot
         self.radio_button_custom.toggled.connect(self.custom_mode_selected)
@@ -420,12 +538,15 @@ class Installer(QWidget):
     def express_mode_selected(self, selected):
         if selected:
             self.next_btn.setText("Start")
+            self.next_btn.clicked.disconnect(self.goto_custom_options_page)
             self.next_btn.clicked.connect(self.goto_convert_page)
+
 
     def custom_mode_selected(self, selected):
         if selected:
             self.next_btn.setText("Next")
-            self.next_btn.clicked.connect(self.goto_convert_page)
+            self.next_btn.clicked.disconnect(self.goto_convert_page)
+            self.next_btn.clicked.connect(self.goto_custom_options_page)
 
     def create_config_page(self):
         page = QWidget()
@@ -542,7 +663,7 @@ class Installer(QWidget):
 
         self.conversion_next_btn_connections.clear()
 
-    def goto_convert_page(self):
+    def goto_convert_page(self, using_custom_options=False):
         self.clear_conversion_next_button_connections()
 
         self.add_conversion_next_button_connection(self.cancel_conversion)
@@ -568,13 +689,19 @@ class Installer(QWidget):
 
                 return
 
-        resources = [
-            fnv_path / "Data" / "Fallout - Meshes.bsa",
-            fnv_path / "Data" / "Fallout - Textures.bsa",
-            fnv_path / "Data" / "Fallout - Textures2.bsa",
-            fnv_path / "Data" / "Update.bsa",
-            fnv_path / "Data" / "FalloutNV.esm",
-        ]
+        resources = []
+
+        if using_custom_options:
+            # Iterate over the items and print their text
+            for index in range(self.list_widget.count()):
+                item = self.list_widget.item(index)
+
+                resources.append(Path(item.text()))
+        else:
+            resources = [
+                fnv_path / "Data" / v
+                for v in self.current_template["resources"]
+            ]
 
         plugins = [
             path.name for path in resources
@@ -630,6 +757,10 @@ class Installer(QWidget):
     def goto_finish_page(self):
         self.pages.setCurrentIndex(self.page_finish.index)
         self.sidebar.setCurrentRow(self.page_finish.index)
+
+    def goto_custom_options_page(self):
+        self.pages.setCurrentIndex(self.page_options_custom.index)
+        self.sidebar.setCurrentRow(self.page_options.index)
 
     def start_subprocess(
             self,

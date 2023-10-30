@@ -97,6 +97,7 @@ jobs:
           ./src/convert.ps1 \
           ./src/data/ \
           ./src/plugins/xEdit/ \
+          ./src/gui/templates.json \
           ./convert.bat \
           ./README.md \
           ./images/ \
