@@ -12,3 +12,4 @@ class InstallerParams:
     skip_plugin_move: bool = False
     ignore_existing_files: bool = False
     debug: bool = False
+    skip_lod_settings: bool = False

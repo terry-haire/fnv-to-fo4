@@ -857,6 +857,7 @@ if __name__ == '__main__':
     parser.add_argument("--skip_data_files", action="store_true")
     parser.add_argument("--skip_plugin_extract", action="store_true")
     parser.add_argument("--skip_plugin_import", action="store_true")
+    parser.add_argument("--skip_lod_settings", action="store_true")
     parser.add_argument("--ignore_existing_files", action="store_true")
     parser.add_argument("--debug", action="store_true")
 
@@ -878,6 +879,7 @@ if __name__ == '__main__':
         skip_plugin_extract=args.skip_plugin_extract,
         skip_plugin_import=args.skip_plugin_import,
         ignore_existing_files=args.ignore_existing_files,
+        skip_lod_settings=args.skip_lod_settings,
         debug=args.debug,
     ))
 

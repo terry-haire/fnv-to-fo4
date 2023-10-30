@@ -75,6 +75,9 @@ class WorkerThread(QtCore.QThread):
             if not self.installer_params.skip_data:
                 self.copy_data_files()
 
+            if not self.installer_params.skip_lod_settings:
+                self.copy_lod_settings()
+
             if not self.installer_params.skip_plugin_extract:
                 self.extract_plugin_data()
 
@@ -321,14 +324,39 @@ class WorkerThread(QtCore.QThread):
         # Iterate over the files and subdirectories in the source directory
         for item in data_files_dir.iterdir():
             source_item = os.path.join(data_files_dir, item)
-            destination_item = os.path.join(self.output_path, item.name)
+
+            destination_item = self.output_path / item.name
 
             if os.path.isdir(source_item):
-                shutil.copytree(source_item, destination_item)
+                shutil.copytree(
+                    source_item, destination_item, dirs_exist_ok=True)
             else:
                 shutil.copy(source_item, destination_item)
 
         self.output_received.emit("Copying data files... [DONE]\n")
+
+    def copy_lod_settings(self):
+        self.output_received.emit("Copying LOD settings...\n")
+
+        lod_settings_path = Path("src\\data\\LODSettings\\WastelandNV.LOD")
+        terrain_path = self.output_path / "meshes" / "Terrain"
+
+        if terrain_path.exists():
+            lod_settings_dir_new = self.output_path / "LODSettings"
+
+            if not lod_settings_dir_new.exists():
+                lod_settings_dir_new.mkdir()
+
+            for path in terrain_path.iterdir():
+                if not path.is_dir():
+                    continue
+
+                lod_settings_path_new = (
+                        lod_settings_dir_new / f"{path.name}.LOD")
+
+                shutil.copy(lod_settings_path, lod_settings_path_new)
+
+        self.output_received.emit("Copying LOD settings... [DONE]\n")
 
     def extract_plugin_data(self):
         self.output_received.emit("Extract plugin data...\n")
