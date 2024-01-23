@@ -13,6 +13,7 @@ src/*.txt
 /temp
 /tmp
 /build
+/log.txt
 
 # GUI.
 /src/gui/.idea

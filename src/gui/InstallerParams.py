@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import TextIO
 
 
 @dataclass
@@ -13,3 +14,4 @@ class InstallerParams:
     ignore_existing_files: bool = False
     debug: bool = False
     skip_lod_settings: bool = False
+    log_file: TextIO = None

@@ -16,7 +16,10 @@ from PySide6.QtWidgets import (
 )
 
 from InstallerParams import InstallerParams
-from WorkerThread import WorkerThread
+from WorkerThread import WorkerThread, LOOSE_FILES_PLUGIN_NAME
+from ProcessingDialog import ProcessingDialog
+from DeletePathThread import DeletePathThread
+from PluginData import PluginData
 
 PAGE_NAME_OPTIONS = "Options"
 # PAGE_NAME_OPTIONS_CUSTOM = "Options"
@@ -75,6 +78,15 @@ def check_fallout4_installation(path_str: str):
             f"Is the Fallout 4 Creation Kit installed?"
         )
 
+    archive2_path = path / "Tools" / "Archive2" / "Archive2.exe"
+
+    if not archive2_path.exists():
+        return (
+            False,
+            f"Archive2.exe not found at \"{archive2_path}\". "
+            f"Is the Fallout 4 Creation Kit installed?"
+        )
+
     return True, "Success"
 
 
@@ -100,136 +112,6 @@ class PageData:
     def __init__(self, name: str):
         self.name = name
         self.index = SIDEBAR_ITEMS.index(name)
-
-
-class InterruptException(Exception):
-    pass
-
-
-class DeletePathThread(QtCore.QThread):
-    task_done = QtCore.Signal()
-    output_received = QtCore.Signal(str)
-
-    def __init__(self, paths: list[Path]):
-        super().__init__()
-
-        self.paths = paths
-        self._stop_flag = False
-        self.failed = False
-        self.interrupted = False
-        self.mutex = QtCore.QMutex()
-
-    def run(self):
-        try:
-            for path in self.paths:
-                self.stop_if_requested()
-
-                self.output_received.emit(f"Deleting \"{path}\"...")
-
-                self.delete_all_in_directory(path)
-
-                if path.exists():
-                    # noinspection PyBroadException
-                    try:
-                        path.rmdir()
-                    except Exception:
-                        traceback.print_exc()
-
-                        self.failed = True
-        except InterruptException:
-            self.interrupted = True
-
-            pass
-
-        self.task_done.emit()
-
-    def stop(self):
-        self.mutex.lock()
-        self._stop_flag = True
-        self.mutex.unlock()
-
-    def stop_if_requested(self):
-        self.mutex.lock()
-
-        if self._stop_flag:
-            self.mutex.unlock()
-
-            raise InterruptException()
-
-        self.mutex.unlock()
-
-    def delete_all_in_directory(self, root_dir):
-        if not Path(root_dir).is_dir():
-            return
-
-        # List all files and directories in the current directory
-        for item in os.listdir(root_dir):
-            self.stop_if_requested()
-
-            item_path = os.path.join(root_dir, item)
-
-            # If it's a directory, recursively delete its contents
-            if os.path.isdir(item_path):
-                self.delete_all_in_directory(item_path)
-
-                # Once all contents of the directory are deleted, delete the
-                # directory itself
-                # noinspection PyBroadException
-                try:
-                    os.rmdir(item_path)
-                except Exception:
-                    traceback.print_exc()
-
-                    self.failed = True
-            else:
-                # Delete the file
-                # noinspection PyBroadException
-                try:
-                    os.remove(item_path)
-                except Exception:
-                    traceback.print_exc()
-
-                    self.failed = True
-
-
-class ProcessingDialog(QtWidgets.QDialog):
-    def __init__(self, worker):
-        super().__init__()
-        self.worker = worker
-        self.init_ui()
-
-    def init_ui(self):
-        layout = QVBoxLayout()
-        self.label = QLabel("Processing...")
-        self.label.setMinimumWidth(200)
-        self.label.setMinimumHeight(100)
-        self.label.setWordWrap(True)
-        layout.addWidget(self.label)
-
-        # Add Cancel button and connect its slot
-        cancel_button = QPushButton("Cancel")
-        cancel_button.clicked.connect(self.cancel_task)
-        layout.addWidget(cancel_button)
-
-        self.setLayout(layout)
-
-        # Start the worker thread
-        self.worker.task_done.connect(self.on_task_done)
-        self.worker.output_received.connect(self.update_output)
-
-        self.worker.start()
-
-    @QtCore.Slot()
-    def cancel_task(self):
-        self.worker.stop()
-
-    @QtCore.Slot()
-    def on_task_done(self):
-        self.close()
-
-    @QtCore.Slot(str)
-    def update_output(self, text):
-        self.label.setText(text)
 
 
 class Installer(QWidget):
@@ -553,6 +435,7 @@ class Installer(QWidget):
         layout = QVBoxLayout()
         layout.addWidget(QLabel("Conversion logs"))
 
+        self.text_length = 0
         self.text_edit = QtWidgets.QTextEdit()
         layout.addWidget(self.text_edit)
 
@@ -626,6 +509,7 @@ class Installer(QWidget):
                 } and path.suffix.lower() not in {
                     ".esm",
                     ".esp",
+                    ".ba2",
                 }:
                     self.convert_not_ready(
                         f"Unexpected file or directory found in output path: "
@@ -689,39 +573,71 @@ class Installer(QWidget):
 
                 return
 
-        resources = []
+        # resources = []
+        plugins: list[PluginData] = []
 
         if using_custom_options:
-            # Iterate over the items and print their text
+            # Create a plugin for loose files.
+            no_bsa_plugin = PluginData(
+                name=LOOSE_FILES_PLUGIN_NAME,
+                path=fnv_path / "Data" / LOOSE_FILES_PLUGIN_NAME,
+                resources=[]
+            )
+
             for index in range(self.list_widget.count()):
                 item = self.list_widget.item(index)
+                item_text = item.text()
 
-                resources.append(Path(item.text()))
+                if item_text.endswith(".esp") or item_text.endswith(".esm"):
+                    plugins.append(PluginData(
+                        name=item_text,
+                        path=fnv_path / "Data" / item_text,
+                        resources=[]
+                    ))
+                else:
+                    no_bsa_plugin.resources.append(fnv_path / "Data" / item_text)
+
+            if no_bsa_plugin.resources:
+                plugins.append(no_bsa_plugin)
         else:
-            resources = [
-                fnv_path / "Data" / v
-                for v in self.current_template["resources"]
-            ]
+            for _dict in self.current_template["plugins"]:
+                plugin_data = PluginData(
+                    name=_dict["name"],
+                    path=fnv_path / "Data" / _dict["name"],
+                    resources=[
+                        fnv_path / "Data" / v
+                        for v in _dict["resources"]
+                    ]
+                )
 
-        plugins = [
-            path.name for path in resources
-            if path.suffix.lower() in {".esm", ".esp"}
-        ]
+                plugins.append(plugin_data)
+
+            # PluginData()
+            #
+            # resources = [
+            #     fnv_path / "Data" / v
+            #     for v in self.current_template["resources"]
+            # ]
+
+        # plugins = [
+        #     path.name for path in resources
+        #     if path.suffix.lower() in {".esm", ".esp"}
+        # ]
 
         for plugin in plugins:
-            plugin_path = fo4_path / "Data" / plugin
+            plugin_path = fo4_path / "Data" / plugin.name
 
             if plugin_path.exists():
                 if not self.params.ignore_existing_files:
                     self.convert_not_ready(
-                        f"Plugin \"{plugin}\" already exists in "
+                        f"Plugin \"{plugin.name}\" already exists in "
                         f"\"{plugin_path}\". "
                         f"Please remove it and try again."
                     )
 
                     return
                 else:
-                    print(f"Ignoring existing plugin \"{plugin}\".")
+                    print(f"Ignoring existing plugin \"{plugin_path}\".")
 
         if (list(extracted_path.iterdir()) or
                 list(temp_path.iterdir()) or
@@ -747,7 +663,7 @@ class Installer(QWidget):
             extracted_path=extracted_path,
             temp_path=temp_path,
             output_path=output_path,
-            resources=resources,
+            resources=plugins,
         )
 
     def goto_start_page(self):
@@ -769,7 +685,7 @@ class Installer(QWidget):
             extracted_path: Path,
             temp_path: Path,
             output_path: Path,
-            resources: list[Path]
+            resources: list[PluginData]
     ):
         self.text_edit.clear()
 
@@ -790,7 +706,17 @@ class Installer(QWidget):
         self.thread.start()
 
     def update_output(self, text):
+        if self.text_length > 100000:
+            new_text = self.text_edit.toPlainText()[-50000:]
+            self.text_edit.setPlainText(new_text)
+            self.text_length = len(new_text)
+
+        self.text_length += len(text)
+
         self.text_edit.insertPlainText(text)
+
+        self.params.log_file.write(text)
+
         self.text_edit.moveCursor(QtGui.QTextCursor.MoveOperation.End)
 
     def handle_exception(self, exception, exc_type=None, tb=None):
@@ -871,18 +797,20 @@ if __name__ == '__main__':
     if not pre_startup_check():
         sys.exit(1)
 
-    window = Installer(params=InstallerParams(
-        skip_bsas=args.skip_bsas,
-        skip_meshes=args.skip_meshes,
-        skip_optimize=args.skip_optimize,
-        skip_data=args.skip_data_files,
-        skip_plugin_extract=args.skip_plugin_extract,
-        skip_plugin_import=args.skip_plugin_import,
-        ignore_existing_files=args.ignore_existing_files,
-        skip_lod_settings=args.skip_lod_settings,
-        debug=args.debug,
-    ))
+    with open("log.txt", "w") as f:
+        window = Installer(params=InstallerParams(
+            skip_bsas=args.skip_bsas,
+            skip_meshes=args.skip_meshes,
+            skip_optimize=args.skip_optimize,
+            skip_data=args.skip_data_files,
+            skip_plugin_extract=args.skip_plugin_extract,
+            skip_plugin_import=args.skip_plugin_import,
+            ignore_existing_files=args.ignore_existing_files,
+            skip_lod_settings=args.skip_lod_settings,
+            debug=args.debug,
+            log_file=f,
+        ))
 
-    window.resize(600, 400)
-    window.show()
-    sys.exit(app.exec())
+        window.resize(600, 400)
+        window.show()
+        sys.exit(app.exec())

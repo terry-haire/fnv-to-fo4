@@ -4,19 +4,32 @@ import subprocess
 import time
 from pathlib import Path
 import sys
+from dataclasses import dataclass
+import json
 
 import PySide6.QtCore as QtCore
 
 from InstallerParams import InstallerParams
+from ProcessingDialog import ProcessingDialog
+from DeletePathThread import DeletePathThread
+from gui_exceptions import InterruptException
+from PluginData import PluginData
 
 # Create a STARTUPINFO object
 STARTUPINFO_NO_CONSOLE = subprocess.STARTUPINFO()
 STARTUPINFO_NO_CONSOLE.dwFlags |= subprocess.STARTF_USESHOWWINDOW
 STARTUPINFO_NO_CONSOLE.wShowWindow = subprocess.SW_HIDE
 
+LOOSE_FILES_PLUGIN_NAME = "Loose Files"
 
-class InterruptException(Exception):
-    pass
+
+@dataclass
+class ArchiveSettings:
+    compression: str
+    maxSizeMB: int
+    _format: str
+    name: str
+    dir_names: list[str]
 
 
 class WorkerThread(QtCore.QThread):
@@ -31,17 +44,18 @@ class WorkerThread(QtCore.QThread):
             extracted_path: Path,
             temp_path: Path,
             output_path: Path,
-            resources: list[Path],
+            resources: list[PluginData],
             installer_params: InstallerParams,
     ):
         super().__init__()
 
-        self.archives = [
-            resource for resource in resources if resource.suffix == ".bsa"]
-        self.plugins = [
-            resource for resource in resources
-            if resource.suffix in {".esp", ".esm"}
-        ]
+        # self.archives = [
+        #     resource for resource in resources if resource.suffix == ".bsa"]
+        # self.plugins = [
+        #     resource for resource in resources
+        #     if resource.suffix in {".esp", ".esm"}
+        # ]
+        self.plugins = resources
 
         self.cwd = Path(os.getcwd())
         self.output_path = output_path
@@ -61,31 +75,46 @@ class WorkerThread(QtCore.QThread):
 
     def run(self):
         try:
-            if not self.installer_params.skip_bsas:
-                self.extract_bsas()
+            for plugin in self.plugins:
+                if (self.fo4_path / "data" / plugin.name).exists():
+                    continue
 
-            if not self.installer_params.skip_meshes:
-                self.convert_meshes()
+                # for archive in plugin.resources:
+                #     print(f"Processing BSA {archive.name}")
 
-            if not self.installer_params.skip_optimize:
-                self.optimize_meshes()
+                if not self.installer_params.skip_bsas:
+                    # self.extract_bsas([archive])
+                    self.extract_bsas(plugin.resources)
 
-            self.move_materials()
+                if (self.extracted_path / "meshes").exists():
+                    if not self.installer_params.skip_lod_settings:
+                        self.copy_lod_settings()
 
-            if not self.installer_params.skip_data:
-                self.copy_data_files()
+                    if not self.installer_params.skip_meshes:
+                        self.convert_meshes()
 
-            if not self.installer_params.skip_lod_settings:
-                self.copy_lod_settings()
+                    if not self.installer_params.skip_optimize:
+                        self.optimize_meshes()
 
-            if not self.installer_params.skip_plugin_extract:
-                self.extract_plugin_data()
+                self.move_materials()
 
-            if not self.installer_params.skip_plugin_import:
-                self.import_plugin_data()
+                if plugin.name != LOOSE_FILES_PLUGIN_NAME:
+                    self.create_archive(name=plugin.path.stem)
+
+                    self.clear_temp_and_extracted()
+
+                    # if not self.installer_params.skip_data:
+                    #     self.copy_data_files()
+
+                    if not self.installer_params.skip_plugin_extract:
+                        self.extract_plugin_data(plugin)
+
+                    if not self.installer_params.skip_plugin_import:
+                        self.import_plugin_data(plugin)
 
             if not self.installer_params.skip_plugin_move:
-                self.move_plugins_to_output()
+                for plugin in self.plugins:
+                    self.move_plugin_to_output(plugin)
         except InterruptException:
             self.interrupted = True
         except Exception as e:
@@ -120,8 +149,153 @@ class WorkerThread(QtCore.QThread):
         if self.stop_requested():
             raise InterruptException()
 
-    def extract_bsas(self):
-        if not self.archives:
+    def create_archive(self, name: str):
+        self.output_received.emit("Creating archives...\n")
+
+        archive2_path = self.fo4_path / "Tools" / "Archive2" / "Archive2.exe"
+
+        # TODO: Create ba2 archives.
+        # Change cwd to output directory when running.
+        # & "C:\Program Files (x86)\Steam\steamapps\common\Fallout 4\Tools\Archive2\Archive2.exe" "C:\Users\TheHa\projects\fallout-related\FNV_to_FO4\output\meshes" -create="FalloutNV.ba2" -root="C:\Users\TheHa\projects\fallout-related\FNV_to_FO4\output" -format=General -compression=Default -maxSizeMB=1500 -tempFiles
+
+        for archive_settings in [
+            ArchiveSettings(
+                name="Main",
+                compression="Default",
+                maxSizeMB=4095,
+                _format="General",
+                dir_names=["meshes", "materials"],
+            ),
+            ArchiveSettings(
+                name="Textures",
+                compression="Default",
+                maxSizeMB=4095,
+                _format="DDS",
+                dir_names=["textures"],
+            ),
+        ]:
+            file_name = f"{name} - {archive_settings.name}.ba2"
+
+            folder_paths_str = ",".join([
+                f"\"{str(self.output_path / dir_name)}\"" for dir_name in
+                archive_settings.dir_names
+            ])
+
+            cmd = (
+                f"\"{str(archive2_path)}\" "
+                f"{folder_paths_str} "
+                f"-create=\"{file_name}\" "
+                f"-root=\"{str(self.output_path)}\" "
+                f"-format={archive_settings._format} "
+                f"-compression={archive_settings.compression} "
+                f"-maxSizeMB={archive_settings.maxSizeMB} "
+                "-tempFiles "
+            )
+
+            self.run_frequent_output_task(cmd=cmd, cwd=self.output_path)
+
+        self.output_received.emit("Creating archives... [DONE]\n")
+
+    def delete_all_in_directory(self, root_dir):
+        if not Path(root_dir).is_dir():
+            return
+
+        # List all files and directories in the current directory
+        for item in os.listdir(root_dir):
+            self.stop_if_requested()
+
+            item_path = os.path.join(root_dir, item)
+
+            # If it's a directory, recursively delete its contents
+            if os.path.isdir(item_path):
+                self.delete_all_in_directory(item_path)
+
+                os.rmdir(item_path)
+            else:
+                os.remove(item_path)
+
+    def remove_paths(self, paths):
+        for path in paths:
+            self.stop_if_requested()
+
+            self.output_received.emit(f"Deleting \"{path}\"...\n")
+
+            if path.is_file():
+                path.unlink()
+
+            self.delete_all_in_directory(path)
+
+            if path.exists():
+                # noinspection PyBroadException
+                path.rmdir()
+
+
+    def clear_temp_and_extracted(self):
+        self.output_received.emit("Clearing temp directories...\n")
+
+        self.remove_paths([
+            self.temp_path,
+            self.extracted_path,
+            self.output_path / "textures",
+            self.output_path / "Materials",
+            self.output_path / "meshes",
+            self.output_path / "Music",
+            self.output_path / "Sound",
+        ])
+
+        # Recreate the directories.
+        self.temp_path.mkdir(exist_ok=True)
+        self.extracted_path.mkdir(exist_ok=True)
+        self.output_path.mkdir(exist_ok=True)
+
+        # processing_dialog = ProcessingDialog(DeletePathThread([
+        #     self.temp_path,
+        #     self.extracted_path,
+        #     self.output_path / "textures",
+        #     self.output_path / "Materials",
+        #     self.output_path / "meshes",
+        #     self.output_path / "Music",
+        #     self.output_path / "Sound",
+        # ]))
+        #
+        # processing_dialog.exec()
+        #
+        # if processing_dialog.worker.interrupted:
+        #     raise InterruptException
+        #
+        # if processing_dialog.worker.failed:
+        #     self.output_received.emit("Failed to clear directories.\n")
+        #
+        #     raise InterruptException
+
+        self.output_received.emit("Clearing temp directories... [DONE]\n")
+
+    def run_frequent_output_task(self, cmd: list[str] | str, cwd: Path = None):
+        process = subprocess.Popen(
+            cmd,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            # text=True,
+            shell=False,
+            startupinfo=STARTUPINFO_NO_CONSOLE,
+            cwd=cwd,
+        )
+
+        for line in process.stdout:
+            try:
+                s = line.decode("utf-8")
+            except UnicodeDecodeError:
+                s = line.decode("cp1252")
+
+            self.output_received.emit(s)
+
+            if self.stop_requested():
+                process.kill()
+
+                raise InterruptException
+
+    def extract_bsas(self, archives: list[Path]):
+        if not archives:
             return
 
         path_bsab = self.cwd / "bin" / "bsab" / "bsab.exe"
@@ -129,7 +303,7 @@ class WorkerThread(QtCore.QThread):
         argument_list_meshes = [path_bsab, "-e", "-f", "meshes"]
         argument_list_textures = [path_bsab, "-e", "-f", "textures"]
 
-        for archive in self.archives:
+        for archive in archives:
             argument_list_meshes.append(str(archive))
             argument_list_textures.append(str(archive))
 
@@ -142,43 +316,13 @@ class WorkerThread(QtCore.QThread):
 
         self.output_received.emit("Extracting meshes...\n")
 
-        process = subprocess.Popen(
-            argument_list_meshes,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT,
-            # text=True,
-            shell=False,
-            startupinfo=STARTUPINFO_NO_CONSOLE,
-        )
-
-        for line in process.stdout:
-            self.output_received.emit(line.decode("utf-8"))
-
-            if self.stop_requested():
-                process.kill()
-
-                raise InterruptException
+        self.run_frequent_output_task(argument_list_meshes)
 
         self.output_received.emit("Extracting meshes... [DONE]\n")
 
         self.output_received.emit("Extracting textures...\n")
 
-        process = subprocess.Popen(
-            argument_list_textures,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT,
-            # text=True,
-            shell=False,
-            startupinfo=STARTUPINFO_NO_CONSOLE,
-        )
-
-        for line in process.stdout:
-            self.output_received.emit(line.decode("utf-8"))
-
-            if self.stop_requested():
-                process.kill()
-
-                raise InterruptException
+        self.run_frequent_output_task(argument_list_textures)
 
         self.output_received.emit("Extracting textures... [DONE]\n")
 
@@ -195,7 +339,7 @@ class WorkerThread(QtCore.QThread):
 
     def run_long_task(self, cmd: list[str] | str, cwd: Path = None,
                       shell=False):
-        process = subprocess.Popen(cmd, cwd=cwd, shell=shell)
+        process = subprocess.Popen(cmd, cwd=cwd, shell=shell, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
 
         while True:
             retcode = process.poll()
@@ -339,7 +483,7 @@ class WorkerThread(QtCore.QThread):
         self.output_received.emit("Copying LOD settings...\n")
 
         lod_settings_path = Path("src\\data\\LODSettings\\WastelandNV.LOD")
-        terrain_path = self.output_path / "meshes" / "Terrain"
+        terrain_path = self.extracted_path / "meshes" / "landscape" / "lod"
 
         if terrain_path.exists():
             lod_settings_dir_new = self.output_path / "LODSettings"
@@ -358,7 +502,13 @@ class WorkerThread(QtCore.QThread):
 
         self.output_received.emit("Copying LOD settings... [DONE]\n")
 
-    def extract_plugin_data(self):
+    def extract_plugin_data(self, plugin: PluginData):
+        self.output_received.emit("Clearing extracted plugin data...\n")
+
+        self.remove_paths([self.x_edit_exe_path.parent / "data"])
+
+        self.output_received.emit("Clearing extracted plugin data... [DONE]\n")
+
         self.output_received.emit("Extract plugin data...\n")
 
         if not self.plugins:
@@ -369,20 +519,20 @@ class WorkerThread(QtCore.QThread):
 
         x_edit_mode = "-FNV"
 
-        if len(self.plugins) > 1:
-            raise NotImplementedError("Multiple plugins not supported yet")
-
-        x_edit_plugin = self.plugins[0]
+        x_edit_plugin = plugin
 
         command = [
             self.x_edit_exe_path,
             x_edit_mode,
+            "-hideForm",
+            "-dontBackup",
+            "-convert",
             "-script:Extract",
-            f"-plugin:{x_edit_plugin.name}",
             "-nobuildrefs",
             "-autoload",
             "-autoexit",
-            "-IKnowWhatImDoing"
+            "-IKnowWhatImDoing",
+            x_edit_plugin.name,
         ]
 
         working_directory = self.x_edit_converter_path
@@ -392,11 +542,25 @@ class WorkerThread(QtCore.QThread):
 
         self.x_edit_data_path.mkdir(exist_ok=True)
 
-        self.run_long_task(command, cwd=working_directory)
+        self.run_frequent_output_task(command, cwd=working_directory)
+        # self.run_long_task(command, cwd=working_directory)
 
         self.output_received.emit("Extract plugin data... [DONE]\n")
 
-    def import_plugin_data(self):
+    def get_plugin_masters(self, plugin: PluginData) -> list[str]:
+        path = self.x_edit_exe_path.parent / "data" / f"{plugin.name}.json"
+
+        with open(path) as file:
+            data = json.load(file)
+
+        result = []
+
+        for master in data["masters"]:
+            result.append(master["name"])
+
+        return result
+
+    def import_plugin_data(self, plugin: PluginData):
         self.output_received.emit("Import plugin data...\n")
 
         if not self.plugins:
@@ -409,25 +573,28 @@ class WorkerThread(QtCore.QThread):
         command = [
             self.x_edit_exe_path,
             x_edit_mode,
+            "-hideForm",
+            "-dontBackup",
+            "-convert",
             "-script:Import",
-            f"-plugin:Fallout4.esm",
             "-nobuildrefs",
             "-autoload",
             "-autoexit",
-            "-IKnowWhatImDoing"
-        ]
+            "-IKnowWhatImDoing",
+            "Fallout4.esm",
+        ] + self.get_plugin_masters(plugin) + [plugin.name]
 
         working_directory = self.x_edit_converter_path
 
-        self.run_long_task(command, cwd=working_directory)
+        self.run_frequent_output_task(command, cwd=working_directory)
+        # self.run_long_task(command, cwd=working_directory)
 
         self.output_received.emit("Import plugin data... [DONE]\n")
 
-    def move_plugins_to_output(self):
-        for plugin in self.plugins:
-            shutil.move(
-                src=str(self.fo4_path / "Data" / plugin.name),
-                dst=str(self.output_path / plugin.name),
-            )
+    def move_plugin_to_output(self, plugin: PluginData):
+        shutil.move(
+            src=str(self.fo4_path / "Data" / plugin.name),
+            dst=str(self.output_path / plugin.name),
+        )
 
-            self.output_received.emit(f"Moved {plugin.name} to output path\n")
+        self.output_received.emit(f"Moved {plugin.name} to output path\n")
