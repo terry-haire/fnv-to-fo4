@@ -34,3 +34,12 @@ git submodule update --init --recursive
 ## Nifskope
 * Follow the instructions here: https://github.com/niftools/nifskope/wiki/Compiling-with-Qt-Creator-(Windows)
     * Make sure to download the latest Qt5.* and not Qt6+ when using the online installer.
+
+## Creation Kit
+
+Add the following to CreationKit.ini in the Fallout 4 directory to allow multiple masters to load.
+```ini
+[General]
+bAllowMultipleMasterFiles=1
+bAllowMultipleMasterLoads=1
+```
