@@ -584,18 +584,32 @@ class Installer(QWidget):
                 resources=[]
             )
 
-            for index in range(self.list_widget.count()):
-                item = self.list_widget.item(index)
-                item_text = item.text()
+            item_paths = [
+                Path(self.list_widget.item(i).text())
+                for i in range(self.list_widget.count())
+            ]
 
-                if item_text.endswith(".esp") or item_text.endswith(".esm"):
-                    plugins.append(PluginData(
-                        name=item_text,
-                        path=fnv_path / "Data" / item_text,
+            item_paths.sort(key=lambda p: p.suffix.lower() not in {".esm", ".esp"})
+
+            plugin = None
+
+            for item_path in item_paths:
+                if item_path.suffix.lower() in {".esm", ".esp"}:
+                    if plugin is not None:
+                        raise Exception(
+                            "Only one plugin can be selected at a time.")
+
+                    plugin = PluginData(
+                        name=item_path.name,
+                        path=item_path,
                         resources=[]
-                    ))
+                    )
+
+                    plugins.append(plugin)
+                elif plugin is not None:
+                    plugin.resources.append(item_path)
                 else:
-                    no_bsa_plugin.resources.append(fnv_path / "Data" / item_text)
+                    no_bsa_plugin.resources.append(item_path)
 
             if no_bsa_plugin.resources:
                 plugins.append(no_bsa_plugin)
