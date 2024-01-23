@@ -1,0 +1,1 @@
+Copy extracted sound and music folder to this folder. Set paths to programs in batch file.
