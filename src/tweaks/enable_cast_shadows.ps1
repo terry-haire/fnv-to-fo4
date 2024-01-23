@@ -16,6 +16,8 @@ $newValue = $true
 
 foreach ($rootPath in $rootPaths) {
     Get-ChildItem -Path $rootPath -Recurse -File -Filter $extension | ForEach-Object {
+        Write-Host "Processing file: $_.FullName"
+
         # Read the file content and convert from JSON
         $jsonContent = Get-Content $_.FullName | ConvertFrom-Json
 
