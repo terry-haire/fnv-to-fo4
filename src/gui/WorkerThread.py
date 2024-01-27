@@ -412,6 +412,7 @@ class WorkerThread(QtCore.QThread):
             shell=shell,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
+            startupinfo=STARTUPINFO_NO_CONSOLE,
             text=True
         )
 
