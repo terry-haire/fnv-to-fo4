@@ -93,6 +93,9 @@ class WorkerThread(QtCore.QThread):
                     if not self.installer_params.skip_meshes:
                         self.convert_meshes()
 
+                    if self.installer_params.all_objects_cast_shadows:
+                        self.set_cast_shadows()
+
                     if not self.installer_params.skip_optimize:
                         self.optimize_meshes()
 
@@ -148,6 +151,35 @@ class WorkerThread(QtCore.QThread):
     def stop_if_requested(self):
         if self.stop_requested():
             raise InterruptException()
+
+    def set_cast_shadows(self):
+        self.output_received.emit("Setting cast shadows...\n")
+
+        path = self.temp_path / "materials"
+
+        if not path.exists():
+            self.output_received.emit(
+                "Setting cast shadows... [SKIPPED (no materials to process)]\n"
+            )
+
+            return
+
+        for root, dirs, files in os.walk(path):
+            for file in files:
+                self.stop_if_requested()
+
+                with open(os.path.join(root, file), "r") as f:
+                    try:
+                        _dict = json.load(f)
+                    except json.JSONDecodeError:
+                        continue
+
+                _dict["bCastShadows"] = True
+
+                with open(os.path.join(root, file), "w") as f:
+                    json.dump(_dict, f, indent=4)
+
+        self.output_received.emit("Setting cast shadows... [DONE]\n")
 
     def create_archive(self, name: str):
         self.output_received.emit("Creating archives...\n")

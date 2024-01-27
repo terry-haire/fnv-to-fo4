@@ -15,3 +15,4 @@ class InstallerParams:
     debug: bool = False
     skip_lod_settings: bool = False
     log_file: TextIO = None
+    all_objects_cast_shadows: bool = True

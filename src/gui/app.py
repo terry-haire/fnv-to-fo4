@@ -12,7 +12,7 @@ import PySide6.QtWidgets as QtWidgets
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (
     QApplication, QWidget, QVBoxLayout, QListWidget, QStackedWidget,
-    QPushButton, QHBoxLayout, QFileDialog, QLabel, QLineEdit
+    QPushButton, QHBoxLayout, QFileDialog, QLabel, QLineEdit, QGroupBox
 )
 
 from InstallerParams import InstallerParams
@@ -87,7 +87,7 @@ def check_fallout4_installation(path_str: str):
             f"Is the Fallout 4 Creation Kit installed?"
         )
 
-    return True, "Success"
+    return True, "Successfully verified Fallout 4 installation"
 
 
 def check_falloutnv_installation(path_str: str):
@@ -101,7 +101,7 @@ def check_falloutnv_installation(path_str: str):
     if not fallout_nv_path.exists():
         return False, f"FalloutNV.exe not found at \"{fallout_nv_path}\"."
 
-    return True, "Success"
+    return True, "Successfully verified Fallout: New Vegas installation"
 
 
 class PageData:
@@ -220,6 +220,97 @@ class Installer(QWidget):
 
             update_status(directory)
 
+    def create_param_checkbox(
+            self, param_name: str, title: str, layout=None, tooltip=None):
+        checkbox = QtWidgets.QCheckBox(title)
+
+        if tooltip:
+            checkbox.setToolTip(tooltip)
+
+        checkbox.setChecked(self.params.__getattribute__(param_name))
+
+        def on_change(state):
+            self.params.__setattr__(
+                param_name, state == QtCore.Qt.CheckState.Checked.value)
+
+        checkbox.stateChanged.connect(on_change)
+
+        if layout is not None:
+            layout.addWidget(checkbox)
+
+        return checkbox
+
+    def create_extra_options(self):
+        groupBox = QGroupBox("Options")
+
+        h_layout = QHBoxLayout()
+
+        layout = QVBoxLayout()
+
+        self.create_param_checkbox(
+            param_name="skip_bsas",
+            title="Skip BSAs",
+            layout=layout,
+        )
+
+        self.create_param_checkbox(
+            param_name="skip_meshes",
+            title="Skip mesh conversion",
+            layout=layout,
+        )
+
+        self.create_param_checkbox(
+            param_name="skip_optimize",
+            title="Skip mesh optimization",
+            layout=layout,
+        )
+
+        self.create_param_checkbox(
+            param_name="skip_data",
+            title="Skip data files",
+            layout=layout,
+        )
+
+        self.create_param_checkbox(
+            param_name="skip_plugin_extract",
+            title="Skip plugin extract",
+            layout=layout,
+        )
+
+        self.create_param_checkbox(
+            param_name="skip_plugin_import",
+            title="Skip plugin import",
+            layout=layout,
+        )
+
+        self.create_param_checkbox(
+            param_name="skip_lod_settings",
+            title="Skip LOD settings",
+            layout=layout,
+        )
+
+        self.create_param_checkbox(
+            param_name="ignore_existing_files",
+            title="Ignore existing files",
+            layout=layout,
+        )
+
+        layout2 = QVBoxLayout()
+
+        self.create_param_checkbox(
+            param_name="all_objects_cast_shadows",
+            title="Make all objects cast shadows",
+            layout=layout2,
+            tooltip="Most objects in Fallout: New Vegas do not cast shadows. This option will make all objects cast shadows."
+        )
+
+        h_layout.addLayout(layout)
+        h_layout.addLayout(layout2)
+
+        groupBox.setLayout(h_layout)
+
+        return groupBox
+
     def create_welcome_page(self):
         page = QWidget()
         layout = QVBoxLayout()
@@ -232,9 +323,8 @@ class Installer(QWidget):
         self.next_btn = QPushButton("Start")
         self.next_btn.clicked.connect(self.goto_convert_page)
 
-        installation_label = QLabel("Select installation / output paths:")
-        installation_label.setAlignment(Qt.AlignmentFlag.AlignBottom)
-        layout.addWidget(installation_label)
+        group_box = QGroupBox("Installation / output paths")
+        group_box_layout = QVBoxLayout()
 
         falloutnv_path = get_game_path("falloutnv")
 
@@ -262,12 +352,18 @@ class Installer(QWidget):
             )
         )
 
-        layout.addLayout(self.directory1)
-        layout.addLayout(self.directory2)
-        layout.addLayout(self.directory3)
+        group_box_layout.addLayout(self.directory1)
+        group_box_layout.addLayout(self.directory2)
+        group_box_layout.addLayout(self.directory3)
+
+        group_box.setLayout(group_box_layout)
+
+        layout.addWidget(group_box)
+
+        layout.addWidget(self.create_extra_options())
 
         self.install_mode_selector = self.create_install_mode_selector()
-        layout.addLayout(self.install_mode_selector)
+        layout.addWidget(self.install_mode_selector)
 
         layout.addWidget(self.next_btn)
 
@@ -387,13 +483,15 @@ class Installer(QWidget):
         self.current_template = self.templates[selected]
 
     def create_install_mode_selector(self):
+        group_box = QGroupBox("Mode")
+
         layout = QVBoxLayout()
 
         express_layout = QHBoxLayout()
 
         # Radio button for male
         self.radio_button_express = (
-            QtWidgets.QRadioButton(text="Express conversion", checked=True))
+            QtWidgets.QRadioButton(text="Use template", checked=True))
 
         combobox1 = self.create_template_options()
 
@@ -415,7 +513,9 @@ class Installer(QWidget):
         layout.addLayout(express_layout)
         layout.addWidget(self.radio_button_custom)
 
-        return layout
+        group_box.setLayout(layout)
+
+        return group_box
 
     def express_mode_selected(self, selected):
         if selected:
