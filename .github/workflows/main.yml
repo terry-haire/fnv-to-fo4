@@ -94,11 +94,9 @@ jobs:
           ./build/nifskope_converter/release/ \
           ./build/xedit_converter/ \
           ./src/models-and-animations/elric/ \
-          ./src/convert.ps1 \
           ./src/data/ \
           ./src/plugins/xEdit/ \
           ./src/gui/templates.json \
-          ./convert.bat \
           ./README.md \
           ./images/ \
           ./bin/
