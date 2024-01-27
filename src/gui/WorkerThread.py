@@ -326,11 +326,15 @@ class WorkerThread(QtCore.QThread):
 
         self.output_received.emit("Extracting textures... [DONE]\n")
 
-        subprocess.run(
-            ["takeown", "/f", str(output_path_textures)],
-            startupinfo=STARTUPINFO_NO_CONSOLE,
-            check=True,
-        )
+        try:
+            subprocess.run(
+                ["takeown", "/f", str(output_path_textures)],
+                startupinfo=STARTUPINFO_NO_CONSOLE,
+                check=True,
+            )
+        except subprocess.CalledProcessError:
+            self.output_received.emit(
+                "WARNING: Failed to take ownership of textures directory\n")
 
         nested_textures_path = output_path_textures / "textures"
 
