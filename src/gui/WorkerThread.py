@@ -6,6 +6,10 @@ from pathlib import Path
 import sys
 from dataclasses import dataclass
 import json
+import select
+import queue
+import threading
+from typing import Callable
 
 import PySide6.QtCore as QtCore
 
@@ -375,7 +379,14 @@ class WorkerThread(QtCore.QThread):
 
     def run_long_task(self, cmd: list[str] | str, cwd: Path = None,
                       shell=False):
-        process = subprocess.Popen(cmd, cwd=cwd, shell=shell, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        process = subprocess.Popen(
+            cmd,
+            cwd=cwd,
+            shell=shell,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True
+        )
 
         while True:
             retcode = process.poll()
@@ -390,6 +401,62 @@ class WorkerThread(QtCore.QThread):
                 raise InterruptException
 
             time.sleep(0.2)
+
+    def run_long_task_with_output(
+            self, cmd: list[str] | str, cwd: Path = None, shell=False,
+            line_callback: Callable = None):
+        # Start the subprocess
+        process = subprocess.Popen(
+            cmd,
+            cwd=cwd,
+            shell=shell,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True
+        )
+
+        # Create a queue to hold the output
+        q = queue.Queue()
+
+        def enqueue_output(out, queue):
+            try:
+                for line in iter(out.readline, ''):
+                    queue.put(line)
+            finally:
+                out.close()
+
+        # Start a thread to read the output
+        t = threading.Thread(target=enqueue_output, args=(process.stdout, q))
+        t.daemon = True
+        t.start()
+
+        # Read line without blocking
+        while True:
+            if process.poll() is not None:
+                break
+
+            if self.stop_requested():
+                process.kill()
+                t.join()
+
+                raise InterruptException
+
+            try:
+                line = q.get(timeout=.2)
+            except queue.Empty:
+                pass
+            else:
+                if line_callback is not None:
+                    try:
+                        line_callback(line)
+                    except InterruptException:
+                        process.kill()
+                        t.join()
+
+                        raise InterruptException
+
+                # Process the line
+                self.output_received.emit(line)
 
     def convert_meshes(self):
         self.output_received.emit("Converting meshes...\n")
@@ -578,8 +645,7 @@ class WorkerThread(QtCore.QThread):
 
         self.x_edit_data_path.mkdir(exist_ok=True)
 
-        self.run_frequent_output_task(command, cwd=working_directory)
-        # self.run_long_task(command, cwd=working_directory)
+        self.run_long_task_with_output(command, cwd=working_directory)
 
         self.output_received.emit("Extract plugin data... [DONE]\n")
 
@@ -622,8 +688,7 @@ class WorkerThread(QtCore.QThread):
 
         working_directory = self.x_edit_converter_path
 
-        self.run_frequent_output_task(command, cwd=working_directory)
-        # self.run_long_task(command, cwd=working_directory)
+        self.run_long_task_with_output(command, cwd=working_directory)
 
         self.output_received.emit("Import plugin data... [DONE]\n")
 
