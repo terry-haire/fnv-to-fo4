@@ -330,6 +330,28 @@ class WorkerThread(QtCore.QThread):
 
                 raise InterruptException
 
+    def rename_textures(
+            self, nested_textures_path: Path, output_path_textures: Path):
+        n_tries = 100
+
+        for i in range(n_tries):
+            try:
+                nested_textures_path.rename(output_path_textures / "new_vegas")
+            except PermissionError:
+                if i == n_tries - 1:
+                    raise
+
+                self.output_received.emit(
+                    "WARNING: Failed to rename textures directory. "
+                    "Retrying...\n")
+            else:
+                self.output_received.emit(
+                    "Renamed textures directory to \"new_vegas\"\n")
+
+                break
+
+            time.sleep(1)
+
     def extract_bsas(self, archives: list[Path]):
         if not archives:
             return
@@ -375,7 +397,7 @@ class WorkerThread(QtCore.QThread):
         nested_textures_path = output_path_textures / "textures"
 
         if nested_textures_path.exists():
-            nested_textures_path.rename(output_path_textures / "new_vegas")
+            self.rename_textures(nested_textures_path, output_path_textures)
 
     def run_long_task(self, cmd: list[str] | str, cwd: Path = None,
                       shell=False):
