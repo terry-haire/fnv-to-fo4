@@ -266,6 +266,12 @@ class Installer(QWidget):
         )
 
         self.create_param_checkbox(
+            param_name="skip_ba2_creation",
+            title="Skip BA2 creation",
+            layout=layout,
+        )
+
+        self.create_param_checkbox(
             param_name="skip_data",
             title="Skip data files",
             layout=layout,

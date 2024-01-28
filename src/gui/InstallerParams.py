@@ -16,3 +16,4 @@ class InstallerParams:
     skip_lod_settings: bool = False
     log_file: TextIO = None
     all_objects_cast_shadows: bool = True
+    skip_ba2_creation: bool = False

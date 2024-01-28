@@ -103,10 +103,13 @@ class WorkerThread(QtCore.QThread):
                     if not self.installer_params.skip_optimize:
                         self.optimize_meshes()
 
-                self.move_materials()
+                    self.move_materials()
+
+                    self.replace_data_files(plugin)
 
                 if plugin.name != LOOSE_FILES_PLUGIN_NAME:
-                    self.create_archive(name=plugin.path.stem)
+                    if not self.installer_params.skip_ba2_creation:
+                        self.create_archive(name=plugin.path.stem)
 
                     self.clear_temp_and_extracted()
 
@@ -269,15 +272,21 @@ class WorkerThread(QtCore.QThread):
     def clear_temp_and_extracted(self):
         self.output_received.emit("Clearing temp directories...\n")
 
-        self.remove_paths([
+        paths_to_remove = [
             self.temp_path,
             self.extracted_path,
-            self.output_path / "textures",
-            self.output_path / "Materials",
-            self.output_path / "meshes",
-            self.output_path / "Music",
-            self.output_path / "Sound",
-        ])
+        ]
+
+        if not self.installer_params.skip_ba2_creation:
+            paths_to_remove.extend([
+                self.output_path / "textures",
+                self.output_path / "Materials",
+                self.output_path / "meshes",
+                self.output_path / "Music",
+                self.output_path / "Sound",
+            ])
+
+        self.remove_paths(paths_to_remove)
 
         # Recreate the directories.
         self.temp_path.mkdir(exist_ok=True)
@@ -722,3 +731,23 @@ class WorkerThread(QtCore.QThread):
         )
 
         self.output_received.emit(f"Moved {plugin.name} to output path\n")
+
+    def replace_data_files(self, plugin: PluginData):
+        data_files_dir = Path("src\\data")
+
+        plugin_dir = data_files_dir / plugin.name
+
+        if not plugin_dir.exists():
+            return
+
+        for item in plugin_dir.iterdir():
+            source_item = plugin_dir / item
+
+            destination_item = self.output_path / item.name
+
+            if source_item.is_dir():
+                shutil.copytree(
+                    source_item, destination_item, dirs_exist_ok=True)
+            else:
+                shutil.copy(source_item, destination_item)
+
