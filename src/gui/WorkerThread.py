@@ -122,7 +122,8 @@ class WorkerThread(QtCore.QThread):
                     if not self.installer_params.skip_plugin_import:
                         self.import_plugin_data(plugin)
 
-            if not self.installer_params.skip_plugin_move:
+            if (not self.installer_params.skip_plugin_move and
+                    not self.installer_params.skip_plugin_import):
                 for plugin in self.plugins:
                     self.move_plugin_to_output(plugin)
         except InterruptException:
@@ -371,6 +372,9 @@ class WorkerThread(QtCore.QThread):
         argument_list_textures = [path_bsab, "-e", "-f", "textures"]
 
         for archive in archives:
+            if (str(archive)).lower().endswith(".nam"):
+                continue
+
             argument_list_meshes.append(str(archive))
             argument_list_textures.append(str(archive))
 
@@ -740,10 +744,8 @@ class WorkerThread(QtCore.QThread):
         if not plugin_dir.exists():
             return
 
-        for item in plugin_dir.iterdir():
-            source_item = plugin_dir / item
-
-            destination_item = self.output_path / item.name
+        for source_item in plugin_dir.iterdir():
+            destination_item = self.output_path / source_item.name
 
             if source_item.is_dir():
                 shutil.copytree(
