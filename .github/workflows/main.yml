@@ -97,6 +97,7 @@ jobs:
           ./src/data/ \
           ./src/plugins/xEdit/ \
           ./src/gui/templates.json \
+          ./LICENSE \
           ./README.md \
           ./images/ \
           ./bin/
