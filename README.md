@@ -4,7 +4,7 @@
 
 [![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/terry-haire/fnv-to-fo4/total)](https://github.com/terry-haire/fnv-to-fo4/releases)
 [![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/terry-haire/fnv-to-fo4/main.yml)](https://github.com/terry-haire/fnv-to-fo4/actions)
-[![Discord](https://img.shields.io/discord/1179975442275500122?link=https%3A%2F%2Fdiscord.gg%2F5VcMTMVzgb)](https://discord.gg/5VcMTMVzgb)
+[![Discord](https://img.shields.io/discord/1179975442275500122?link=https%3A%2F%2Fdiscord.gg%2F5VcMTMVzgb&logo=discord)](https://discord.gg/5VcMTMVzgb)
 [![License: GPL v3](https://img.shields.io/badge/license-GPLv3-blue.svg)](LICENSE)
 [![YouTube Channel Views](https://img.shields.io/youtube/channel/views/UCPHhhWa28pUJQ-7TCaP2q7g?link=https%3A%2F%2Fwww.youtube.com%2F%40FNVtoFO4)](https://www.youtube.com/@FNVtoFO4)
 
