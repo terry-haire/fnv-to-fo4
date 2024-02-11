@@ -392,7 +392,7 @@ class Installer(QWidget):
         files, _ = QFileDialog.getOpenFileNames(
             self, 'Open File',
             dir=str(fnv_data_path),
-            filter="*.bsa *.esm *.esp"
+            filter="*.bsa *.esm *.esp *.nif *.dds"
         )
 
         if files:

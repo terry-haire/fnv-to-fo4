@@ -10,6 +10,7 @@ import select
 import queue
 import threading
 from typing import Callable
+import hashlib
 
 import PySide6.QtCore as QtCore
 
@@ -83,12 +84,21 @@ class WorkerThread(QtCore.QThread):
                 if (self.fo4_path / "data" / plugin.name).exists():
                     continue
 
-                # for archive in plugin.resources:
-                #     print(f"Processing BSA {archive.name}")
-
                 if not self.installer_params.skip_bsas:
-                    # self.extract_bsas([archive])
-                    self.extract_bsas(plugin.resources)
+                    bsas = []
+                    loose_files = []
+
+                    for path in plugin.resources:
+                        if path.suffix == ".bsa":
+                            bsas.append(path)
+                        else:
+                            loose_files.append(path)
+
+                    self.extract_bsas(bsas)
+
+                    self.extract_loose_files(loose_files)
+
+                self.remove_crash_causing_files()
 
                 if (self.extracted_path / "meshes").exists():
                     if not self.installer_params.skip_lod_settings:
@@ -108,6 +118,8 @@ class WorkerThread(QtCore.QThread):
                     self.replace_data_files(plugin)
 
                 if plugin.name != LOOSE_FILES_PLUGIN_NAME:
+                    # TODO: If loose files are used create a dummy esp so the
+                    #  resources get loaded.
                     if not self.installer_params.skip_ba2_creation:
                         self.create_archive(name=plugin.path.stem)
 
@@ -125,6 +137,9 @@ class WorkerThread(QtCore.QThread):
             if (not self.installer_params.skip_plugin_move and
                     not self.installer_params.skip_plugin_import):
                 for plugin in self.plugins:
+                    if plugin.name == LOOSE_FILES_PLUGIN_NAME:
+                        continue
+
                     self.move_plugin_to_output(plugin)
         except InterruptException:
             self.interrupted = True
@@ -361,6 +376,64 @@ class WorkerThread(QtCore.QThread):
                 break
 
             time.sleep(1)
+
+    def remove_fnv_path(self, sub_path: Path):
+        base_path = self.fnv_path / "data"
+
+        if not self.fnv_path / "data" in sub_path.parents:
+            raise ValueError(
+                f"Resource {sub_path} is not in the Fallout "
+                f"New Vegas data directory")
+
+        # Get the parts of both paths
+        base_parts = base_path.parts
+        sub_parts = sub_path.parts
+
+        # Reconstruct the sub_path without the base_path
+        relative_path = Path(*sub_parts[len(base_parts):])
+
+        return relative_path
+
+    def remove_crash_causing_files(self):
+        crash_causing_files = [
+            (
+                self.output_path / r"textures\new_vegas\Clutter\junk\wooddetails_n.dds",
+                '9c48e1658dc235dd8be8bf2b55b247cb98964e44759ba17632d43a33383fbf22'
+            )
+        ]
+
+        for path, crash_digest in crash_causing_files:
+            if not path.exists():
+                continue
+
+            with open(path, 'rb', buffering=0) as f:
+                digest = hashlib.file_digest(f, 'sha256').hexdigest()
+
+            if digest == crash_digest:
+                os.remove(path)
+
+    def extract_loose_files(self, loose_files: list[Path]):
+        self.output_received.emit("Copying loose files...\n")
+
+        for path in loose_files:
+            relative_path = self.remove_fnv_path(path)
+
+            root_dir = relative_path.parts[0].lower()
+
+            if root_dir == "textures":
+                path_dst = (self.output_path / "textures" / "new_vegas" /
+                            Path(*relative_path.parts[1:]))
+            elif root_dir == "meshes":
+                path_dst = self.extracted_path / relative_path
+
+                copy_file_or_dir(path, path_dst)
+            else:
+                raise NotImplementedError(
+                    f"Resource {path} is not supported")
+
+            copy_file_or_dir(path, path_dst)
+
+        self.output_received.emit("Copying loose files... [DONE]\n")
 
     def extract_bsas(self, archives: list[Path]):
         if not archives:
@@ -753,3 +826,20 @@ class WorkerThread(QtCore.QThread):
             else:
                 shutil.copy(source_item, destination_item)
 
+
+def copy_file_or_dir(path : Path, path_dst: Path):
+    if path.is_file():
+        path_dst.parent.mkdir(exist_ok=True, parents=True)
+
+        shutil.copyfile(
+            src=path,
+            dst=path_dst,
+        )
+    else:
+        path_dst.mkdir(exist_ok=True, parents=True)
+
+        shutil.copytree(
+            src=path,
+            dst=path_dst,
+            dirs_exist_ok=True,
+        )
