@@ -53,3 +53,6 @@ Add the following to CreationKit.ini in the Fallout 4 directory to allow multipl
 bAllowMultipleMasterFiles=1
 bAllowMultipleMasterLoads=1
 ```
+
+## Debugging Tools
+* Buffout 4 (https://www.nexusmods.com/fallout4/mods/64880)
