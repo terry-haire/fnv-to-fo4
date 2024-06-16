@@ -176,13 +176,13 @@ class WorkerThread(QtCore.QThread):
             raise InterruptException()
 
     def set_cast_shadows(self):
-        self.output_received.emit("Setting cast shadows...\n")
+        self.output_received.emit("Making all objects cast shadows...\n")
 
         path = self.temp_path / "materials"
 
         if not path.exists():
             self.output_received.emit(
-                "Setting cast shadows... [SKIPPED (no materials to process)]\n"
+                "Making all objects cast shadows... [SKIPPED (no materials to process)]\n"
             )
 
             return
@@ -202,7 +202,7 @@ class WorkerThread(QtCore.QThread):
                 with open(os.path.join(root, file), "w") as f:
                     json.dump(_dict, f, indent=4)
 
-        self.output_received.emit("Setting cast shadows... [DONE]\n")
+        self.output_received.emit("Making all objects cast shadows... [DONE]\n")
 
     def create_archive(self, name: str):
         self.output_received.emit("Creating archives...\n")

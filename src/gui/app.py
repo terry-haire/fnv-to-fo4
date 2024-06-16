@@ -5,6 +5,7 @@ import traceback
 import winreg
 from pathlib import Path
 import json
+import time
 
 import PySide6.QtCore as QtCore
 import PySide6.QtGui as QtGui
@@ -917,7 +918,7 @@ if __name__ == '__main__':
     if not pre_startup_check():
         sys.exit(1)
 
-    with open("log.txt", "w") as f:
+    with open(f"log-{int(time.time())}.txt", "w") as f:
         window = Installer(params=InstallerParams(
             skip_bsas=args.skip_bsas,
             skip_meshes=args.skip_meshes,
