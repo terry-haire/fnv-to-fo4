@@ -427,6 +427,9 @@ class WorkerThread(QtCore.QThread):
                 path_dst = self.extracted_path / relative_path
 
                 copy_file_or_dir(path, path_dst)
+            # TODO:
+            elif path.suffix.lower() == ".nam":
+                continue
             else:
                 raise NotImplementedError(
                     f"Resource {path} is not supported")
