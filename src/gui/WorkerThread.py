@@ -77,6 +77,7 @@ class WorkerThread(QtCore.QThread):
         self.x_edit_converter_path = self.cwd / "build\\xedit_converter"
         self.x_edit_data_path = self.x_edit_converter_path / "data"
         self.x_edit_exe_path = self.x_edit_converter_path / "xEdit.exe"
+        self.x_convert_exe_path = self.x_edit_converter_path / "xConvert.exe"
 
     def run(self):
         try:
@@ -128,14 +129,11 @@ class WorkerThread(QtCore.QThread):
                     # if not self.installer_params.skip_data:
                     #     self.copy_data_files()
 
-                    if not self.installer_params.skip_plugin_extract:
-                        self.extract_plugin_data(plugin)
-
-                    if not self.installer_params.skip_plugin_import:
-                        self.import_plugin_data(plugin)
+                    if not self.installer_params.skip_plugin_convert:
+                        self.convert_plugin_data(plugin)
 
             if (not self.installer_params.skip_plugin_move and
-                    not self.installer_params.skip_plugin_import):
+                    not self.installer_params.skip_plugin_convert):
                 for plugin in self.plugins:
                     if plugin.name == LOOSE_FILES_PLUGIN_NAME:
                         continue
@@ -522,7 +520,7 @@ class WorkerThread(QtCore.QThread):
             cwd=cwd,
             shell=shell,
             stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
             startupinfo=STARTUPINFO_NO_CONSOLE,
             text=True
         )
@@ -797,6 +795,25 @@ class WorkerThread(QtCore.QThread):
             "-IKnowWhatImDoing",
             "Fallout4.esm",
         ] + self.get_plugin_masters(plugin) + [plugin.name]
+
+        working_directory = self.x_edit_converter_path
+
+        self.run_long_task_with_output(command, cwd=working_directory)
+
+        self.output_received.emit("Import plugin data... [DONE]\n")
+
+    def convert_plugin_data(self, plugin: PluginData):
+        self.output_received.emit("Import plugin data...\n")
+
+        if not self.plugins:
+            self.output_received.emit("No plugins to import\n")
+
+            return
+
+        command = [
+            self.x_convert_exe_path,
+            plugin.name,
+        ]
 
         working_directory = self.x_edit_converter_path
 

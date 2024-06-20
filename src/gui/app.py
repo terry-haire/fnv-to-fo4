@@ -29,7 +29,7 @@ PAGE_NAME_FINISH = "Finish"
 
 REQUIRED_PATHS = [
     Path("build\\nifskope_converter\\release\\NifSkope.exe"),
-    Path("build\\xedit_converter\\xEdit.exe"),
+    Path("build\\xedit_converter\\xConvert.exe"),
     Path("bin\\bsab\\bsab.exe"),
 ]
 
@@ -279,14 +279,8 @@ class Installer(QWidget):
         )
 
         self.create_param_checkbox(
-            param_name="skip_plugin_extract",
-            title="Skip plugin extract",
-            layout=layout,
-        )
-
-        self.create_param_checkbox(
-            param_name="skip_plugin_import",
-            title="Skip plugin import",
+            param_name="skip_plugin_convert",
+            title="Skip plugin conversion",
             layout=layout,
         )
 
@@ -902,8 +896,7 @@ if __name__ == '__main__':
     parser.add_argument("--skip_meshes", action="store_true")
     parser.add_argument("--skip_optimize", action="store_true")
     parser.add_argument("--skip_data_files", action="store_true")
-    parser.add_argument("--skip_plugin_extract", action="store_true")
-    parser.add_argument("--skip_plugin_import", action="store_true")
+    parser.add_argument("--skip_plugin_convert", action="store_true")
     parser.add_argument("--skip_lod_settings", action="store_true")
     parser.add_argument("--ignore_existing_files", action="store_true")
     parser.add_argument("--debug", action="store_true")
@@ -924,8 +917,7 @@ if __name__ == '__main__':
             skip_meshes=args.skip_meshes,
             skip_optimize=args.skip_optimize,
             skip_data=args.skip_data_files,
-            skip_plugin_extract=args.skip_plugin_extract,
-            skip_plugin_import=args.skip_plugin_import,
+            skip_plugin_convert=args.skip_plugin_convert,
             ignore_existing_files=args.ignore_existing_files,
             skip_lod_settings=args.skip_lod_settings,
             debug=args.debug,
